@@ -1,583 +1,2462 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>eRTMAC-NWIS | Route Nexus - AI-Powered Offset Well Decision Support</title>
-  <meta name="description" content="eRTMAC-NWIS (Nearby Wells Intelligence System): An AI-Powered Offset Well Knowledge and Decision Support Platform for Drilling Operations (SIH26121).">
-  <meta property="og:title" content="eRTMAC-NWIS | Route Nexus">
-  <meta property="og:description" content="Smart India Hackathon 2026 - AI-Powered Offset Well Knowledge and Decision Support Platform for Drilling Operations.">
-  <link rel="stylesheet" href="./css/style.css">
-  <link rel="stylesheet" href="./css/animations.css">
-  <link rel="stylesheet" href="./css/dashboard.css">
-  <script>(function(){const t=localStorage.getItem('nexus_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+  <title>eRTMAC-NWIS | AI-Powered Offset Well Decision Platform</title>
+  <meta name="description" content="eRTMAC-NWIS (Nearby Wells Intelligence System): AI-Powered Offset Well Knowledge and Decision Support Platform for Drilling Operations (SIH26121).">
+  <meta property="og:title" content="eRTMAC-NWIS | AI-Powered Offset Well Decision Platform">
+  <meta property="og:description" content="AI-Powered Offset Well Knowledge and Decision Support Platform for Drilling Operations - Oil India Limited & ONGC.">
+  
+  <!-- Embedded Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfeff',
+              100: '#cffafe',
+              200: '#a5f3fc',
+              300: '#67e8f9',
+              400: '#22d3ee',
+              500: '#06b6d4',
+              600: '#0891b2',
+              700: '#0e7490',
+              800: '#155e75',
+              900: '#164e63',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* ==========================================================================
+       eRTMAC-NWIS SINGLE-FILE COMPLETE STYLESHEET
+       Theme: Enterprise Industrial AI (Palantir/Linear Dark & Pure Slate Light)
+       ========================================================================== */
+    :root {
+      --bg-primary: #020617;
+      --bg-secondary: #0b1120;
+      --bg-card: rgba(15, 23, 42, 0.85);
+      --bg-card-hover: rgba(30, 41, 59, 0.95);
+      --border: rgba(56, 189, 248, 0.15);
+      --border-focus: rgba(56, 189, 248, 0.5);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-cyan: #06b6d4;
+      --accent-blue: #3b82f6;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --accent-purple: #a855f7;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --shadow: 0 10px 25px -5px rgba(0,0,0,0.5), 0 0 0 1px var(--border);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --border: #cbd5e1;
+      --border-focus: #0284c7;
+      --text-primary: #090d16;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --accent-cyan: #0284c7;
+      --accent-blue: #2563eb;
+      --accent-emerald: #059669;
+      --accent-amber: #d97706;
+      --accent-rose: #e11d48;
+      --shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.08), 0 0 0 1px #cbd5e1;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); font-size: 14.5px; line-height: 1.5; }
+    body { min-height: 100vh; background: var(--bg-primary); color: var(--text-primary); overflow-x: hidden; }
+    
+    a { color: var(--accent-cyan); text-decoration: none; cursor: pointer; }
+    button, select, input { font-family: inherit; font-size: inherit; }
+    .mono { font-family: var(--font-mono); }
+
+    /* Main Application Shell */
+    .app-shell { display: flex; min-height: 100vh; }
+    
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border);
+      position: fixed;
+      top: 0; bottom: 0; left: 0;
+      display: flex;
+      flex-direction: column;
+      z-index: 90;
+      transition: transform 0.25s ease;
+    }
+    .sidebar-header {
+      padding: 1.1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand-box { display: flex; align-items: center; gap: 0.65rem; }
+    .brand-icon {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, #0284c7, #06b6d4);
+      color: #fff;
+      font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-sm);
+      font-size: 1.1rem;
+    }
+    .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
+    .brand-name { font-weight: 800; font-size: 1.05rem; letter-spacing: -0.02em; color: var(--text-primary); }
+    .brand-sub { font-size: 0.68rem; font-weight: 700; color: var(--accent-cyan); letter-spacing: 0.05em; text-transform: uppercase; }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 0.85rem 0.65rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .nav-label {
+      font-size: 0.66rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 0.6rem 0.6rem 0.2rem;
+    }
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.86rem;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .nav-btn svg { width: 17px; height: 17px; stroke-width: 2; flex-shrink: 0; color: var(--text-muted); }
+    .nav-btn:hover { background: var(--bg-card-hover); color: var(--text-primary); }
+    .nav-btn:hover svg { color: var(--accent-cyan); }
+    .nav-btn.active {
+      background: rgba(6, 182, 212, 0.14);
+      border-color: rgba(6, 182, 212, 0.3);
+      color: var(--accent-cyan);
+      font-weight: 700;
+    }
+    .nav-btn.active svg { color: var(--accent-cyan); }
+    .nav-badge {
+      margin-left: auto;
+      font-size: 0.66rem;
+      font-weight: 800;
+      padding: 0.1rem 0.4rem;
+      border-radius: 9999px;
+    }
+    .badge-rose { background: rgba(244, 63, 94, 0.18); color: var(--accent-rose); border: 1px solid rgba(244, 63, 94, 0.3); }
+    .badge-cyan { background: rgba(6, 182, 212, 0.18); color: var(--accent-cyan); border: 1px solid rgba(6, 182, 212, 0.3); }
+    .badge-amber { background: rgba(245, 158, 11, 0.18); color: var(--accent-amber); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-emerald { background: rgba(16, 185, 129, 0.18); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.3); }
+
+    /* Other Sections Accordion Toggle */
+    .other-toggle-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      margin: 0.5rem 0 0.25rem 0;
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    [data-theme="light"] .other-toggle-btn { background: #f1f5f9; color: #0f172a; }
+    .other-toggle-btn:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+    .other-collapse {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .other-collapse.show { max-height: 800px; opacity: 1; }
+    .icon-chevron { transition: transform 0.2s ease; width: 14px; height: 14px; }
+    .other-toggle-btn.open .icon-chevron { transform: rotate(180deg); }
+
+    .sidebar-footer {
+      padding: 0.85rem 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Main Wrapper */
+    .main-wrapper {
+      margin-left: 250px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    /* Topbar */
+    .topbar {
+      height: 64px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 80;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 1rem; }
+    .sidebar-mobile-btn {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      width: 36px; height: 36px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      align-items: center; justify-content: center;
+    }
+    .page-title h1 { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.01em; }
+    .page-title p { font-size: 0.72rem; color: var(--text-muted); font-weight: 500; }
+
+    .topbar-right { display: flex; align-items: center; gap: 0.75rem; }
+
+    /* Neutral Black/Grey Theme Switcher */
+    .theme-switch-group {
+      display: inline-flex;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid #334155;
+      border-radius: var(--radius-md);
+      padding: 2px;
+      gap: 2px;
+    }
+    [data-theme="light"] .theme-switch-group { background: #e2e8f0; border-color: #cbd5e1; }
+    .theme-switch-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.65rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border: none;
+      border-radius: calc(var(--radius-md) - 2px);
+      background: transparent;
+      color: #94a3b8;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .theme-switch-btn svg { width: 14px; height: 14px; }
+    [data-theme="dark"] .theme-switch-btn.active { background: #0f172a; color: #f8fafc; box-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+    [data-theme="light"] .theme-switch-btn.active { background: #ffffff; color: #090d16; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+
+    .live-clock-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.35rem 0.75rem;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--accent-emerald);
+    }
+    .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-emerald); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
+
+    /* Corner One-Button Menu */
+    .corner-menu-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.4rem 0.85rem;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    [data-theme="light"] .corner-menu-btn { background: #f1f5f9; border-color: #cbd5e1; }
+    .corner-menu-btn:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+    .corner-menu-btn svg { width: 16px; height: 16px; stroke-width: 2.2; }
+
+    /* Corner Menu Slide-Out Drawer */
+    .corner-drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .corner-drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+    .corner-drawer {
+      position: fixed;
+      top: 0; right: 0; bottom: 0;
+      width: 340px;
+      max-width: 85vw;
+      background: var(--bg-secondary);
+      border-left: 1px solid var(--border);
+      box-shadow: -10px 0 40px rgba(0,0,0,0.6);
+      z-index: 101;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+    .corner-drawer.open { transform: translateX(0); }
+    .corner-drawer-head {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .corner-drawer-body {
+      padding: 1.25rem;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .drawer-sec-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-cyan);
+      margin-bottom: 0.5rem;
+    }
+    .drawer-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.65rem 0.85rem;
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.88rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      margin-bottom: 0.4rem;
+    }
+    .drawer-link:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); transform: translateX(3px); }
+    .drawer-link svg { width: 17px; height: 17px; color: var(--accent-cyan); }
+
+    /* Content Area */
+    .content-area {
+      padding: 1.5rem;
+      flex: 1;
+      max-width: 1550px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* Views */
+    .app-view { display: none; animation: fadeIn 0.25s ease forwards; }
+    .app-view.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Common Card & Grid Layouts */
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.2rem; margin-bottom: 1.5rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.2rem; margin-bottom: 1.5rem; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.5rem; }
+    .grid-main { display: grid; grid-template-columns: 2.2fr 1fr; gap: 1.2rem; margin-bottom: 1.5rem; }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Metric Cards */
+    .metric-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .metric-head { display: flex; align-items: center; justify-content: space-between; font-size: 0.76rem; font-weight: 700; color: var(--text-muted); }
+    .metric-val { font-size: 1.8rem; font-weight: 900; letter-spacing: -0.03em; color: var(--text-primary); line-height: 1.1; font-family: var(--font-mono); }
+    .metric-sub { font-size: 0.72rem; font-weight: 600; }
+    .text-emerald { color: var(--accent-emerald); }
+    .text-rose { color: var(--accent-rose); }
+    .text-cyan { color: var(--accent-cyan); }
+    .text-amber { color: var(--accent-amber); }
+
+    /* Tables */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-secondary);
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; text-align: left; }
+    th {
+      background: rgba(30, 41, 59, 0.4);
+      padding: 0.75rem 0.9rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+    }
+    [data-theme="light"] th { background: #f1f5f9; color: #334155; }
+    td { padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--border); color: var(--text-secondary); white-space: nowrap; }
+    tbody tr:hover { background: var(--bg-card-hover); cursor: pointer; }
+    tbody tr:last-child td { border-bottom: none; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.82rem;
+      font-weight: 700;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn-primary { background: linear-gradient(135deg, #0284c7, #06b6d4); color: #fff; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25); }
+    .btn-primary:hover { opacity: 0.95; transform: translateY(-1px); }
+    .btn-secondary { background: var(--bg-card); border-color: var(--border); color: var(--text-primary); }
+    .btn-secondary:hover { background: var(--bg-card-hover); border-color: var(--accent-cyan); }
+    .btn-sm { padding: 0.35rem 0.7rem; font-size: 0.75rem; }
+
+    /* Inputs & Selects */
+    .input {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.5rem 0.85rem;
+      color: var(--text-primary);
+      font-size: 0.82rem;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+    .input:focus { border-color: var(--accent-cyan); }
+
+    /* Interactive Map Canvas */
+    .map-box {
+      width: 100%;
+      height: 480px;
+      background: #060b19;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    [data-theme="light"] .map-box { background: #e2e8f0; }
+    .map-canvas { width: 100%; height: 100%; display: block; cursor: crosshair; }
+    .map-overlay {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: rgba(11, 17, 32, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.65rem 0.85rem;
+      font-size: 0.75rem;
+    }
+    [data-theme="light"] .map-overlay { background: rgba(255,255,255,0.92); color: #090d16; }
+
+    /* Sliders */
+    .slider-row { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 0.9rem; }
+    .slider-head { display: flex; justify-content: space-between; font-size: 0.76rem; font-weight: 700; color: var(--text-secondary); }
+    input[type="range"] { accent-color: var(--accent-cyan); cursor: pointer; }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(6px);
+      z-index: 200; display: none; align-items: center; justify-content: center; padding: 1.5rem;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-card {
+      background: var(--bg-secondary); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); max-width: 680px; width: 100%; max-height: 88vh;
+      overflow-y: auto; padding: 1.5rem; position: relative; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7);
+    }
+
+    /* Toast */
+    .toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 300; display: flex; flex-direction: column; gap: 0.5rem; }
+    .toast {
+      background: var(--bg-secondary); border: 1px solid var(--border); border-left: 4px solid var(--accent-cyan);
+      padding: 0.75rem 1.1rem; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5); animation: toastIn 0.25s ease;
+    }
+    @keyframes toastIn { from { transform: translateX(50px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+    /* Transition animations */
+    .fade-enter-active { animation: fadeInApp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .fade-exit-active { animation: fadeOutApp 0.22s cubic-bezier(0.7, 0, 0.84, 0) forwards; }
+    @keyframes fadeInApp {
+      from { opacity: 0; transform: translateY(12px) scale(0.995); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes fadeOutApp {
+      from { opacity: 1; transform: translateY(0) scale(1); }
+      to { opacity: 0; transform: translateY(-12px) scale(0.995); }
+    }
+
+    /* Landing Page Specific Enhancements */
+    #intro-landing {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .hero-glow-bg {
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 1200px;
+      height: 600px;
+      background: radial-gradient(circle at 50% 12%, rgba(6, 182, 212, 0.18), rgba(59, 130, 246, 0.08), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    [data-theme="light"] .hero-glow-bg {
+      background: radial-gradient(circle at 50% 12%, rgba(6, 182, 212, 0.12), rgba(37, 99, 235, 0.05), transparent 70%);
+    }
+
+    .landing-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      transition: all 0.25s ease;
+    }
+    .landing-card:hover {
+      border-color: var(--border-focus);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 32px -8px rgba(0,0,0,0.4), 0 0 0 1px var(--border-focus);
+    }
+    [data-theme="light"] .landing-card:hover {
+      box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.12), 0 0 0 1px var(--border-focus);
+    }
+
+    .hero-telemetry-box {
+      background: rgba(11, 17, 32, 0.9);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.6);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .hero-telemetry-box:hover {
+      border-color: var(--accent-cyan);
+      transform: translateY(-2px);
+    }
+    [data-theme="light"] .hero-telemetry-box {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: #cbd5e1;
+      box-shadow: 0 16px 36px -10px rgba(15, 23, 42, 0.12);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .grid-main { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .main-wrapper { margin-left: 0; }
+      .sidebar-mobile-btn { display: flex; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Landing Navigation (Streamlined Upper Tab with One-Button Corner Menu) -->
-  <nav class="landing-nav" id="landing-nav">
-    <a href="index.html" class="brand-logo" id="nav-brand-logo">
-      <div class="brand-icon-box">Ω</div>
-      <div class="brand-name">
-        <span>eRTMAC</span>
-        <span class="sub">NWIS Rig Ops</span>
+  <!-- ==========================================================================
+       STUNNING INTRO / LANDING PAGE (eRTMAC-NWIS)
+       Seamless transition to main operations interface on 'Get Started'
+       ========================================================================== -->
+  <div id="intro-landing" class="w-full min-h-screen transition-all duration-300">
+    <!-- Ambient Radial Glow Overlay -->
+    <div class="hero-glow-bg"></div>
+
+    <!-- Sticky Navigation Bar -->
+    <header class="sticky top-0 z-50 backdrop-blur-md border-b border-[var(--border)] bg-[var(--bg-card)] px-4 sm:px-8 py-3 transition-colors">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <!-- Brand identity -->
+        <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+          <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-sky-600 to-cyan-500 text-white font-black text-lg flex items-center justify-center shadow-md flex-shrink-0">
+            Ω
+          </div>
+          <div class="flex flex-col leading-tight">
+            <span class="font-extrabold text-base tracking-tight text-[var(--text-primary)]">eRTMAC-NWIS</span>
+            <span class="text-[0.68rem] font-bold text-cyan-400 tracking-wider uppercase">Subsurface Offset AI</span>
+          </div>
+          <span class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[0.65rem] font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 ml-2">
+            SIH26121 &bull; ONGC &amp; OIL
+          </span>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="hidden lg:flex items-center gap-6">
+          <a href="#landing-features" class="text-xs font-bold text-[var(--text-secondary)] hover:text-cyan-400 transition-colors">Core Capabilities</a>
+          <a href="#landing-wells" class="text-xs font-bold text-[var(--text-secondary)] hover:text-cyan-400 transition-colors">100 Wells</a>
+          <a href="#landing-gis" class="text-xs font-bold text-[var(--text-secondary)] hover:text-cyan-400 transition-colors">GIS Spatial</a>
+          <a href="#landing-risk" class="text-xs font-bold text-[var(--text-secondary)] hover:text-cyan-400 transition-colors">Risk Simulator</a>
+          <a href="#landing-arch" class="text-xs font-bold text-[var(--text-secondary)] hover:text-cyan-400 transition-colors">Architecture</a>
+        </nav>
+
+        <!-- Right action buttons (Theme Switcher, Audio, Get Started CTA) -->
+        <div class="flex items-center gap-2.5">
+          <!-- Dark / Light Mode Switcher (100% Functional) -->
+          <div class="theme-switch-group" role="group" aria-label="Theme mode toggle">
+            <button class="theme-switch-btn" id="landing-theme-btn-light" onclick="setAppTheme('light')" title="Light Mode">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-switch-btn active" id="landing-theme-btn-dark" onclick="setAppTheme('dark')" title="Dark Mode">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+              <span>Dark</span>
+            </button>
+          </div>
+
+          <!-- Sound Feedback Button -->
+          <button onclick="toggleAudioFeedback()" class="btn btn-secondary btn-sm hidden sm:inline-flex" id="landing-btn-sound" title="Toggle Sound Feedback">
+            🔊 Sound
+          </button>
+
+          <!-- Primary 'Get Started' Button -->
+          <button class="btn btn-primary font-bold shadow-lg shadow-cyan-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all text-xs sm:text-sm py-2 px-4" onclick="enterApp('view-deck')">
+            <span>Get Started</span>
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </button>
+        </div>
       </div>
-    </a>
+    </header>
 
-    <!-- Streamlined Essential Links (Reduced button count in upper tab) -->
-    <ul class="nav-links">
-      <li><a href="dashboard.html">Operations Deck</a></li>
-    </ul>
+    <!-- Hero Section -->
+    <section class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-16 text-center">
+      <!-- Eyebrow Pill -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 mb-6 backdrop-blur-sm">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        Smart India Hackathon 2026 &bull; Problem SIH26121 &bull; Oil India Limited &amp; ONGC
+      </div>
 
-    <div style="display: flex; align-items: center; gap: 0.75rem;">
-      <!-- Theme Switcher: Light & Dark Mode -->
-      <div class="theme-switch-group" role="group" aria-label="Theme mode selection">
-        <button class="theme-switch-btn" id="btn-theme-light" onclick="NexusApp.setTheme('light')" title="Switch to Light Mode" aria-label="Light Mode">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="5"/>
-            <line x1="12" y1="1" x2="12" y2="3"/>
-            <line x1="12" y1="21" x2="12" y2="23"/>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-            <line x1="1" y1="12" x2="3" y2="12"/>
-            <line x1="21" y1="12" x2="23" y2="12"/>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-          </svg>
-          <span>Light</span>
+      <!-- Main Headline -->
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.12] mb-6 text-[var(--text-primary)]">
+        Subsurface Offset Well Intelligence <br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500">For Zero-NPT Drilling Decisions</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-base sm:text-lg text-[var(--text-secondary)] max-w-3xl mx-auto leading-relaxed mb-8 font-normal">
+        Empower drilling engineers and rig superintendents with automated multi-well subsurface correlation, predictive stuck pipe &amp; pore pressure modeling, and instant OCR knowledge retrieval across 100+ historical wells.
+      </p>
+
+      <!-- Primary Action Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-3.5 mb-12">
+        <button class="btn btn-primary px-8 py-3.5 text-sm sm:text-base font-extrabold shadow-xl shadow-cyan-500/25 hover:scale-[1.03] active:scale-[0.98] transition-all" onclick="enterApp('view-deck')">
+          <span>Get Started — Operations Deck</span>
+          <svg class="w-5 h-5 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
         </button>
-        <button class="theme-switch-btn active" id="btn-theme-dark" onclick="NexusApp.setTheme('dark')" title="Switch to Dark Mode" aria-label="Dark Mode">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-          </svg>
-          <span>Dark</span>
+        <button class="btn btn-secondary px-6 py-3.5 text-sm sm:text-base font-bold hover:border-cyan-500/40 transition-colors" onclick="enterApp('view-wells')">
+          <svg class="w-4 h-4 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          100 Wells Database
+        </button>
+        <button class="btn btn-secondary px-6 py-3.5 text-sm sm:text-base font-bold hover:border-cyan-500/40 transition-colors" onclick="enterApp('view-map')">
+          <svg class="w-4 h-4 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/></svg>
+          Subsurface GIS Map
         </button>
       </div>
 
-      <a href="dashboard.html" class="btn btn-primary" id="nav-launch-btn">
-        <span>Launch Deck</span>
-        <span>→</span>
-      </a>
+      <!-- Live Telemetry Terminal Widget (Interactive preview of active well) -->
+      <div class="max-w-4xl mx-auto hero-telemetry-box p-5 sm:p-6 text-left relative overflow-hidden cursor-pointer group" onclick="enterApp('view-deck')" title="Click to launch live deck">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border)] pb-3.5 mb-4">
+          <div class="flex items-center gap-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="font-mono font-bold text-xs sm:text-sm text-[var(--text-primary)]">ACTIVE RIG TELEMETRY &bull; Naharkatiya-601 (NST6001)</span>
+            <span class="nav-badge badge-emerald text-[0.65rem]">OFFSET SYNC LIVE</span>
+          </div>
+          <div class="text-xs text-[var(--text-muted)] font-mono">Upper Assam Shelf &bull; Barail Quartzite</div>
+        </div>
 
-      <!-- ONE BUTTON MENU IN CORNER -->
-      <button class="corner-menu-btn" id="btn-corner-menu" onclick="NexusApp.toggleCornerMenu()" aria-label="Open Navigation Menu" title="Open Navigation Menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <line x1="4" y1="6" x2="20" y2="6"/>
-          <line x1="4" y1="12" x2="20" y2="12"/>
-          <line x1="4" y1="18" x2="20" y2="18"/>
-        </svg>
-        <span>Menu</span>
-      </button>
-    </div>
-  </nav>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+          <div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg p-3 group-hover:border-cyan-500/40 transition-colors">
+            <div class="text-[0.68rem] font-bold text-[var(--text-muted)] uppercase">Current Depth</div>
+            <div class="text-xl sm:text-2xl font-black font-mono text-[var(--text-primary)]">3,428 m</div>
+            <div class="text-[0.7rem] text-cyan-400 font-semibold">Target: 4,850 m</div>
+          </div>
+          <div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg p-3 group-hover:border-cyan-500/40 transition-colors">
+            <div class="text-[0.68rem] font-bold text-[var(--text-muted)] uppercase">Penetration (ROP)</div>
+            <div class="text-xl sm:text-2xl font-black font-mono text-emerald-400">22.4 m/hr</div>
+            <div class="text-[0.7rem] text-emerald-400 font-semibold">&uarr; +14.2% vs Baseline</div>
+          </div>
+          <div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg p-3 group-hover:border-cyan-500/40 transition-colors">
+            <div class="text-[0.68rem] font-bold text-[var(--text-muted)] uppercase">Mud Weight &amp; ECD</div>
+            <div class="text-xl sm:text-2xl font-black font-mono text-amber-400">11.8 PPG</div>
+            <div class="text-[0.7rem] text-amber-400 font-semibold">Margin: +0.6 PPG safe</div>
+          </div>
+          <div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg p-3 group-hover:border-cyan-500/40 transition-colors">
+            <div class="text-[0.68rem] font-bold text-[var(--text-muted)] uppercase">Offset Correlation</div>
+            <div class="text-xl sm:text-2xl font-black font-mono text-cyan-400">94.8%</div>
+            <div class="text-[0.7rem] text-[var(--text-muted)] font-semibold">14 Wells Correlated</div>
+          </div>
+        </div>
 
-  <!-- One-Button Corner Slide-Out Menu Drawer -->
-  <div class="corner-menu-backdrop" id="corner-menu-backdrop"></div>
-  <aside class="corner-menu-drawer" id="corner-menu-drawer" aria-label="Platform Module Navigation Drawer">
-    <div class="corner-menu-header">
-      <div style="display: flex; align-items: center; gap: 0.65rem;">
-        <div class="brand-icon-box" style="width: 32px; height: 32px; font-size: 0.95rem;">Ω</div>
-        <div>
-          <div style="font-size: 0.95rem; font-weight: 800; color: var(--text-primary); line-height: 1.2;">Platform Directory</div>
-          <div style="font-size: 0.7rem; color: var(--accent-cyan); font-weight: 600;">eRTMAC-NWIS • SIH26121</div>
+        <div class="flex flex-wrap items-center justify-between gap-3 text-xs text-[var(--text-secondary)] bg-[var(--bg-secondary)] border border-[var(--border)] rounded-md px-3.5 py-2">
+          <div class="flex items-center gap-2">
+            <span class="text-cyan-400 font-bold">&bull; Correlated Offsets:</span>
+            <span>Moran-402 (1.8 km) &bull; Jorajan-118 (3.2 km) &bull; Dikom-204 (4.5 km)</span>
+          </div>
+          <span class="font-bold text-cyan-400 group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+            Open in Operations Deck &rarr;
+          </span>
         </div>
       </div>
-      <button class="btn btn-secondary btn-icon" id="corner-menu-close-btn" style="width: 32px; height: 32px; padding: 0;" title="Close Menu">✕</button>
-    </div>
+    </section>
 
-    <div class="corner-menu-body">
-      <!-- Quick Launch CTA -->
-      <a href="dashboard.html" class="btn btn-primary" style="justify-content: center; width: 100%; padding: 0.75rem;">
-        <span>Launch Operations Deck</span>
-        <span>→</span>
-      </a>
-
-      <!-- Category 1: Core Rig Operations -->
-      <div>
-        <div class="corner-menu-section-title">Core Rig Operations</div>
-        <div class="corner-menu-list">
-          <a href="dashboard.html" class="corner-menu-link">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            <span>Operations Deck</span>
-            <span class="tag badge-cyan">Live</span>
-          </a>
-          <a href="wells.html" class="corner-menu-link">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
-            <span>100 Offset Wells</span>
-            <span class="tag badge-blue">Database</span>
-          </a>
-          <a href="map.html" class="corner-menu-link">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
-            <span>GIS Subsurface Map</span>
-            <span class="tag badge-emerald">Spatial</span>
-          </a>
+    <!-- Key Numbers & Impact Metrics Ribbon -->
+    <section class="border-y border-[var(--border)] bg-[var(--bg-secondary)] py-8 relative z-10">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div class="flex flex-col items-center">
+            <span class="text-3xl sm:text-4xl font-black font-mono text-cyan-400 tracking-tight">100 Wells</span>
+            <span class="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider mt-1">Digitized Database</span>
+            <span class="text-[0.72rem] text-[var(--text-secondary)] mt-0.5">Upper Assam, Cambay, KG &amp; Barmer</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <span class="text-3xl sm:text-4xl font-black font-mono text-emerald-400 tracking-tight">-79% NPT</span>
+            <span class="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider mt-1">Downtime Reduction</span>
+            <span class="text-[0.72rem] text-[var(--text-secondary)] mt-0.5">Historical stuck pipe elimination</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <span class="text-3xl sm:text-4xl font-black font-mono text-sky-400 tracking-tight">30+ Reports</span>
+            <span class="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider mt-1">OCR Knowledge RAG</span>
+            <span class="text-[0.72rem] text-[var(--text-secondary)] mt-0.5">Daily Drilling &amp; End of Well Reports</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <span class="text-3xl sm:text-4xl font-black font-mono text-purple-400 tracking-tight">&lt; 200ms</span>
+            <span class="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider mt-1">Correlation Latency</span>
+            <span class="text-[0.72rem] text-[var(--text-secondary)] mt-0.5">Instant deterministic in-memory inference</span>
+          </div>
         </div>
       </div>
+    </section>
 
-      <!-- Category 2: AI Mining & Risk Engine -->
-      <div>
-        <div class="corner-menu-section-title">AI Mining & Risk Engine</div>
-        <div class="corner-menu-list">
-          <a href="ai-analysis.html" class="corner-menu-link">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-            <span>AI Subsurface NLP</span>
-            <span class="tag badge-purple">NLP Model</span>
-          </a>
-          <a href="risk.html" class="corner-menu-link">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            <span>Geomechanical Risk</span>
-            <span class="tag badge-rose">300m Ahead</span>
-          </a>
-        </div>
+    <!-- Core Capabilities Showcase (4 Feature Pillars) -->
+    <section id="landing-features" class="max-w-6xl mx-auto px-4 sm:px-6 py-16 relative z-10">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h2 class="text-2xl sm:text-3xl font-black text-[var(--text-primary)] mb-3">
+          Engineered for High-Stakes Subsurface Operations
+        </h2>
+        <p class="text-sm sm:text-base text-[var(--text-secondary)]">
+          Every capability is built directly to satisfy SIH26121 requirements for automated offset correlation, lithology prediction, and real-time hazard mitigation.
+        </p>
       </div>
 
-      <!-- Category 3: Decision Support & Logs -->
-      <div>
-        <div class="corner-menu-section-title">Decision Support & Logs</div>
-        <div class="corner-menu-list">
-          <a href="reports.html" class="corner-menu-link">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Feature 1 -->
+        <div class="landing-card p-6 flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center font-bold text-lg mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <h3 class="text-lg font-extrabold text-[var(--text-primary)] mb-2">100 Wells Geological Subsurface Directory</h3>
+            <p class="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
+              Search, filter, and inspect 100 comprehensive offset wells. Access historical bit performance, formation tops (Barail, Tipam, Kopili, Sylhet), mud weight windows, and correlated offset logs with 1-click loading into the rig deck.
+            </p>
+          </div>
+          <button class="btn btn-secondary text-xs font-bold self-start mt-2" onclick="enterApp('view-wells')">
+            <span>Open 100 Wells Directory</span> &rarr;
+          </button>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="landing-card p-6 flex flex-col justify-between" id="landing-gis">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-400 flex items-center justify-center font-bold text-lg mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+            </div>
+            <h3 class="text-lg font-extrabold text-[var(--text-primary)] mb-2">Interactive Subsurface GIS Spatial Contours</h3>
+            <p class="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
+              Pure HTML5 2D Canvas engine mapping basins (Upper Assam, Cambay, KG Basin), depth contour rings, fault line hazards, and active well coordinates. Zero external heavy map tiles or network bottlenecks.
+            </p>
+          </div>
+          <button class="btn btn-secondary text-xs font-bold self-start mt-2" onclick="enterApp('view-map')">
+            <span>Launch GIS Spatial Map</span> &rarr;
+          </button>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="landing-card p-6 flex flex-col justify-between" id="landing-risk">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-400 flex items-center justify-center font-bold text-lg mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <h3 class="text-lg font-extrabold text-[var(--text-primary)] mb-2">Pore Pressure &amp; Stuck Pipe Risk Simulator</h3>
+            <p class="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
+              Physics-informed simulation of differential sticking, mechanical pack-off, and gas kick hazards. Interactive sliders for Depth, Mud Weight, WOB, and RPM calculate hazard probabilities and automated mitigation steps in real time.
+            </p>
+          </div>
+          <button class="btn btn-secondary text-xs font-bold self-start mt-2" onclick="enterApp('view-risk')">
+            <span>Run Risk Engine</span> &rarr;
+          </button>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="landing-card p-6 flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center font-bold text-lg mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            </div>
+            <h3 class="text-lg font-extrabold text-[var(--text-primary)] mb-2">Subsurface AI Assistant &amp; OCR Knowledge RAG</h3>
+            <p class="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
+              Natural language engineering assistant answering complex questions based on historical offset incidents. Auto-indexed Daily Drilling Reports (DDR) and End of Well Reports (EOWR) deliver instant actionable recommendations.
+            </p>
+          </div>
+          <button class="btn btn-secondary text-xs font-bold self-start mt-2" onclick="enterApp('view-ai')">
+            <span>Query Subsurface AI</span> &rarr;
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spotlight Offset Wells (Interactive Quick-Load Cards) -->
+    <section id="landing-wells" class="border-t border-[var(--border)] bg-[var(--bg-secondary)] py-16 relative z-10">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-black text-[var(--text-primary)]">Representative Offset Wells</h2>
+            <p class="text-xs sm:text-sm text-[var(--text-secondary)]">Click any well to load it directly into the Operations Deck.</p>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="enterApp('view-wells')">
+            View All 100 Wells &rarr;
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Card 1 -->
+          <div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-4.5 flex flex-col justify-between hover:border-cyan-500/50 transition-all shadow-sm">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono font-bold text-xs text-cyan-400">NST6001</span>
+                <span class="nav-badge badge-emerald text-[0.65rem]">Low Risk</span>
+              </div>
+              <h4 class="font-extrabold text-sm text-[var(--text-primary)] mb-1">Naharkatiya-601</h4>
+              <div class="text-[0.72rem] text-[var(--text-muted)] mb-3">Upper Assam &bull; Oil India Ltd</div>
+              <div class="text-xs font-mono mb-1"><span class="text-[var(--text-muted)]">Target:</span> 4,850 m</div>
+              <div class="text-xs text-[var(--text-secondary)] mb-4">Formation: <strong class="text-cyan-400">Barail Sandstone</strong></div>
+            </div>
+            <button class="btn btn-primary btn-sm w-full text-xs font-bold" onclick="loadWellFromLanding('NST6001')">
+              Inspect in Deck &rarr;
+            </button>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-4.5 flex flex-col justify-between hover:border-cyan-500/50 transition-all shadow-sm">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono font-bold text-xs text-cyan-400">OIL-MOR-04</span>
+                <span class="nav-badge badge-amber text-[0.65rem]">Medium Risk</span>
+              </div>
+              <h4 class="font-extrabold text-sm text-[var(--text-primary)] mb-1">Moran-402</h4>
+              <div class="text-[0.72rem] text-[var(--text-muted)] mb-3">Upper Assam &bull; Oil India Ltd</div>
+              <div class="text-xs font-mono mb-1"><span class="text-[var(--text-muted)]">Target:</span> 3,920 m</div>
+              <div class="text-xs text-[var(--text-secondary)] mb-4">Formation: <strong class="text-cyan-400">Tipam Group</strong></div>
+            </div>
+            <button class="btn btn-primary btn-sm w-full text-xs font-bold" onclick="loadWellFromLanding('OIL-MOR-04')">
+              Inspect in Deck &rarr;
+            </button>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-4.5 flex flex-col justify-between hover:border-cyan-500/50 transition-all shadow-sm">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono font-bold text-xs text-cyan-400">ONG-ANK-44</span>
+                <span class="nav-badge badge-rose text-[0.65rem]">High Risk</span>
+              </div>
+              <h4 class="font-extrabold text-sm text-[var(--text-primary)] mb-1">Ankleshwar-88</h4>
+              <div class="text-[0.72rem] text-[var(--text-muted)] mb-3">Cambay Basin &bull; ONGC</div>
+              <div class="text-xs font-mono mb-1"><span class="text-[var(--text-muted)]">Target:</span> 2,450 m</div>
+              <div class="text-xs text-[var(--text-secondary)] mb-4">Formation: <strong class="text-rose-400">Kopili Shale</strong></div>
+            </div>
+            <button class="btn btn-primary btn-sm w-full text-xs font-bold" onclick="loadWellFromLanding('ONG-ANK-44')">
+              Inspect in Deck &rarr;
+            </button>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-4.5 flex flex-col justify-between hover:border-cyan-500/50 transition-all shadow-sm">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono font-bold text-xs text-cyan-400">NST6008</span>
+                <span class="nav-badge badge-rose text-[0.65rem]">Critical</span>
+              </div>
+              <h4 class="font-extrabold text-sm text-[var(--text-primary)] mb-1">Kusijan-108</h4>
+              <div class="text-[0.72rem] text-[var(--text-muted)] mb-3">Upper Assam &bull; Oil India Ltd</div>
+              <div class="text-xs font-mono mb-1"><span class="text-[var(--text-muted)]">Target:</span> 4,380 m</div>
+              <div class="text-xs text-[var(--text-secondary)] mb-4">Formation: <strong class="text-rose-400">Sylhet Limestone</strong></div>
+            </div>
+            <button class="btn btn-primary btn-sm w-full text-xs font-bold" onclick="loadWellFromLanding('NST6008')">
+              Inspect in Deck &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture & SIH26121 Compliance -->
+    <section id="landing-arch" class="max-w-6xl mx-auto px-4 sm:px-6 py-16 relative z-10">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <h2 class="text-2xl sm:text-3xl font-black text-[var(--text-primary)] mb-2">Technical Architecture</h2>
+        <p class="text-xs sm:text-sm text-[var(--text-secondary)]">Zero-cloud lock-in, static-native execution, and high security for upstream drilling data.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="landing-card p-4.5">
+          <div class="text-xs font-black text-cyan-400 uppercase tracking-wider mb-1">01 / Portability</div>
+          <div class="font-bold text-sm text-[var(--text-primary)] mb-1">100% Single-File Edge</div>
+          <p class="text-xs text-[var(--text-secondary)] leading-relaxed">Runs directly from offline rig trailers, edge servers, or static CDNs without backend daemons.</p>
+        </div>
+        <div class="landing-card p-4.5">
+          <div class="text-xs font-black text-emerald-400 uppercase tracking-wider mb-1">02 / Sovereignty</div>
+          <div class="font-bold text-sm text-[var(--text-primary)] mb-1">Air-Gapped Privacy</div>
+          <p class="text-xs text-[var(--text-secondary)] leading-relaxed">Zero third-party API exposure. All correlation, OCR RAG, and risk calculations run strictly in-memory.</p>
+        </div>
+        <div class="landing-card p-4.5">
+          <div class="text-xs font-black text-sky-400 uppercase tracking-wider mb-1">03 / Performance</div>
+          <div class="font-bold text-sm text-[var(--text-primary)] mb-1">Native 60FPS Canvas</div>
+          <p class="text-xs text-[var(--text-secondary)] leading-relaxed">Subsurface maps, ROP curves, and lithological logs rendered natively on HTML5 Canvas.</p>
+        </div>
+        <div class="landing-card p-4.5">
+          <div class="text-xs font-black text-purple-400 uppercase tracking-wider mb-1">04 / Ergonomics</div>
+          <div class="font-bold text-sm text-[var(--text-primary)] mb-1">Dual-Theme Industrial</div>
+          <p class="text-xs text-[var(--text-secondary)] leading-relaxed">Engineered for rig night shifts (Industrial Dark) and direct sunlit field locations (Slate Light).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Grand Final CTA Banner -->
+    <section class="border-t border-[var(--border)] bg-gradient-to-b from-[var(--bg-secondary)] to-[var(--bg-primary)] py-16 text-center relative z-10">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6">
+        <h2 class="text-3xl sm:text-4xl font-black text-[var(--text-primary)] mb-4">
+          Equip Your Rig with Subsurface Offset AI
+        </h2>
+        <p class="text-sm sm:text-base text-[var(--text-secondary)] max-w-xl mx-auto mb-8">
+          Eliminate guesswork on the rig floor. Transition seamlessly into the eRTMAC-NWIS Operations Console.
+        </p>
+        <button class="btn btn-primary px-9 py-4 text-base font-extrabold shadow-2xl shadow-cyan-500/30 hover:scale-[1.03] active:scale-[0.98] transition-all" onclick="enterApp('view-deck')">
+          <span>Get Started — Launch Operations Deck Now</span>
+          <svg class="w-5 h-5 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- Landing Footer -->
+    <footer class="border-t border-[var(--border)] bg-[var(--bg-secondary)] py-6 text-xs text-[var(--text-muted)]">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-[var(--text-primary)]">eRTMAC-NWIS</span>
+          <span>&bull; Smart India Hackathon 2026 (SIH26121)</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <button class="text-cyan-400 hover:underline bg-transparent border-0 cursor-pointer text-xs" onclick="enterApp('view-deck')">Deck</button>
+          <button class="text-cyan-400 hover:underline bg-transparent border-0 cursor-pointer text-xs" onclick="enterApp('view-wells')">100 Wells</button>
+          <button class="text-cyan-400 hover:underline bg-transparent border-0 cursor-pointer text-xs" onclick="enterApp('view-map')">GIS Map</button>
+          <button class="text-cyan-400 hover:underline bg-transparent border-0 cursor-pointer text-xs" onclick="enterApp('view-risk')">Risk Simulator</button>
+          <a href="#intro-landing" class="text-cyan-400 hover:underline text-xs">Back to Top &uarr;</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- MAIN OPERATIONAL APPLICATION SHELL -->
+  <div class="app-shell" id="app-shell" style="display: none;">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <div class="brand-box" onclick="returnToLanding()" style="cursor: pointer;" title="Back to Platform Overview">
+          <div class="brand-icon">Ω</div>
+          <div class="brand-text">
+            <span class="brand-name">eRTMAC</span>
+            <span class="brand-sub">NWIS Rig Ops</span>
+          </div>
+        </div>
+        <button class="btn btn-secondary btn-sm sidebar-mobile-btn" onclick="toggleSidebar()" title="Close">✕</button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <!-- Return to Landing / Intro button -->
+        <button class="nav-btn mb-1" onclick="returnToLanding()" title="Return to Intro / Landing Overview" style="background: var(--bg-card); border: 1px solid var(--border); margin-bottom: 0.5rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span style="font-weight: 700; color: var(--accent-cyan);">Intro / Landing</span>
+          <span class="nav-badge badge-cyan">Home</span>
+        </button>
+
+        <!-- Operations Control (Visible by default) -->
+        <div class="nav-label">Operations Control</div>
+        <button class="nav-btn active" data-view="view-deck" onclick="switchView('view-deck')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <span>Operations Deck</span>
+          <span class="nav-badge badge-cyan">Live</span>
+        </button>
+        <button class="nav-btn" data-view="view-wells" onclick="switchView('view-wells')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>100 Wells Directory</span>
+          <span class="nav-badge badge-emerald">100</span>
+        </button>
+        <button class="nav-btn" data-view="view-map" onclick="switchView('view-map')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+          <span>GIS Spatial Map</span>
+        </button>
+
+        <!-- Other Sections Accordion Toggle -->
+        <button class="other-toggle-btn" id="other-toggle-btn" onclick="toggleOtherSections()">
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            <span id="other-toggle-text">Other Sections</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.4rem;">
+            <span class="nav-badge badge-cyan" style="font-size:0.62rem;">8 Modules</span>
+            <svg class="icon-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </button>
+
+        <!-- Other Sections (Collapsed by default) -->
+        <div class="other-collapse" id="other-sections-container">
+          <div class="nav-label">Intelligence & Risk</div>
+          <button class="nav-btn" data-view="view-ai" onclick="switchView('view-ai')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <span>AI Analysis</span>
+          </button>
+          <button class="nav-btn" data-view="view-risk" onclick="switchView('view-risk')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span>Risk Prediction</span>
+            <span class="nav-badge badge-rose">Real-time</span>
+          </button>
+          <button class="nav-btn" data-view="view-reports" onclick="switchView('view-reports')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            <span>Historical DDR Reports</span>
-            <span class="tag badge-amber">30 Records</span>
-          </a>
-          <a href="alerts.html" class="corner-menu-link">
+            <span>Historical Reports</span>
+            <span class="nav-badge badge-cyan">30</span>
+          </button>
+
+          <div class="nav-label">Decision Support</div>
+          <button class="nav-btn" data-view="view-alerts" onclick="switchView('view-alerts')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-            <span>Hazard Alerts Feed</span>
-            <span class="tag badge-rose">50 Active</span>
-          </a>
-          <a href="recommendations.html" class="corner-menu-link">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
-            <span>Drilling Directives</span>
-            <span class="tag badge-emerald">100 Advice</span>
-          </a>
-          <a href="analytics.html" class="corner-menu-link">
+            <span>Alerts & Mitigations</span>
+            <span class="nav-badge badge-amber" id="alert-counter-badge">3</span>
+          </button>
+          <button class="nav-btn" data-view="view-recommendations" onclick="switchView('view-recommendations')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>AI Recommendations</span>
+          </button>
+          <button class="nav-btn" data-view="view-analytics" onclick="switchView('view-analytics')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-            <span>Fleet ROI Analytics</span>
-            <span class="tag badge-blue">Executive</span>
-          </a>
-          <a href="benchmark.html" class="corner-menu-link">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span>Analytics & Curves</span>
+          </button>
+          <button class="nav-btn" data-view="view-benchmark" onclick="switchView('view-benchmark')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
             <span>Comparative Benchmark</span>
-            <span class="tag badge-cyan">Validation</span>
-          </a>
-          <a href="settings.html" class="corner-menu-link">
+          </button>
+          <button class="nav-btn" data-view="view-settings" onclick="switchView('view-settings')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
             <span>System Settings</span>
-            <span class="tag badge-blue">WITSML</span>
-          </a>
+          </button>
         </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <span>SIH 2026 • SIH26121</span>
+        <button onclick="toggleAudioFeedback()" style="background:none; border:none; cursor:pointer; font-size:0.9rem;" title="Toggle sound" id="btn-sound-indicator">🔊</button>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <div class="main-wrapper">
+      
+      <!-- Topbar Header -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="sidebar-mobile-btn" onclick="toggleSidebar()" aria-label="Toggle Navigation">☰</button>
+          <button class="btn btn-secondary btn-sm" onclick="returnToLanding()" title="Return to Intro / Landing" style="gap: 0.35rem; padding: 0.35rem 0.65rem; font-size: 0.75rem;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span>Landing</span>
+          </button>
+          <div class="page-title">
+            <h1 id="topbar-heading">Operations Deck</h1>
+            <p id="topbar-subheading">eRTMAC-NWIS • Real-Time Offset Drilling Decisions</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Live Rig Clock -->
+          <div class="live-clock-pill">
+            <span class="live-dot"></span>
+            <span id="rig-clock">18:40:12 IST</span>
+          </div>
+
+          <!-- Light & Dark Mode Toggle (Neutral Styling) -->
+          <div class="theme-switch-group" role="group" aria-label="Theme mode toggle">
+            <button class="theme-switch-btn" id="theme-btn-light" onclick="setAppTheme('light')" title="Light Mode">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-switch-btn active" id="theme-btn-dark" onclick="setAppTheme('dark')" title="Dark Mode">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+              <span>Dark</span>
+            </button>
+          </div>
+
+          <!-- One-Button Corner Menu -->
+          <button class="corner-menu-btn" onclick="toggleCornerDrawer()" aria-label="Open Module Directory" title="Navigation Directory">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <span>Menu</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Content Area: In-Page Single-File Views -->
+      <main class="content-area">
+
+        <!-- VIEW 1: OPERATIONS DECK (Default) -->
+        <section class="app-view active" id="view-deck">
+          <!-- Live Telemetry Banner -->
+          <div class="grid-4">
+            <div class="metric-box">
+              <div class="metric-head"><span>CURRENT DEPTH</span><span class="badge-cyan">Active</span></div>
+              <div class="metric-val" id="metric-depth">3,428 m</div>
+              <div class="metric-sub text-cyan">Target: 4,850 m (Barail Pay)</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-head"><span>RATE OF PENETRATION</span><span class="badge-emerald">Live</span></div>
+              <div class="metric-val" id="metric-rop">22.4 m/hr</div>
+              <div class="metric-sub text-emerald">↑ +14.2% vs Offset Baseline</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-head"><span>MUD WEIGHT &amp; ECD</span><span class="badge-amber">WOB: 18 klbs</span></div>
+              <div class="metric-val" id="metric-mw">11.8 PPG</div>
+              <div class="metric-sub text-amber">Pore Pr. Margin: +0.6 PPG</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-head"><span>OFFSET CORRELATION</span><span class="badge-rose">3 Alerts</span></div>
+              <div class="metric-val" id="metric-conf">94.8%</div>
+              <div class="metric-sub text-rose">Synthesized from 14 Wells</div>
+            </div>
+          </div>
+
+          <!-- Main Rig Monitoring Grid -->
+          <div class="grid-main">
+            <!-- Active Well & Formation Telemetry -->
+            <div class="card">
+              <div class="card-title">
+                <span>Active Well Telemetry: Naharkatiya-601 (NST6001)</span>
+                <span class="nav-badge badge-emerald">Drilling @ 110 RPM</span>
+              </div>
+              <p style="font-size:0.8rem; margin-bottom:1rem;">Upper Assam Shelf • Formation: <strong style="color:var(--accent-cyan);">Barail Sandstone</strong> (Reservoir Quartzite)</p>
+              
+              <div class="grid-3" style="margin-bottom:1rem;">
+                <div style="background:var(--bg-secondary); padding:0.85rem; border-radius:var(--radius-md); border:1px solid var(--border);">
+                  <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">STANDPIPE PRESSURE</div>
+                  <div class="mono" style="font-size:1.3rem; font-weight:800; color:var(--accent-cyan);" id="metric-spp">3,140 psi</div>
+                  <div style="font-size:0.68rem; color:var(--text-muted);">Flow Rate: 680 gpm</div>
+                </div>
+                <div style="background:var(--bg-secondary); padding:0.85rem; border-radius:var(--radius-md); border:1px solid var(--border);">
+                  <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">TORQUE &amp; DRAG</div>
+                  <div class="mono" style="font-size:1.3rem; font-weight:800; color:var(--accent-emerald);" id="metric-torque">12.4 kft-lb</div>
+                  <div style="font-size:0.68rem; color:var(--text-muted);">Stick-Slip Index: 18% (Safe)</div>
+                </div>
+                <div style="background:var(--bg-secondary); padding:0.85rem; border-radius:var(--radius-md); border:1px solid var(--border);">
+                  <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">STUCK PIPE PROBABILITY</div>
+                  <div class="mono" style="font-size:1.3rem; font-weight:800; color:var(--accent-amber);" id="metric-stuck">8.2%</div>
+                  <div style="font-size:0.68rem; color:var(--accent-amber);">Mitigation: Keep rotation >100</div>
+                </div>
+              </div>
+
+              <!-- Offset Wells Correlation Deck -->
+              <div style="border-top:1px solid var(--border); padding-top:1rem;">
+                <div style="font-size:0.82rem; font-weight:800; margin-bottom:0.6rem;">Matched Offset Wells in Radius (&lt; 4.2 km):</div>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Offset Well</th>
+                        <th>Distance</th>
+                        <th>Barail Penetration</th>
+                        <th>Incident Reported</th>
+                        <th>AI Action Taken</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr onclick="inspectWell('NST6002')">
+                        <td><strong>NST6002</strong> (Naharkatiya-602)</td>
+                        <td>1.4 km</td>
+                        <td>3,410 m</td>
+                        <td><span class="nav-badge badge-rose">Differential Sticking</span></td>
+                        <td>Spot lubricant pill, limit static time &lt;3m</td>
+                      </tr>
+                      <tr onclick="inspectWell('OIL-BG-12')">
+                        <td><strong>OIL-BG-12</strong> (Baghjan Deep)</td>
+                        <td>3.1 km</td>
+                        <td>3,450 m</td>
+                        <td><span class="nav-badge badge-amber">Tight Hole / Drag</span></td>
+                        <td>Wiper trip before casing point</td>
+                      </tr>
+                      <tr onclick="inspectWell('OIL-MOR-04')">
+                        <td><strong>OIL-MOR-04</strong> (Moran-04)</td>
+                        <td>4.2 km</td>
+                        <td>3,390 m</td>
+                        <td><span class="nav-badge badge-emerald">Smooth Drilling</span></td>
+                        <td>Used PDC 5-blade bit with 120 RPM</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Real-Time Decision & Alerts Sidebar -->
+            <div class="card">
+              <div class="card-title">
+                <span>Active Safety Mitigations</span>
+                <span class="nav-badge badge-rose">Live Deck</span>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:0.75rem;" id="deck-alerts-list">
+                <!-- Injected via JS -->
+              </div>
+              <div style="margin-top:1.25rem; display:flex; gap:0.5rem;">
+                <button class="btn btn-primary" style="flex:1;" onclick="switchView('view-risk')">Open Risk Predictor</button>
+                <button class="btn btn-secondary" onclick="switchView('view-wells')">All Wells</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 2: 100 WELLS DIRECTORY -->
+        <section class="app-view" id="view-wells">
+          <div class="card" style="margin-bottom:1.5rem;">
+            <div class="card-title">
+              <span>Nearby Wells Intelligence Directory (100 Indexed Wells)</span>
+              <span class="nav-badge badge-cyan">Upper Assam, Cambay &amp; KG Basins</span>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:0.75rem; margin-bottom:1rem;">
+              <input type="text" id="well-search" class="input" style="flex:1; min-width:240px;" placeholder="Search well name, field, operator, or formation..." oninput="filterWells()">
+              <select id="well-basin-filter" class="input" onchange="filterWells()">
+                <option value="all">All Basins</option>
+                <option value="Assam-Arakan Basin">Assam-Arakan (OIL)</option>
+                <option value="Cambay Basin">Cambay (ONGC)</option>
+                <option value="Krishna-Godavari Basin">KG Basin (ONGC)</option>
+                <option value="Rajasthan Basin">Rajasthan (Barmer)</option>
+              </select>
+              <select id="well-risk-filter" class="input" onchange="filterWells()">
+                <option value="all">All Risk Levels</option>
+                <option value="Critical">Critical</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+              <button class="btn btn-secondary" onclick="resetWellFilters()">Reset</button>
+            </div>
+
+            <div class="table-container" style="max-height:600px;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Well ID</th>
+                    <th>Field &amp; Well Name</th>
+                    <th>Operator</th>
+                    <th>Basin</th>
+                    <th>Current Depth</th>
+                    <th>Target Formation</th>
+                    <th>Risk Profile</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="wells-table-body">
+                  <!-- Populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 3: GIS SPATIAL MAP -->
+        <section class="app-view" id="view-map">
+          <div class="card">
+            <div class="card-title">
+              <span>GIS Subsurface Spatial Intelligence Map</span>
+              <span class="nav-badge badge-cyan">Interactive Canvas &bull; 100 Rig Coordinates</span>
+            </div>
+            <div class="map-box">
+              <canvas id="gis-canvas" class="map-canvas"></canvas>
+              <div class="map-overlay">
+                <div><strong style="color:var(--accent-cyan);">eRTMAC Spatial Engine</strong></div>
+                <div style="font-size:0.7rem; color:var(--text-muted);">Hover over any well marker to view formation &amp; risk</div>
+                <div style="margin-top:0.3rem; display:flex; gap:0.5rem; font-size:0.68rem;">
+                  <span style="color:#ef4444;">● Critical</span>
+                  <span style="color:#f59e0b;">● Medium</span>
+                  <span style="color:#10b981;">● Safe</span>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:1rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+              <div style="font-size:0.8rem; color:var(--text-secondary);">
+                Active Basin View: <strong style="color:var(--text-primary);" id="map-basin-name">Upper Assam Shelf (AA-ONHP-2018/1)</strong>
+              </div>
+              <div style="display:flex; gap:0.5rem;">
+                <button class="btn btn-secondary btn-sm" onclick="setMapBasin(0)">Assam-Arakan</button>
+                <button class="btn btn-secondary btn-sm" onclick="setMapBasin(1)">Cambay Basin</button>
+                <button class="btn btn-secondary btn-sm" onclick="setMapBasin(2)">KG Basin</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 4: AI ANALYSIS -->
+        <section class="app-view" id="view-ai">
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">
+                <span>Subsurface Knowledge Search (RAG Engine)</span>
+                <span class="nav-badge badge-cyan">Natural Language Query</span>
+              </div>
+              <p style="font-size:0.8rem; margin-bottom:1rem;">Ask any technical question about offset well drilling reports, stuck pipe incidents, or formation pressures:</p>
+              <div style="display:flex; gap:0.5rem; margin-bottom:1rem;">
+                <input type="text" id="ai-query-input" class="input" style="flex:1;" placeholder="e.g. What were the differential sticking causes in Barail Sandstone?">
+                <button class="btn btn-primary" onclick="runAiQuery()">Query AI</button>
+              </div>
+              <div style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-bottom:1rem;">
+                <button class="btn btn-secondary btn-sm" onclick="suggestAi('How to mitigate severe mud loss in Sylhet Limestone?')">Sylhet Mud Loss</button>
+                <button class="btn btn-secondary btn-sm" onclick="suggestAi('What casing shoe depth was used in Baghjan Deep?')">Baghjan Casing Shoe</button>
+                <button class="btn btn-secondary btn-sm" onclick="suggestAi('Recommend optimum ROP and RPM for Kopili Shale')">Kopili Shale ROP</button>
+              </div>
+              <div id="ai-response-box" style="background:var(--bg-secondary); border:1px solid var(--border); border-radius:var(--radius-md); padding:1rem; min-height:160px; font-size:0.84rem; line-height:1.6;">
+                <span style="color:var(--text-muted);">Enter a question above or click a prompt to generate synthesized offset intelligence...</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">
+                <span>Offset Correlation Trajectory Comparison</span>
+                <span class="nav-badge badge-emerald">Depth Alignment</span>
+              </div>
+              <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:0.75rem;">Lithology &amp; Pore Pressure Curve Synthesis:</div>
+              <div style="background:var(--bg-secondary); border:1px solid var(--border); border-radius:var(--radius-md); padding:0.75rem;">
+                <canvas id="litho-canvas" style="width:100%; height:280px;"></canvas>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 5: RISK PREDICTION ENGINE -->
+        <section class="app-view" id="view-risk">
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">
+                <span>Interactive Subsurface Risk Simulator</span>
+                <span class="nav-badge badge-rose">Predictive Physics &amp; ML</span>
+              </div>
+              <div class="slider-row">
+                <div class="slider-head"><span>Drilling Depth (m):</span><span class="mono" id="val-depth">3,428 m</span></div>
+                <input type="range" min="1000" max="5500" step="50" value="3428" id="slider-depth" oninput="updateRiskCalc()">
+              </div>
+              <div class="slider-row">
+                <div class="slider-head"><span>Mud Weight (PPG):</span><span class="mono" id="val-mw">11.8 PPG</span></div>
+                <input type="range" min="9.0" max="16.5" step="0.1" value="11.8" id="slider-mw" oninput="updateRiskCalc()">
+              </div>
+              <div class="slider-row">
+                <div class="slider-head"><span>Weight on Bit - WOB (k-lbs):</span><span class="mono" id="val-wob">18 klbs</span></div>
+                <input type="range" min="5" max="35" step="1" value="18" id="slider-wob" oninput="updateRiskCalc()">
+              </div>
+              <div class="slider-row">
+                <div class="slider-head"><span>Rotary Speed - RPM:</span><span class="mono" id="val-rpm">110 RPM</span></div>
+                <input type="range" min="60" max="180" step="5" value="110" id="slider-rpm" oninput="updateRiskCalc()">
+              </div>
+              <div style="margin-top:1rem; padding-top:0.75rem; border-top:1px solid var(--border);">
+                <label style="font-size:0.75rem; font-weight:700; color:var(--text-secondary);">Target Formation:</label>
+                <select id="risk-formation-select" class="input" style="width:100%; margin-top:0.3rem;" onchange="updateRiskCalc()">
+                  <option value="Barail Sandstone">Barail Sandstone (Pore Pr: 11.2 PPG)</option>
+                  <option value="Kopili Shale">Kopili Reactive Shale (Pore Pr: 12.8 PPG)</option>
+                  <option value="Sylhet Limestone">Sylhet Fractured Limestone (Pore Pr: 11.0 PPG)</option>
+                  <option value="Tipam Group">Tipam Sandstone (Pore Pr: 9.8 PPG)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">
+                <span>Real-Time Hazard Assessment</span>
+                <span class="nav-badge" id="risk-overall-badge">High Risk</span>
+              </div>
+              <div class="grid-2" style="margin-bottom:1rem;">
+                <div class="metric-box">
+                  <div class="metric-head"><span>STUCK PIPE HAZARD</span></div>
+                  <div class="metric-val" id="risk-stuck-val">12%</div>
+                  <div class="metric-sub" id="risk-stuck-sub">Differential Sticking</div>
+                </div>
+                <div class="metric-box">
+                  <div class="metric-head"><span>KICK / INFLUX RISK</span></div>
+                  <div class="metric-val" id="risk-kick-val">4%</div>
+                  <div class="metric-sub" id="risk-kick-sub">Pore pressure margin safe</div>
+                </div>
+              </div>
+
+              <div style="background:var(--bg-secondary); border:1px solid var(--border); border-radius:var(--radius-md); padding:0.85rem;">
+                <div style="font-size:0.8rem; font-weight:800; margin-bottom:0.4rem; color:var(--accent-cyan);">Recommended Safety Protocol:</div>
+                <p id="risk-protocol-text" style="font-size:0.82rem; line-height:1.5;">
+                  Maintain mud weight at &ge; 11.6 PPG. Limit static drillstring downtime to &lt; 180 seconds to avoid differential sticking in permeable sandstone.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 6: HISTORICAL REPORTS -->
+        <section class="app-view" id="view-reports">
+          <div class="card">
+            <div class="card-title">
+              <span>Historical Drilling Reports (30 Indexed DDR &amp; EOWR Documents)</span>
+              <span class="nav-badge badge-cyan">OCR Extracted Insights</span>
+            </div>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Doc ID</th>
+                    <th>Report Title</th>
+                    <th>Field &amp; Well</th>
+                    <th>Type</th>
+                    <th>Extracted Insight</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="reports-table-body">
+                  <!-- Populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 7: ALERTS & MITIGATIONS -->
+        <section class="app-view" id="view-alerts">
+          <div class="card">
+            <div class="card-title">
+              <span>Real-Time Alert &amp; Mitigation Dispatch Center</span>
+              <span class="nav-badge badge-rose">Live Feed</span>
+            </div>
+            <div id="full-alerts-container" style="display:flex; flex-direction:column; gap:0.75rem;">
+              <!-- Populated by JavaScript -->
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 8: AI RECOMMENDATIONS -->
+        <section class="app-view" id="view-recommendations">
+          <div class="card">
+            <div class="card-title">
+              <span>Machine Learning Engineering Recommendations (100 Synthesized Prescriptions)</span>
+              <span class="nav-badge badge-emerald">Verified by Rig Supt.</span>
+            </div>
+            <div id="recommendations-list" style="display:flex; flex-direction:column; gap:0.75rem;">
+              <!-- Populated by JavaScript -->
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 9: ANALYTICS & BENCHMARKS -->
+        <section class="app-view" id="view-analytics">
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">
+                <span>ROP Optimization Trend Across Formations</span>
+                <span class="nav-badge badge-cyan">m/hr vs Formation</span>
+              </div>
+              <canvas id="chart-rop" style="width:100%; height:260px;"></canvas>
+            </div>
+            <div class="card">
+              <div class="card-title">
+                <span>Non-Productive Time (NPT) Reduction Trend</span>
+                <span class="nav-badge badge-emerald">-42% NPT Hours</span>
+              </div>
+              <canvas id="chart-npt" style="width:100%; height:260px;"></canvas>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 10: COMPARATIVE BENCHMARK -->
+        <section class="app-view" id="view-benchmark">
+          <div class="card">
+            <div class="card-title">
+              <span>Comparative Well Benchmark (NST6001 vs NST6002 vs OIL-BG-12)</span>
+              <span class="nav-badge badge-cyan">Subsurface Offset Variance</span>
+            </div>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Operational Metric</th>
+                    <th>Current: NST6001</th>
+                    <th>Offset: NST6002</th>
+                    <th>Offset: OIL-BG-12</th>
+                    <th>Benchmark Variance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Average ROP (Barail)</strong></td>
+                    <td style="color:var(--accent-emerald);">22.4 m/hr</td>
+                    <td>17.8 m/hr</td>
+                    <td>16.5 m/hr</td>
+                    <td><span class="nav-badge badge-emerald">+25.8% Faster</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Non-Productive Time (NPT)</strong></td>
+                    <td style="color:var(--accent-emerald);">14.2 hrs</td>
+                    <td style="color:var(--accent-rose);">48.5 hrs</td>
+                    <td style="color:var(--accent-amber);">32.0 hrs</td>
+                    <td><span class="nav-badge badge-emerald">-70.7% Reduced NPT</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Bit Life / Distance per Bit</strong></td>
+                    <td>420 meters</td>
+                    <td>285 meters</td>
+                    <td>310 meters</td>
+                    <td><span class="nav-badge badge-emerald">+35.4% Bit Longevity</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Mud Loss Cumulative</strong></td>
+                    <td>18 bbls</td>
+                    <td style="color:var(--accent-rose);">340 bbls</td>
+                    <td>45 bbls</td>
+                    <td><span class="nav-badge badge-emerald">Loss Prevented</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 11: SYSTEM SETTINGS -->
+        <section class="app-view" id="view-settings">
+          <div class="card" style="max-width:640px;">
+            <div class="card-title">
+              <span>Platform System Settings</span>
+              <span class="nav-badge badge-cyan">SIH26121 Node</span>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:1.2rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                  <div style="font-weight:700;">Theme Appearance</div>
+                  <div style="font-size:0.75rem; color:var(--text-muted);">Switch between Industrial Dark and High-Contrast Slate Light</div>
+                </div>
+                <button class="btn btn-secondary" onclick="toggleThemeQuick()">Toggle Theme</button>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                  <div style="font-weight:700;">Web Audio Feedback</div>
+                  <div style="font-size:0.75rem; color:var(--text-muted);">Synthesized audio chimes on alert acknowledgement &amp; clicks</div>
+                </div>
+                <button class="btn btn-secondary" id="btn-audio-toggle" onclick="toggleAudioFeedback()">Sound: Enabled 🔊</button>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                  <div style="font-weight:700;">Offline JSON Export</div>
+                  <div style="font-size:0.75rem; color:var(--text-muted);">Download 100 wells &amp; real-time telemetry state as JSON</div>
+                </div>
+                <button class="btn btn-primary" onclick="exportDataJson()">Download Dataset</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- One-Button Corner Menu Slide-Out Drawer -->
+  <div class="corner-drawer-backdrop" id="corner-drawer-backdrop" onclick="toggleCornerDrawer()"></div>
+  <aside class="corner-drawer" id="corner-drawer">
+    <div class="corner-drawer-head">
+      <div class="brand-box">
+        <div class="brand-icon">Ω</div>
+        <div class="brand-text">
+          <span class="brand-name">Platform Directory</span>
+          <span class="brand-sub">eRTMAC-NWIS &bull; SIH26121</span>
+        </div>
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="toggleCornerDrawer()">✕</button>
+    </div>
+    <div class="corner-drawer-body">
+      <div class="drawer-sec-title">Core Navigation</div>
+      <div class="drawer-link" onclick="returnToLanding(); toggleCornerDrawer();" style="border-left: 3px solid var(--accent-cyan);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span style="font-weight: 700; color: var(--accent-cyan);">Platform Intro / Landing</span>
+      </div>
+
+      <div class="drawer-sec-title">Core Operations</div>
+      <div class="drawer-link" onclick="switchView('view-deck'); toggleCornerDrawer();">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <span>Operations Deck</span>
+      </div>
+      <div class="drawer-link" onclick="switchView('view-wells'); toggleCornerDrawer();">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>100 Wells Directory</span>
+      </div>
+      <div class="drawer-link" onclick="switchView('view-map'); toggleCornerDrawer();">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/></svg>
+        <span>GIS Spatial Map</span>
+      </div>
+
+      <div class="drawer-sec-title">Intelligence &amp; Decision</div>
+      <div class="drawer-link" onclick="switchView('view-ai'); toggleCornerDrawer();">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/></svg>
+        <span>AI Analysis (RAG)</span>
+      </div>
+      <div class="drawer-link" onclick="switchView('view-risk'); toggleCornerDrawer();">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/></svg>
+        <span>Risk Prediction</span>
+      </div>
+      <div class="drawer-link" onclick="switchView('view-reports'); toggleCornerDrawer();">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+        <span>Historical Reports</span>
+      </div>
+      <div class="drawer-link" onclick="switchView('view-alerts'); toggleCornerDrawer();">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg>
+        <span>Alerts &amp; Mitigations</span>
+      </div>
+      <div class="drawer-link" onclick="switchView('view-recommendations'); toggleCornerDrawer();">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>AI Recommendations</span>
+      </div>
+      <div class="drawer-link" onclick="switchView('view-analytics'); toggleCornerDrawer();">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/></svg>
+        <span>Analytics &amp; Benchmarks</span>
+      </div>
+      <div class="drawer-link" onclick="switchView('view-settings'); toggleCornerDrawer();">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/></svg>
+        <span>Settings &amp; Export</span>
       </div>
     </div>
   </aside>
 
-  <!-- Executive Overview & Problem Statement Gateway -->
-  <main style="max-width: 1400px; margin: 0 auto; padding: 105px 2rem 50px 2rem;">
-    
-    <!-- Hero & Problem Statement Section -->
-    <div style="display: grid; grid-template-columns: 1.12fr 0.88fr; gap: 2.5rem; align-items: center; margin-bottom: 3rem;">
-      
-      <!-- Left Column: Problem Statement & Solution -->
-      <div class="animate-fade-in">
-        <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-bottom: 1.25rem;">
-          <span class="badge badge-cyan">Smart India Hackathon 2026</span>
-          <span class="badge badge-blue">Problem ID: SIH26121</span>
-          <span class="badge badge-purple">Oil India Limited & ONGC</span>
-        </div>
-
-        <h1 style="font-size: clamp(1.85rem, 3.2vw, 2.65rem); font-weight: 800; line-height: 1.25; margin-bottom: 1.1rem; letter-spacing: -0.02em; word-break: normal; overflow-wrap: break-word;">
-          eRTMAC-NWIS: <span class="shimmer-text">Nearby Wells Intelligence System</span>
-        </h1>
-
-        <!-- High-Contrast Problem Statement Card -->
-        <div class="glass-panel" style="padding: 1.25rem 1.5rem; border-left: 4px solid #ef4444; margin-bottom: 1.25rem; background: rgba(239, 68, 68, 0.05);">
-          <div style="font-size: 0.75rem; color: #ef4444; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem;">
-            ⚠️ The Subsurface Problem Statement (SIH26121)
-          </div>
-          <p style="font-size: 0.95rem; line-height: 1.6; margin: 0; font-weight: 600; word-break: normal; overflow-wrap: break-word;">
-            During drilling operations, superintendents spend over <strong>72 to 100 hours per well</strong> manually reviewing unstructured Daily Drilling Reports (DDRs), mud logs, and paper folders. Critical geological hazards—such as differential stuck pipe and abnormal pressure kicks—are frequently discovered only after striking the drill bit, generating catastrophic <strong>Non-Productive Time (NPT) costing $45,000–$120,000/day</strong>.
-          </p>
-        </div>
-
-        <!-- High-Contrast Solution Card -->
-        <div class="glass-panel" style="padding: 1.25rem 1.5rem; border-left: 4px solid #0284c7; margin-bottom: 1.75rem; background: rgba(2, 132, 199, 0.05);">
-          <div style="font-size: 0.75rem; color: #0284c7; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem;">
-            💡 The Route Nexus eRTMAC Solution
-          </div>
-          <p style="font-size: 0.95rem; line-height: 1.6; margin: 0; font-weight: 600; word-break: normal; overflow-wrap: break-word;">
-            An autonomous multi-page intelligence platform that integrates <strong>100+ offset wells</strong>, applies NLP extraction on legacy DDRs, models geomechanical hazard curves 300m in advance, and streams real-time drilling parameter recommendations directly to rig consoles.
-          </p>
-        </div>
-
-        <!-- Streamlined Action Buttons (Less buttons in starting tab) -->
-        <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
-          <a href="dashboard.html" class="btn btn-primary" style="padding: 0.85rem 1.65rem; font-size: 0.95rem;" id="hero-cta-dashboard">
-            <span>Enter Operations Deck</span>
-            <span>→</span>
-          </a>
-          <a href="wells.html" class="btn btn-secondary" style="padding: 0.85rem 1.45rem; font-size: 0.95rem;" id="hero-cta-wells">
-            <span>Explore 100 Offset Wells</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Right Column: Interactive Rig Telemetry Snapshot & Basin Selector -->
-      <div class="glass-panel" style="padding: 1.65rem; border-radius: 16px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 0.85rem; margin-bottom: 1rem;">
-          <div style="display: flex; align-items: center; gap: 0.6rem;">
-            <span class="pulse-dot emerald"></span>
-            <span style="font-size: 0.88rem; font-weight: 800; letter-spacing: 0.02em;">LIVE RIG MONITOR • SIH26121</span>
-          </div>
-          <span class="badge badge-emerald">Real-Time Sync</span>
-        </div>
-
-        <!-- Quick Basin & Well Switcher (Anti-Word-Cutting Pill Buttons) -->
-        <div style="margin-bottom: 1.25rem;">
-          <label style="font-size: 0.78rem; font-weight: 700; display: block; margin-bottom: 0.45rem;">Select Active Hydrocarbon Basin:</label>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;" id="basin-selector-grid">
-            <button class="basin-pill-btn active" onclick="switchLandingBasin('Assam', this)">
-              <span class="basin-pill-name">Assam Shelf</span>
-              <span class="basin-pill-count">42 Wells</span>
-            </button>
-            <button class="basin-pill-btn" onclick="switchLandingBasin('Cambay', this)">
-              <span class="basin-pill-name">Cambay Basin</span>
-              <span class="basin-pill-count">28 Wells</span>
-            </button>
-            <button class="basin-pill-btn" onclick="switchLandingBasin('KG', this)">
-              <span class="basin-pill-name">KG Offshore</span>
-              <span class="basin-pill-count">18 Wells</span>
-            </button>
-            <button class="basin-pill-btn" onclick="switchLandingBasin('Rajasthan', this)">
-              <span class="basin-pill-name">Rajasthan Basin</span>
-              <span class="basin-pill-count">12 Wells</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Dynamic Well Card Snapshot -->
-        <div style="background: rgba(2, 6, 23, 0.04); border: 1px solid var(--border-color); border-radius: 10px; padding: 1rem; margin-bottom: 1.25rem;" id="landing-well-card">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; gap: 0.5rem;">
-            <div style="min-width: 0;">
-              <div style="font-size: 1.05rem; font-weight: 800; line-height: 1.3;" id="landing-well-name">OIL Naharkatiya-601</div>
-              <div style="font-size: 0.8rem; font-weight: 600; line-height: 1.35; margin-top: 0.15rem;" id="landing-well-formation">Formation: Barail Sandstone (Overpressured)</div>
-            </div>
-            <span class="badge badge-cyan" id="landing-well-depth" style="white-space: nowrap; flex-shrink: 0;">Depth: 3,485 m</span>
-          </div>
-
-          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; text-align: center;">
-            <div style="background: var(--bg-card); padding: 0.55rem 0.4rem; border-radius: 6px; border: 1px solid var(--border-subtle); min-width: 0;">
-              <div style="font-size: 0.68rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Offsets</div>
-              <div style="font-size: 1.15rem; font-weight: 900; color: #0284c7;" id="landing-well-offsets">4 Wells</div>
-            </div>
-            <div style="background: var(--bg-card); padding: 0.55rem 0.4rem; border-radius: 6px; border: 1px solid var(--border-subtle); min-width: 0;">
-              <div style="font-size: 0.68rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Target ROP</div>
-              <div style="font-size: 1.15rem; font-weight: 900; color: #10b981;" id="landing-well-rop">24.2 m/h</div>
-            </div>
-            <div style="background: var(--bg-card); padding: 0.55rem 0.4rem; border-radius: 6px; border: 1px solid var(--border-subtle); min-width: 0;">
-              <div style="font-size: 0.68rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Hazard Risk</div>
-              <div style="font-size: 1.15rem; font-weight: 900; color: #f59e0b;" id="landing-well-hazard">Low (14%)</div>
-            </div>
-          </div>
-        </div>
-
-        <div style="display: flex; gap: 0.75rem;">
-          <a href="dashboard.html" class="btn btn-primary btn-sm" style="flex: 1; justify-content: center;">Open Operations Deck →</a>
-          <a href="map.html" class="btn btn-secondary btn-sm" style="flex: 1; justify-content: center;">View On GIS Map →</a>
-        </div>
-      </div>
-
+  <!-- Interactive Well Detail Modal -->
+  <div class="modal-backdrop" id="well-modal" onclick="closeModal(event)">
+    <div class="modal-card" id="modal-card-content">
+      <!-- Injected by JavaScript -->
     </div>
+  </div>
 
-    <!-- Executive Key Performance Indicators -->
-    <div class="metric-grid" style="margin-bottom: 3.5rem;">
-      <div class="glass-panel metric-card">
-        <div class="metric-title">Cataloged Offset Wells</div>
-        <div class="metric-value" style="color: #0284c7;">100 Wells</div>
-        <div class="metric-unit">Assam, Cambay, KG & Rajasthan Basins</div>
-      </div>
-      <div class="glass-panel metric-card">
-        <div class="metric-title">Non-Productive Time (NPT)</div>
-        <div class="metric-value" style="color: #10b981;">-68%</div>
-        <div class="metric-unit">Prevented Sticking & Circulation Loss</div>
-      </div>
-      <div class="glass-panel metric-card">
-        <div class="metric-title">Search Latency</div>
-        <div class="metric-value" style="color: #0284c7;">15 Seconds</div>
-        <div class="metric-unit">Accelerated from 72 Hours Manual Effort</div>
-      </div>
-      <div class="glass-panel metric-card">
-        <div class="metric-title">Hazard Prediction Accuracy</div>
-        <div class="metric-value" style="color: #10b981;">98.4%</div>
-        <div class="metric-unit">Ensemble Geomechanics ML Classifiers</div>
-      </div>
-    </div>
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
 
-    <!-- Dedicated Multi-Page Feature Launchpad -->
-    <div style="margin-bottom: 3.5rem;">
-      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.75rem; flex-wrap: wrap; gap: 1rem;">
-        <div>
-          <span class="badge badge-purple" style="margin-bottom: 0.5rem;">Modular Architecture</span>
-          <h2 style="font-size: 1.85rem; font-weight: 800; margin: 0;">Dedicated Application Feature Pages</h2>
-          <p style="font-size: 0.95rem; margin-top: 0.35rem;">Click any module below to launch directly into its dedicated full-screen interactive workspace.</p>
-        </div>
-
-        <!-- Filter tabs for modules -->
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-          <button class="btn btn-primary btn-sm" onclick="filterModules('all', this)">All Features (10)</button>
-          <button class="btn btn-secondary btn-sm" onclick="filterModules('operations', this)">Operations & GIS</button>
-          <button class="btn btn-secondary btn-sm" onclick="filterModules('ai', this)">AI & Risk</button>
-          <button class="btn btn-secondary btn-sm" onclick="filterModules('reports', this)">Reports & Decision</button>
-        </div>
-      </div>
-
-      <!-- Feature Grid -->
-      <div class="grid-3col" id="modules-grid">
-        
-        <!-- Module 1 -->
-        <div class="glass-panel glass-panel-interactive" data-category="operations" style="padding: 1.5rem; display: flex; flex-direction: column;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
-            <div class="brand-icon-box" style="background: linear-gradient(135deg, #0284c7, #0369a1); font-size: 1.25rem;">📊</div>
-            <span class="badge badge-cyan">Live Stream</span>
-          </div>
-          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">1. Real-Time Operations Deck</h3>
-          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
-            Live rig surface telemetry (ROP, WOB, RPM, Torque, SPP), multi-well dynamic log track visualizer, 3D offset correlation radar, and instantaneous hazard alarms.
-          </p>
-          <a href="dashboard.html" class="btn btn-primary btn-sm" style="justify-content: center;">Open Operations Deck →</a>
-        </div>
-
-        <!-- Module 2 -->
-        <div class="glass-panel glass-panel-interactive" data-category="operations" style="padding: 1.5rem; display: flex; flex-direction: column;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
-            <div class="brand-icon-box" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); font-size: 1.25rem;">🗂️</div>
-            <span class="badge badge-blue">100 Records</span>
-          </div>
-          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">2. Nearby Wells Directory</h3>
-          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
-            Interactive database of 100 Oil India & ONGC offset wells with basin, operator, and formation filters, multi-parameter sorting, side-by-side comparison, and WITSML log inspection drawer.
-          </p>
-          <a href="wells.html" class="btn btn-secondary btn-sm" style="justify-content: center;">Explore 100 Wells →</a>
-        </div>
-
-        <!-- Module 3 -->
-        <div class="glass-panel glass-panel-interactive" data-category="operations" style="padding: 1.5rem; display: flex; flex-direction: column;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
-            <div class="brand-icon-box" style="background: linear-gradient(135deg, #10b981, #047857); font-size: 1.25rem;">🗺️</div>
-            <span class="badge badge-emerald">Spatial GIS</span>
-          </div>
-          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">3. GIS Subsurface Spatial Map</h3>
-          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
-            Spatial map interface with geological fault lines, formation contours, offset buffer radius control, coordinate measuring, and interactive wellhead pins.
-          </p>
-          <a href="map.html" class="btn btn-secondary btn-sm" style="justify-content: center;">Launch GIS Map →</a>
-        </div>
-
-        <!-- Module 4 -->
-        <div class="glass-panel glass-panel-interactive" data-category="ai" style="padding: 1.5rem; display: flex; flex-direction: column;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
-            <div class="brand-icon-box" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9); font-size: 1.25rem;">🧠</div>
-            <span class="badge badge-purple">NLP & Embeddings</span>
-          </div>
-          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">4. AI Subsurface Analysis</h3>
-          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
-            Semantic text extraction from unstructured drilling reports, multi-parameter cosine similarity weights, Eaton pore pressure projection, and lithology correlation.
-          </p>
-          <a href="ai-analysis.html" class="btn btn-secondary btn-sm" style="justify-content: center;">Run AI Analysis →</a>
-        </div>
-
-        <!-- Module 5 -->
-        <div class="glass-panel glass-panel-interactive" data-category="ai" style="padding: 1.5rem; display: flex; flex-direction: column;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
-            <div class="brand-icon-box" style="background: linear-gradient(135deg, #ef4444, #b91c1c); font-size: 1.25rem;">⚡</div>
-            <span class="badge badge-rose">Pre-emptive Alerting</span>
-          </div>
-          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">5. Predictive Geomechanical Risk</h3>
-          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
-            Pre-bit hazard curves forecasting stuck pipe probability, loss of circulation zones, kick risk, and formation breakdown pressure 300m in advance of the drill bit.
-          </p>
-          <a href="risk.html" class="btn btn-secondary btn-sm" style="justify-content: center;">View Risk Engine →</a>
-        </div>
-
-        <!-- Module 6 -->
-        <div class="glass-panel glass-panel-interactive" data-category="reports" style="padding: 1.5rem; display: flex; flex-direction: column;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
-            <div class="brand-icon-box" style="background: linear-gradient(135deg, #f59e0b, #d97706); font-size: 1.25rem;">📑</div>
-            <span class="badge badge-amber">30 Records</span>
-          </div>
-          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">6. Historical Drilling Reports Hub</h3>
-          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
-            30 digitized Daily Drilling Reports (DDRs), End of Well Reports (EOWRs), Mud Logs, and BHA failure logs with full-text search, problem type filters, and document preview modal.
-          </p>
-          <a href="reports.html" class="btn btn-secondary btn-sm" style="justify-content: center;">Browse Reports Hub →</a>
-        </div>
-
-        <!-- Module 7 -->
-        <div class="glass-panel glass-panel-interactive" data-category="reports" style="padding: 1.5rem; display: flex; flex-direction: column;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
-            <div class="brand-icon-box" style="background: linear-gradient(135deg, #ef4444, #dc2626); font-size: 1.25rem;">🚨</div>
-            <span class="badge badge-rose">Automated Dispatch</span>
-          </div>
-          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">7. Subsurface Alerts & Mitigations</h3>
-          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
-            50 automated operational alerts triggered by telemetry anomalies with severity filters, one-click mitigation dispatch, and audio alarm integration.
-          </p>
-          <a href="alerts.html" class="btn btn-secondary btn-sm" style="justify-content: center;">Open Alerts Feed →</a>
-        </div>
-
-        <!-- Module 8 -->
-        <div class="glass-panel glass-panel-interactive" data-category="reports" style="padding: 1.5rem; display: flex; flex-direction: column;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
-            <div class="brand-icon-box" style="background: linear-gradient(135deg, #10b981, #059669); font-size: 1.25rem;">🎯</div>
-            <span class="badge badge-emerald">100 Directives</span>
-          </div>
-          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">8. Autonomous Recommendations</h3>
-          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
-            100 offset-derived parameter optimization directives for Weight on Bit, Rotary RPM, Mud Weight, Bit Type, and Hydraulics based on historical well performance.
-          </p>
-          <a href="recommendations.html" class="btn btn-secondary btn-sm" style="justify-content: center;">View Recommendations →</a>
-        </div>
-
-        <!-- Module 9 -->
-        <div class="glass-panel glass-panel-interactive" data-category="reports" style="padding: 1.5rem; display: flex; flex-direction: column;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
-            <div class="brand-icon-box" style="background: linear-gradient(135deg, #0284c7, #2563eb); font-size: 1.25rem;">📈</div>
-            <span class="badge badge-blue">ROI Modeling</span>
-          </div>
-          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">9. Fleet Analytics & Benchmarks</h3>
-          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
-            Executive performance analytics, NPT reduction trendlines, drilling penetration benchmarks, and an interactive multi-rig ROI savings calculator.
-          </p>
-          <a href="analytics.html" class="btn btn-secondary btn-sm" style="justify-content: center;">Open Analytics →</a>
-        </div>
-
-        <!-- Module 10 -->
-        <div class="glass-panel glass-panel-interactive" data-category="ai" style="padding: 1.5rem; display: flex; flex-direction: column;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
-            <div class="brand-icon-box" style="background: linear-gradient(135deg, #0d9488, #0f766e); font-size: 1.25rem;">⚡</div>
-            <span class="badge badge-cyan">Field Validated</span>
-          </div>
-          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">10. Comparative Benchmark</h3>
-          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
-            Empirical benchmark comparing traditional offset analysis against eRTMAC-NWIS across 7 criteria, plus the 5-Stage operational feasibility pipeline.
-          </p>
-          <a href="benchmark.html" class="btn btn-secondary btn-sm" style="justify-content: center;">Inspect Benchmark →</a>
-        </div>
-
-      </div>
-    </div>
-
-  </main>
-
-  <!-- Clean Corporate Footer -->
-  <footer style="padding: 40px 2rem 25px 2rem; background: var(--bg-card); border-top: 1px solid var(--border-color);">
-    <div style="max-width: 1400px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem;">
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
-        <div style="display: flex; align-items: center; gap: 0.75rem;">
-          <div class="brand-icon-box">Ω</div>
-          <div>
-            <div style="font-size: 1.05rem; font-weight: 800;">Route Nexus • eRTMAC-NWIS</div>
-            <div style="font-size: 0.78rem; font-weight: 600;">Smart India Hackathon 2026 • Problem Statement ID: SIH26121 • Oil India & ONGC</div>
-          </div>
-        </div>
-
-        <div style="display: flex; gap: 1.25rem; font-size: 0.85rem; font-weight: 600; flex-wrap: wrap;">
-          <a href="dashboard.html">Operations Deck</a>
-          <a href="wells.html">Nearby Wells</a>
-          <a href="map.html">GIS Map</a>
-          <a href="ai-analysis.html">AI Mining</a>
-          <a href="risk.html">Risk Engine</a>
-          <a href="reports.html">Reports Hub</a>
-          <a href="alerts.html">Alerts</a>
-          <a href="recommendations.html">Recommendations</a>
-          <a href="analytics.html">Analytics</a>
-          <a href="benchmark.html">Benchmark</a>
-          <a href="settings.html">Settings</a>
-        </div>
-      </div>
-
-      <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; font-size: 0.78rem; font-weight: 600;">
-        <div>High-Fidelity Multi-Page System Prototype • Built for SIH 2026 Evaluation</div>
-        <div>Offline Enterprise Architecture • Pure HTML5/CSS3/Vanilla TypeScript</div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="./js/mockdata.js"></script>
-  <script src="./js/app.js"></script>
-  <script src="./js/chatbot.js"></script>
-
+  <!-- ==========================================================================
+       VANILLA JAVASCRIPT LOGIC ENGINE
+       Zero external build tools, zero server reliance, 100% static-ready.
+       ========================================================================== -->
   <script>
-    // Basin switcher on landing page
-    const basinData = {
-      'Assam': {
-        name: 'OIL Naharkatiya-601',
-        formation: 'Formation: Barail Sandstone (Overpressured)',
-        depth: 'Depth: 3,485 m',
-        offsets: '4 Wells',
-        rop: '24.2 m/h',
-        hazard: 'Low (14%)'
-      },
-      'Cambay': {
-        name: 'ONGC Cambay-Deep-09',
-        formation: 'Formation: Olpad Formation (Basal Clastics)',
-        depth: 'Depth: 2,890 m',
-        offsets: '6 Wells',
-        rop: '18.6 m/h',
-        hazard: 'Medium (38%)'
-      },
-      'KG': {
-        name: 'ONGC KG-DWN-98/2-A1',
-        formation: 'Formation: Godavari Claystone (Deepwater)',
-        depth: 'Depth: 4,120 m',
-        offsets: '3 Wells',
-        rop: '15.4 m/h',
-        hazard: 'High (64%)'
-      },
-      'Rajasthan': {
-        name: 'OIL Baghewala-14',
-        formation: 'Formation: Jodhpur Sandstone (Heavy Oil)',
-        depth: 'Depth: 1,940 m',
-        offsets: '5 Wells',
-        rop: '29.1 m/h',
-        hazard: 'Low (9%)'
+    (function() {
+      // 1. DATASETS GENERATOR: 100 Realistic Wells, Basins, Alerts, Reports
+      const BASINS = [
+        { name: "Assam-Arakan Basin", block: "AA-ONHP-2018/1 (Upper Assam)", operator: "Oil India Limited (OIL)", baseLat: 27.32, baseLng: 95.35 },
+        { name: "Cambay Basin", block: "CB-ONHP-2017/2 (Gujarat)", operator: "ONGC", baseLat: 21.65, baseLng: 72.98 },
+        { name: "Krishna-Godavari Basin", block: "KG-DWN-98/2 (Offshore/Onshore)", operator: "ONGC / eRTMAC Joint", baseLat: 16.48, baseLng: 82.15 },
+        { name: "Rajasthan Basin", block: "RJ-ON-90/1 (Barmer)", operator: "Oil India / Joint Venture", baseLat: 25.75, baseLng: 71.40 }
+      ];
+
+      const FORMATIONS = [
+        { name: "Barail Sandstone", pp: 11.2, fg: 15.8, hazard: "Differential Sticking" },
+        { name: "Tipam Group", pp: 9.8, fg: 14.2, hazard: "Lost Circulation" },
+        { name: "Kopili Shale", pp: 12.8, fg: 16.5, hazard: "Swelling & Sloughing" },
+        { name: "Sylhet Limestone", pp: 11.0, fg: 16.2, hazard: "Severe Mud Losses" },
+        { name: "Surma Series", pp: 10.4, fg: 14.9, hazard: "Tight Hole" }
+      ];
+
+      const FIELDS = ["Naharkatiya", "Moran", "Jorajan", "Baghjan", "Dikom", "Kusijan", "Ankleshwar", "Gandhar", "KG-Deep", "Barmer"];
+      const STATUSES = ["Drilling", "Drilling", "Drilling", "Tripping", "Casing", "Logging"];
+      const RISK_LEVELS = ["Critical", "High", "Medium", "Low"];
+
+      const WELLS = [];
+      for (let i = 1; i <= 100; i++) {
+        const basin = BASINS[i % BASINS.length];
+        const field = FIELDS[(i * 7) % FIELDS.length];
+        const form = FORMATIONS[(i * 3) % FORMATIONS.length];
+        const status = STATUSES[i % STATUSES.length];
+        const targetDepth = 3200 + ((i * 37) % 2300);
+        const currentDepth = Math.floor(targetDepth * (0.4 + ((i * 11) % 55) / 100));
+        const risk = RISK_LEVELS[(i * 3) % RISK_LEVELS.length];
+        const rop = Number((10.5 + ((i * 13) % 180) / 10).toFixed(1));
+        const mw = Number((9.5 + ((i * 7) % 40) / 10).toFixed(1));
+
+        WELLS.push({
+          id: i <= 25 ? `NST60${String(i).padStart(2, '0')}` : (i <= 65 ? `OIL-${field.substring(0,3).toUpperCase()}-${String(i).padStart(2, '0')}` : `ONG-${field.substring(0,3).toUpperCase()}-${String(i).padStart(2, '0')}`),
+          name: `${field}-${i + 10}`,
+          operator: basin.operator,
+          basin: basin.name,
+          block: basin.block,
+          field,
+          targetDepth,
+          currentDepth,
+          formation: form.name,
+          hazard: form.hazard,
+          status,
+          risk,
+          rop,
+          mudWeight: mw,
+          wob: 14 + (i % 16),
+          rpm: 90 + ((i * 4) % 65),
+          lat: Number((basin.baseLat + (Math.sin(i * 12.5) * 0.16)).toFixed(4)),
+          lng: Number((basin.baseLng + (Math.cos(i * 14.8) * 0.18)).toFixed(4)),
+          offsetWells: [`NST60${String((i % 20) + 1).padStart(2, '0')}`, `OIL-${FIELDS[(i+1)%FIELDS.length].substring(0,3).toUpperCase()}-01`]
+        });
       }
+
+      // Alerts dataset
+      const ALERTS = [
+        { id: "ALT-01", title: "Differential Sticking Imminent", well: "NST6001", type: "Critical", text: "Drillstring static time exceeded 160s in permeable Barail Sandstone. Increase rotation >110 RPM." },
+        { id: "ALT-02", title: "Kopili Shale Reactive Swelling", well: "OIL-BAG-12", type: "High", text: "Tight hole observed on connection. Condition mud with 4% KCl-glycol." },
+        { id: "ALT-03", title: "Pore Pressure Transition (+0.8 PPG)", well: "ONG-ANK-44", type: "Critical", text: "Background gas increased from 1.2% to 4.8%. Verify flow check immediately." },
+        { id: "ALT-04", title: "Severe Mud Loss in Sylhet", well: "NST6008", type: "High", text: "Partial losses of 35 bbl/hr recorded. Stage 40 bbl LCM coarse pill." },
+        { id: "ALT-05", title: "High Stick-Slip Vibration", well: "OIL-MOR-04", type: "Medium", text: "Torsional fluctuation > 60%. Reduce WOB by 3 klbs and adjust rotary speed." }
+      ];
+
+      // Historical Reports
+      const REPORTS = [];
+      for (let i = 1; i <= 30; i++) {
+        const well = WELLS[i % WELLS.length];
+        REPORTS.push({
+          id: `DOC-OIL-${2020 + (i % 6)}-${String(i).padStart(3, '0')}`,
+          title: `${i % 2 === 0 ? "Daily Drilling Report (DDR)" : "End of Well Report (EOWR)"} - ${well.name}`,
+          wellId: well.id,
+          field: well.field,
+          type: i % 2 === 0 ? "DDR Report" : "EOWR Summary",
+          insight: `Achieved ${well.rop + 3.2} m/hr ROP in ${well.formation}. Mitigated ${well.hazard} with optimized mud hydraulics.`
+        });
+      }
+
+      // Recommendations
+      const RECOMMENDATIONS = [];
+      for (let i = 1; i <= 20; i++) {
+        const well = WELLS[i % WELLS.length];
+        RECOMMENDATIONS.push({
+          id: `REC-${i}`,
+          cat: i % 3 === 0 ? "Bit & BHA" : (i % 2 === 0 ? "Mud Hydraulics" : "Stuck Pipe Prevention"),
+          well: well.name,
+          text: `Apply 16mm cutter PDC bit for ${well.formation}. Projected +22% ROP based on offset ${well.offsetWells[0]}.`,
+          impact: "Prevents cutter ring-out wear and stabilizes torque."
+        });
+      }
+
+      // Expose to window
+      window.DataEngine = { BASINS, FORMATIONS, WELLS, ALERTS, REPORTS, RECOMMENDATIONS };
+    })();
+
+    // 2. AUDIO FEEDBACK ENGINE (Web Audio API)
+    let soundEnabled = true;
+    function playBeep(type = 'click') {
+      if (!soundEnabled) return;
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        if (type === 'click') {
+          osc.frequency.setValueAtTime(600, ctx.currentTime);
+          gain.gain.setValueAtTime(0.02, ctx.currentTime);
+          osc.start(); osc.stop(ctx.currentTime + 0.04);
+        } else if (type === 'alert') {
+          osc.frequency.setValueAtTime(800, ctx.currentTime);
+          osc.frequency.setValueAtTime(400, ctx.currentTime + 0.1);
+          gain.gain.setValueAtTime(0.05, ctx.currentTime);
+          osc.start(); osc.stop(ctx.currentTime + 0.2);
+        }
+        osc.connect(gain); gain.connect(ctx.destination);
+      } catch (e) {}
+    }
+
+    function toggleAudioFeedback() {
+      soundEnabled = !soundEnabled;
+      const btn = document.getElementById('btn-sound-indicator');
+      const textBtn = document.getElementById('btn-audio-toggle');
+      if (btn) btn.textContent = soundEnabled ? '🔊' : '🔇';
+      if (textBtn) textBtn.textContent = soundEnabled ? 'Sound: Enabled 🔊' : 'Sound: Muted 🔇';
+      showToast(`Audio synthesized sound: ${soundEnabled ? 'ENABLED' : 'MUTED'}`);
+    }
+
+    // 3. THEME CONTROLLER
+    function setAppTheme(theme) {
+      playBeep('click');
+      document.documentElement.setAttribute('data-theme', theme);
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      localStorage.setItem('ertmac_theme', theme);
+      document.getElementById('theme-btn-light')?.classList.toggle('active', theme === 'light');
+      document.getElementById('theme-btn-dark')?.classList.toggle('active', theme === 'dark');
+      document.getElementById('landing-theme-btn-light')?.classList.toggle('active', theme === 'light');
+      document.getElementById('landing-theme-btn-dark')?.classList.toggle('active', theme === 'dark');
+      showToast(`Switched to ${theme === 'light' ? 'Light' : 'Dark'} Mode`);
+      drawGisMap();
+    }
+
+    function toggleThemeQuick() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      setAppTheme(current === 'light' ? 'dark' : 'light');
+    }
+
+    // 3.1 INTRO / LANDING TRANSITION CONTROLLER
+    function enterApp(viewId = 'view-deck') {
+      playBeep('click');
+      const landing = document.getElementById('intro-landing');
+      const app = document.getElementById('app-shell');
+      if (!landing || !app) return;
+
+      landing.classList.add('fade-exit-active');
+      setTimeout(() => {
+        landing.style.display = 'none';
+        landing.classList.remove('fade-exit-active');
+        app.style.display = 'flex';
+        app.classList.add('fade-enter-active');
+        sessionStorage.setItem('ertmac_in_app', 'true');
+        switchView(viewId);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => {
+          app.classList.remove('fade-enter-active');
+          drawGisMap();
+        }, 350);
+      }, 200);
+    }
+
+    function returnToLanding() {
+      playBeep('click');
+      const landing = document.getElementById('intro-landing');
+      const app = document.getElementById('app-shell');
+      if (!landing || !app) return;
+
+      app.classList.add('fade-exit-active');
+      setTimeout(() => {
+        app.style.display = 'none';
+        app.classList.remove('fade-exit-active');
+        landing.style.display = 'block';
+        landing.classList.add('fade-enter-active');
+        sessionStorage.removeItem('ertmac_in_app');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => {
+          landing.classList.remove('fade-enter-active');
+        }, 350);
+      }, 200);
+    }
+
+    function loadWellFromLanding(wellId) {
+      playBeep('click');
+      const well = (window.DataEngine && window.DataEngine.WELLS) ? window.DataEngine.WELLS.find(w => w.id === wellId) : null;
+      if (well) {
+        const depthEl = document.getElementById('metric-depth');
+        const ropEl = document.getElementById('metric-rop');
+        const mwEl = document.getElementById('metric-mw');
+        if (depthEl) depthEl.textContent = `${well.currentDepth.toLocaleString()} m`;
+        if (ropEl) ropEl.textContent = `${well.rop} m/hr`;
+        if (mwEl) mwEl.textContent = `${well.mudWeight} PPG`;
+        showToast(`Loaded ${well.name} (${well.id}) into Operations Deck`);
+      }
+      enterApp('view-deck');
+    }
+
+    // 4. SIDEBAR & ACCORDION CONTROLLERS
+    function toggleSidebar() {
+      playBeep('click');
+      document.getElementById('app-sidebar')?.classList.toggle('open');
+    }
+
+    function toggleOtherSections() {
+      playBeep('click');
+      const container = document.getElementById('other-sections-container');
+      const btn = document.getElementById('other-toggle-btn');
+      const text = document.getElementById('other-toggle-text');
+      if (!container) return;
+      const isOpen = container.classList.contains('show');
+      if (isOpen) {
+        container.classList.remove('show');
+        btn?.classList.remove('open');
+        if (text) text.textContent = 'Other Sections';
+      } else {
+        container.classList.add('show');
+        btn?.classList.add('open');
+        if (text) text.textContent = 'Collapse Other';
+      }
+    }
+
+    // 5. VIEW SWITCHER ROUTER
+    const VIEW_TITLES = {
+      'view-deck': { h: 'Operations Deck', sub: 'eRTMAC-NWIS • Real-Time Offset Drilling Decisions' },
+      'view-wells': { h: '100 Wells Directory', sub: 'Searchable Geological Subsurface Database' },
+      'view-map': { h: 'GIS Spatial Map', sub: 'Subsurface Structural Contours & Basin Assets' },
+      'view-ai': { h: 'AI Analysis & RAG', sub: 'Subsurface Natural Language Intelligence' },
+      'view-risk': { h: 'Risk Prediction Engine', sub: 'Pore Pressure, Fracture Gradient & Stuck Pipe' },
+      'view-reports': { h: 'Historical Reports', sub: '30 Indexed DDR and EOWR Summaries' },
+      'view-alerts': { h: 'Alerts & Mitigations', sub: 'Real-Time Hazard Dispatch & Action Protocols' },
+      'view-recommendations': { h: 'AI Recommendations', sub: 'Machine Learning Engineering Prescriptions' },
+      'view-analytics': { h: 'Analytics & Benchmarks', sub: 'ROP Optimization & NPT Reduction Curves' },
+      'view-benchmark': { h: 'Comparative Benchmark', sub: 'Side-by-Side Multi-Well Offset Evaluation' },
+      'view-settings': { h: 'System Settings', sub: 'Preferences, Audio & Data Export' }
     };
 
-    function switchLandingBasin(basin, btn) {
-      const data = basinData[basin];
-      if (!data) return;
-
-      document.getElementById('landing-well-name').textContent = data.name;
-      document.getElementById('landing-well-formation').textContent = data.formation;
-      document.getElementById('landing-well-depth').textContent = data.depth;
-      document.getElementById('landing-well-offsets').textContent = data.offsets;
-      document.getElementById('landing-well-rop').textContent = data.rop;
-      document.getElementById('landing-well-hazard').textContent = data.hazard;
-
-      document.querySelectorAll('#basin-selector-grid .basin-pill-btn').forEach(b => {
-        b.classList.remove('active');
+    function switchView(viewId) {
+      playBeep('click');
+      document.querySelectorAll('.app-view').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(el => {
+        el.classList.toggle('active', el.getAttribute('data-view') === viewId);
       });
-      btn.classList.add('active');
+
+      const target = document.getElementById(viewId);
+      if (target) target.classList.add('active');
+
+      const info = VIEW_TITLES[viewId] || { h: 'eRTMAC Deck', sub: 'Rig Operations' };
+      document.getElementById('topbar-heading').textContent = info.h;
+      document.getElementById('topbar-subheading').textContent = info.sub;
+
+      // Close mobile sidebar if open
+      document.getElementById('app-sidebar')?.classList.remove('open');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (viewId === 'view-map') setTimeout(drawGisMap, 50);
+      if (viewId === 'view-analytics') setTimeout(drawAnalyticsCharts, 50);
+      if (viewId === 'view-ai') setTimeout(drawLithoCanvas, 50);
     }
 
-    // Filter modules on landing page
-    function filterModules(category, btn) {
-      const cards = document.querySelectorAll('#modules-grid > div');
-      cards.forEach(card => {
-        if (category === 'all' || card.dataset.category === category) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
+    // 6. CORNER MENU DRAWER
+    function toggleCornerDrawer() {
+      playBeep('click');
+      const drawer = document.getElementById('corner-drawer');
+      const backdrop = document.getElementById('corner-drawer-backdrop');
+      drawer?.classList.toggle('open');
+      backdrop?.classList.toggle('open');
+    }
+
+    // 7. TOAST MESSAGING
+    function showToast(msg) {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = msg;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        toast.style.transition = 'all 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 2600);
+    }
+
+    // 8. RENDER 100 WELLS TABLE
+    function renderWellsTable(wells) {
+      const tbody = document.getElementById('wells-table-body');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      wells.forEach(w => {
+        const tr = document.createElement('tr');
+        tr.onclick = () => inspectWell(w.id);
+        const riskBadge = w.risk === 'Critical' ? 'badge-rose' : (w.risk === 'High' ? 'badge-amber' : (w.risk === 'Medium' ? 'badge-cyan' : 'badge-emerald'));
+        tr.innerHTML = `
+          <td><strong>${w.id}</strong></td>
+          <td>${w.name}</td>
+          <td>${w.operator}</td>
+          <td>${w.basin.split(' ')[0]}</td>
+          <td class="mono">${w.currentDepth.toLocaleString()} m</td>
+          <td>${w.formation}</td>
+          <td><span class="nav-badge ${riskBadge}">${w.risk}</span></td>
+          <td><button class="btn btn-secondary btn-sm" onclick="event.stopPropagation(); inspectWell('${w.id}')">Inspect</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterWells() {
+      const q = (document.getElementById('well-search')?.value || '').toLowerCase();
+      const basin = document.getElementById('well-basin-filter')?.value || 'all';
+      const risk = document.getElementById('well-risk-filter')?.value || 'all';
+
+      const filtered = window.DataEngine.WELLS.filter(w => {
+        const matchesQ = w.name.toLowerCase().includes(q) || w.id.toLowerCase().includes(q) || w.formation.toLowerCase().includes(q) || w.field.toLowerCase().includes(q);
+        const matchesBasin = basin === 'all' || w.basin === basin;
+        const matchesRisk = risk === 'all' || w.risk === risk;
+        return matchesQ && matchesBasin && matchesRisk;
+      });
+      renderWellsTable(filtered);
+    }
+
+    function resetWellFilters() {
+      if (document.getElementById('well-search')) document.getElementById('well-search').value = '';
+      if (document.getElementById('well-basin-filter')) document.getElementById('well-basin-filter').value = 'all';
+      if (document.getElementById('well-risk-filter')) document.getElementById('well-risk-filter').value = 'all';
+      renderWellsTable(window.DataEngine.WELLS);
+    }
+
+    // 9. WELL MODAL
+    function inspectWell(wellId) {
+      playBeep('click');
+      const well = window.DataEngine.WELLS.find(w => w.id === wellId) || window.DataEngine.WELLS[0];
+      const modal = document.getElementById('well-modal');
+      const card = document.getElementById('modal-card-content');
+      if (!modal || !card) return;
+
+      const riskBadge = well.risk === 'Critical' ? 'badge-rose' : (well.risk === 'High' ? 'badge-amber' : 'badge-emerald');
+      card.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1rem; border-bottom:1px solid var(--border); padding-bottom:0.75rem;">
+          <div>
+            <h2 style="font-size:1.3rem; font-weight:800;">${well.name} (${well.id})</h2>
+            <p style="font-size:0.78rem; color:var(--text-muted);">${well.basin} &bull; ${well.operator}</p>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="document.getElementById('well-modal').classList.remove('open')">✕</button>
+        </div>
+        <div class="grid-3" style="margin-bottom:1.2rem;">
+          <div style="background:var(--bg-card); padding:0.75rem; border-radius:var(--radius-md); border:1px solid var(--border);">
+            <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700;">CURRENT DEPTH</div>
+            <div class="mono" style="font-size:1.2rem; font-weight:800; color:var(--accent-cyan);">${well.currentDepth.toLocaleString()} m</div>
+            <div style="font-size:0.68rem; color:var(--text-muted);">Target: ${well.targetDepth.toLocaleString()} m</div>
+          </div>
+          <div style="background:var(--bg-card); padding:0.75rem; border-radius:var(--radius-md); border:1px solid var(--border);">
+            <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700;">MUD WEIGHT &amp; ROP</div>
+            <div class="mono" style="font-size:1.2rem; font-weight:800; color:var(--accent-emerald);">${well.mudWeight} PPG</div>
+            <div style="font-size:0.68rem; color:var(--text-muted);">${well.rop} m/hr penetration</div>
+          </div>
+          <div style="background:var(--bg-card); padding:0.75rem; border-radius:var(--radius-md); border:1px solid var(--border);">
+            <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700;">PRIMARY HAZARD</div>
+            <div style="font-size:0.95rem; font-weight:800; color:var(--accent-rose);">${well.hazard}</div>
+            <span class="nav-badge ${riskBadge}">${well.risk}</span>
+          </div>
+        </div>
+        <div style="font-size:0.85rem; font-weight:800; margin-bottom:0.4rem;">Correlated Offset Wells:</div>
+        <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:1rem;">
+          Synthesized runs from <strong>${well.offsetWells.join(', ')}</strong> indicate standard bit life of ~380m and pore pressure transition at ${well.currentDepth + 180}m.
+        </p>
+        <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+          <button class="btn btn-secondary" onclick="document.getElementById('well-modal').classList.remove('open')">Close</button>
+          <button class="btn btn-primary" onclick="loadWellToDeck('${well.id}')">Load to Operations Deck</button>
+        </div>
+      `;
+      modal.classList.add('open');
+    }
+
+    function closeModal(e) {
+      if (e.target.id === 'well-modal') {
+        document.getElementById('well-modal')?.classList.remove('open');
+      }
+    }
+
+    function loadWellToDeck(wellId) {
+      const well = window.DataEngine.WELLS.find(w => w.id === wellId);
+      if (!well) return;
+      document.getElementById('metric-depth').textContent = `${well.currentDepth.toLocaleString()} m`;
+      document.getElementById('metric-rop').textContent = `${well.rop} m/hr`;
+      document.getElementById('metric-mw').textContent = `${well.mudWeight} PPG`;
+      document.getElementById('well-modal')?.classList.remove('open');
+      switchView('view-deck');
+      showToast(`Loaded ${well.name} (${well.id}) to Active Deck`);
+    }
+
+    // 10. GIS MAP CANVAS RENDERING
+    let activeBasinIdx = 0;
+    function setMapBasin(idx) {
+      playBeep('click');
+      activeBasinIdx = idx;
+      const basin = window.DataEngine.BASINS[idx];
+      document.getElementById('map-basin-name').textContent = `${basin.name} (${basin.block})`;
+      drawGisMap();
+    }
+
+    function drawGisMap() {
+      const canvas = document.getElementById('gis-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width || 800;
+      canvas.height = rect.height || 480;
+
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      ctx.fillStyle = isLight ? '#f1f5f9' : '#030712';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Grid lines
+      ctx.strokeStyle = isLight ? '#e2e8f0' : '#1e293b';
+      ctx.lineWidth = 1;
+      for (let x = 0; x < canvas.width; x += 40) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+      }
+      for (let y = 0; y < canvas.height; y += 40) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+      }
+
+      // Contour rings
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+      ctx.strokeStyle = isLight ? 'rgba(2, 132, 199, 0.15)' : 'rgba(6, 182, 212, 0.18)';
+      for (let r = 60; r <= 220; r += 50) {
+        ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
+      }
+
+      // Draw wells
+      const basin = window.DataEngine.BASINS[activeBasinIdx];
+      const basinWells = window.DataEngine.WELLS.filter(w => w.basin === basin.name);
+      
+      basinWells.forEach((w, i) => {
+        const px = cx + Math.sin(i * 1.5 + 2) * (50 + (i % 5) * 35);
+        const py = cy + Math.cos(i * 1.5 + 2) * (40 + (i % 5) * 30);
+
+        ctx.fillStyle = w.risk === 'Critical' ? '#f43f5e' : (w.risk === 'High' ? '#f59e0b' : '#10b981');
+        ctx.beginPath();
+        ctx.arc(px, py, 5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = isLight ? '#0f172a' : '#94a3b8';
+        ctx.font = '10px monospace';
+        ctx.fillText(w.id, px + 8, py + 3);
+      });
+    }
+
+    // 11. RISK SIMULATOR
+    function updateRiskCalc() {
+      const depth = parseInt(document.getElementById('slider-depth')?.value || 3400);
+      const mw = parseFloat(document.getElementById('slider-mw')?.value || 11.8);
+      const wob = parseInt(document.getElementById('slider-wob')?.value || 18);
+      const rpm = parseInt(document.getElementById('slider-rpm')?.value || 110);
+      const form = document.getElementById('risk-formation-select')?.value || 'Barail Sandstone';
+
+      document.getElementById('val-depth').textContent = `${depth.toLocaleString()} m`;
+      document.getElementById('val-mw').textContent = `${mw.toFixed(1)} PPG`;
+      document.getElementById('val-wob').textContent = `${wob} klbs`;
+      document.getElementById('val-rpm').textContent = `${rpm} RPM`;
+
+      // Physics model calculation
+      let stuckScore = Math.max(2, Math.min(95, Math.round(((depth / 3500) * 15) + (mw > 12.5 ? 20 : 5) - (rpm > 100 ? 10 : 0))));
+      let kickScore = Math.max(1, Math.min(95, Math.round(mw < 10.5 ? 45 : (mw < 11.2 ? 18 : 3))));
+
+      document.getElementById('risk-stuck-val').textContent = `${stuckScore}%`;
+      document.getElementById('risk-kick-val').textContent = `${kickScore}%`;
+
+      const badge = document.getElementById('risk-overall-badge');
+      if (stuckScore > 40 || kickScore > 30) {
+        if (badge) { badge.className = 'nav-badge badge-rose'; badge.textContent = 'Critical Risk'; }
+      } else if (stuckScore > 20) {
+        if (badge) { badge.className = 'nav-badge badge-amber'; badge.textContent = 'Moderate Risk'; }
+      } else {
+        if (badge) { badge.className = 'nav-badge badge-emerald'; badge.textContent = 'Low / Safe'; }
+      }
+    }
+
+    // 12. AI QUERY SIMULATOR (Subsurface RAG)
+    function runAiQuery() {
+      playBeep('click');
+      const input = document.getElementById('ai-query-input');
+      const q = (input?.value || '').trim();
+      if (!q) return;
+
+      const resBox = document.getElementById('ai-response-box');
+      resBox.innerHTML = `<span style="color:var(--accent-cyan);">Synthesizing offset records across 100 wells for "${q}"...</span>`;
+
+      setTimeout(() => {
+        resBox.innerHTML = `
+          <div style="font-weight:800; color:var(--accent-cyan); margin-bottom:0.4rem;">AI Subsurface Synthesis:</div>
+          <p style="margin-bottom:0.6rem;">
+            Analysis of 14 offset wells in the <strong>Naharkatiya &amp; Moran fields</strong> penetrating the target zone indicates that differential sticking incidents peaked when mud overbalance exceeded 240 psi with static pipe time &gt; 180s.
+          </p>
+          <ul style="padding-left:1.2rem; margin-bottom:0.6rem; color:var(--text-secondary);">
+            <li><strong>Mitigation Strategy:</strong> Maintain continuous string rotation (&ge; 110 RPM) and condition mud to 11.8 PPG.</li>
+            <li><strong>Offset Precedent:</strong> NST6002 successfully resolved torque spike by spotting 30 bbl lubricant pill.</li>
+            <li><strong>Formation Boundary:</strong> Impermeable cap identified at 3,380 m depth.</li>
+          </ul>
+          <div style="font-size:0.75rem; color:var(--text-muted);">Confidence: 96.4% &bull; Correlated Wells: NST6001, NST6002, OIL-BG-12</div>
+        `;
+        showToast('AI Query completed successfully');
+      }, 400);
+    }
+
+    function suggestAi(text) {
+      const input = document.getElementById('ai-query-input');
+      if (input) { input.value = text; runAiQuery(); }
+    }
+
+    // 13. ANALYTICS & CANVAS CHARTS (Zero External Dependencies)
+    function drawAnalyticsCharts() {
+      // ROP Chart
+      const ropCanvas = document.getElementById('chart-rop');
+      if (ropCanvas) {
+        const ctx = ropCanvas.getContext('2d');
+        const rect = ropCanvas.getBoundingClientRect();
+        ropCanvas.width = rect.width || 400; ropCanvas.height = rect.height || 260;
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+
+        ctx.fillStyle = isLight ? '#ffffff' : '#0b1120';
+        ctx.fillRect(0, 0, ropCanvas.width, ropCanvas.height);
+
+        const forms = ['Tipam', 'Surma', 'Barail', 'Kopili', 'Sylhet'];
+        const values = [24.5, 18.2, 22.4, 11.8, 8.4];
+        const barWidth = 40;
+        const gap = (ropCanvas.width - (forms.length * barWidth)) / (forms.length + 1);
+
+        forms.forEach((f, i) => {
+          const x = gap + i * (barWidth + gap);
+          const h = (values[i] / 30) * (ropCanvas.height - 60);
+          const y = ropCanvas.height - h - 30;
+
+          ctx.fillStyle = '#06b6d4';
+          ctx.fillRect(x, y, barWidth, h);
+
+          ctx.fillStyle = isLight ? '#0f172a' : '#f8fafc';
+          ctx.font = '11px sans-serif';
+          ctx.fillText(`${values[i]}`, x + 6, y - 6);
+          ctx.fillStyle = '#94a3b8';
+          ctx.fillText(f, x + 2, ropCanvas.height - 10);
+        });
+      }
+
+      // NPT Chart
+      const nptCanvas = document.getElementById('chart-npt');
+      if (nptCanvas) {
+        const ctx = nptCanvas.getContext('2d');
+        const rect = nptCanvas.getBoundingClientRect();
+        nptCanvas.width = rect.width || 400; nptCanvas.height = rect.height || 260;
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+
+        ctx.fillStyle = isLight ? '#ffffff' : '#0b1120';
+        ctx.fillRect(0, 0, nptCanvas.width, nptCanvas.height);
+
+        ctx.strokeStyle = '#10b981';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        const pts = [68, 54, 45, 32, 24, 14];
+        const step = nptCanvas.width / (pts.length - 1);
+        pts.forEach((p, i) => {
+          const x = i * step;
+          const y = nptCanvas.height - 40 - (p / 80) * (nptCanvas.height - 70);
+          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        });
+        ctx.stroke();
+
+        ctx.fillStyle = isLight ? '#0f172a' : '#f8fafc';
+        ctx.font = '12px sans-serif';
+        ctx.fillText('NPT Hours Reduced: 68h → 14h (-79%)', 20, 25);
+      }
+    }
+
+    function drawLithoCanvas() {
+      const canvas = document.getElementById('litho-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width || 400; canvas.height = rect.height || 280;
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+
+      ctx.fillStyle = isLight ? '#ffffff' : '#0b1120';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const layers = [
+        { name: "Alluvium (0-950m)", color: "#ca8a04", h: 40 },
+        { name: "Tipam Sandstone (950-1850m)", color: "#0284c7", h: 50 },
+        { name: "Surma Series (1850-2750m)", color: "#475569", h: 50 },
+        { name: "Barail Pay Zone (2750-3600m)", color: "#10b981", h: 60 },
+        { name: "Kopili Shale (3600-4500m)", color: "#be123c", h: 55 }
+      ];
+
+      let y = 10;
+      layers.forEach(l => {
+        ctx.fillStyle = l.color;
+        ctx.fillRect(20, y, 60, l.h - 4);
+        ctx.fillStyle = isLight ? '#0f172a' : '#f8fafc';
+        ctx.font = '12px sans-serif';
+        ctx.fillText(l.name, 90, y + (l.h / 2));
+        y += l.h;
+      });
+    }
+
+    // 14. DATA EXPORT (JSON Download)
+    function exportDataJson() {
+      playBeep('click');
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(window.DataEngine, null, 2));
+      const a = document.createElement('a');
+      a.setAttribute("href", dataStr);
+      a.setAttribute("download", "eRTMAC-NWIS_Wells_Dataset.json");
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      showToast('Dataset exported as JSON');
+    }
+
+    // 15. INITIALIZATION
+    window.addEventListener('DOMContentLoaded', () => {
+      // Check if user previously entered the app in this session
+      const inApp = sessionStorage.getItem('ertmac_in_app') === 'true';
+      const landingEl = document.getElementById('intro-landing');
+      const appEl = document.getElementById('app-shell');
+      if (inApp && landingEl && appEl) {
+        landingEl.style.display = 'none';
+        appEl.style.display = 'flex';
+      } else if (landingEl && appEl) {
+        landingEl.style.display = 'block';
+        appEl.style.display = 'none';
+      }
+
+      // Restore theme
+      const savedTheme = localStorage.getItem('ertmac_theme') || 'dark';
+      setAppTheme(savedTheme);
+
+      // Render 100 Wells
+      renderWellsTable(window.DataEngine.WELLS);
+
+      // Render Deck Alerts
+      const deckAlerts = document.getElementById('deck-alerts-list');
+      if (deckAlerts) {
+        deckAlerts.innerHTML = window.DataEngine.ALERTS.slice(0, 3).map(a => `
+          <div style="background:var(--bg-secondary); border:1px solid var(--border); border-left:3px solid ${a.type === 'Critical' ? '#f43f5e' : '#f59e0b'}; padding:0.65rem 0.85rem; border-radius:var(--radius-sm);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.25rem;">
+              <strong style="font-size:0.8rem;">${a.title}</strong>
+              <span class="nav-badge ${a.type === 'Critical' ? 'badge-rose' : 'badge-amber'}">${a.type}</span>
+            </div>
+            <p style="font-size:0.75rem; color:var(--text-secondary);">${a.text}</p>
+          </div>
+        `).join('');
+      }
+
+      // Render Full Alerts
+      const fullAlerts = document.getElementById('full-alerts-container');
+      if (fullAlerts) {
+        fullAlerts.innerHTML = window.DataEngine.ALERTS.map(a => `
+          <div style="background:var(--bg-secondary); border:1px solid var(--border); border-left:4px solid ${a.type === 'Critical' ? '#f43f5e' : '#f59e0b'}; padding:0.85rem 1.1rem; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+            <div>
+              <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.25rem;">
+                <span class="nav-badge ${a.type === 'Critical' ? 'badge-rose' : 'badge-amber'}">${a.type}</span>
+                <strong style="font-size:0.9rem;">${a.title}</strong>
+                <span class="mono" style="font-size:0.75rem; color:var(--text-muted);">${a.well}</span>
+              </div>
+              <p style="font-size:0.82rem; color:var(--text-secondary);">${a.text}</p>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="playBeep('click'); this.textContent='Mitigated ✓'; this.disabled=true; showToast('Mitigation dispatched');">Acknowledge</button>
+          </div>
+        `).join('');
+      }
+
+      // Render Reports
+      const reportsTable = document.getElementById('reports-table-body');
+      if (reportsTable) {
+        reportsTable.innerHTML = window.DataEngine.REPORTS.map(r => `
+          <tr>
+            <td><strong>${r.id}</strong></td>
+            <td>${r.title}</td>
+            <td>${r.field} (${r.wellId})</td>
+            <td><span class="nav-badge badge-cyan">${r.type}</span></td>
+            <td style="font-size:0.78rem;">${r.insight}</td>
+            <td><button class="btn btn-secondary btn-sm" onclick="showToast('Opened OCR summary for ${r.id}')">View</button></td>
+          </tr>
+        `).join('');
+      }
+
+      // Render Recommendations
+      const recList = document.getElementById('recommendations-list');
+      if (recList) {
+        recList.innerHTML = window.DataEngine.RECOMMENDATIONS.map(r => `
+          <div style="background:var(--bg-secondary); border:1px solid var(--border); padding:0.85rem 1.1rem; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+            <div>
+              <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.25rem;">
+                <span class="nav-badge badge-emerald">${r.cat}</span>
+                <strong style="font-size:0.88rem;">${r.well}</strong>
+              </div>
+              <p style="font-size:0.82rem; color:var(--text-primary); font-weight:600;">${r.text}</p>
+              <div style="font-size:0.74rem; color:var(--text-muted);">${r.impact}</div>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="playBeep('click'); showToast('Prescription applied to rig controls');">Apply</button>
+          </div>
+        `).join('');
+      }
+
+      // Live Clocks & Telemetry Simulation Ticker
+      setInterval(() => {
+        const now = new Date();
+        const timeStr = now.toTimeString().split(' ')[0] + ' IST';
+        const clockEl = document.getElementById('rig-clock');
+        if (clockEl) clockEl.textContent = timeStr;
+
+        // Micro-ticker for ROP and WOB
+        const ropEl = document.getElementById('metric-rop');
+        if (ropEl && Math.random() > 0.6) {
+          const val = (22.0 + Math.random() * 1.5).toFixed(1);
+          ropEl.textContent = `${val} m/hr`;
         }
-      });
+      }, 1000);
 
-      document.querySelectorAll('button[onclick^="filterModules"]').forEach(b => {
-        b.classList.remove('btn-primary');
-        b.classList.add('btn-secondary');
-      });
-      btn.classList.remove('btn-secondary');
-      btn.classList.add('btn-primary');
-    }
+      // Draw initial Map
+      drawGisMap();
+      window.addEventListener('resize', drawGisMap);
+    });
   </script>
 </body>
 </html>
