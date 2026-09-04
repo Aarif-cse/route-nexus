@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>eRTMAC-NWIS | Route Nexus - AI-Powered Offset Well Decision Support</title>
+  <meta name="description" content="eRTMAC-NWIS (Nearby Wells Intelligence System): An AI-Powered Offset Well Knowledge and Decision Support Platform for Drilling Operations (SIH26121).">
+  <meta property="og:title" content="eRTMAC-NWIS | Route Nexus">
+  <meta property="og:description" content="Smart India Hackathon 2026 - AI-Powered Offset Well Knowledge and Decision Support Platform for Drilling Operations.">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/animations.css">
+  <link rel="stylesheet" href="./css/dashboard.css">
+  <script>(function(){const t=localStorage.getItem('nexus_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+</head>
+<body>
+
+  <!-- Landing Navigation (Streamlined Upper Tab with One-Button Corner Menu) -->
+  <nav class="landing-nav" id="landing-nav">
+    <a href="index.html" class="brand-logo" id="nav-brand-logo">
+      <div class="brand-icon-box">Ω</div>
+      <div class="brand-name">
+        <span>eRTMAC</span>
+        <span class="sub">NWIS Rig Ops</span>
+      </div>
+    </a>
+
+    <!-- Streamlined Essential Links (Reduced button count in upper tab) -->
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Operations Deck</a></li>
+    </ul>
+
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <!-- Theme Switcher: Light & Dark Mode -->
+      <div class="theme-switch-group" role="group" aria-label="Theme mode selection">
+        <button class="theme-switch-btn" id="btn-theme-light" onclick="NexusApp.setTheme('light')" title="Switch to Light Mode" aria-label="Light Mode">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <span>Light</span>
+        </button>
+        <button class="theme-switch-btn active" id="btn-theme-dark" onclick="NexusApp.setTheme('dark')" title="Switch to Dark Mode" aria-label="Dark Mode">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <span>Dark</span>
+        </button>
+      </div>
+
+      <a href="dashboard.html" class="btn btn-primary" id="nav-launch-btn">
+        <span>Launch Deck</span>
+        <span>→</span>
+      </a>
+
+      <!-- ONE BUTTON MENU IN CORNER -->
+      <button class="corner-menu-btn" id="btn-corner-menu" onclick="NexusApp.toggleCornerMenu()" aria-label="Open Navigation Menu" title="Open Navigation Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <line x1="4" y1="6" x2="20" y2="6"/>
+          <line x1="4" y1="12" x2="20" y2="12"/>
+          <line x1="4" y1="18" x2="20" y2="18"/>
+        </svg>
+        <span>Menu</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- One-Button Corner Slide-Out Menu Drawer -->
+  <div class="corner-menu-backdrop" id="corner-menu-backdrop"></div>
+  <aside class="corner-menu-drawer" id="corner-menu-drawer" aria-label="Platform Module Navigation Drawer">
+    <div class="corner-menu-header">
+      <div style="display: flex; align-items: center; gap: 0.65rem;">
+        <div class="brand-icon-box" style="width: 32px; height: 32px; font-size: 0.95rem;">Ω</div>
+        <div>
+          <div style="font-size: 0.95rem; font-weight: 800; color: var(--text-primary); line-height: 1.2;">Platform Directory</div>
+          <div style="font-size: 0.7rem; color: var(--accent-cyan); font-weight: 600;">eRTMAC-NWIS • SIH26121</div>
+        </div>
+      </div>
+      <button class="btn btn-secondary btn-icon" id="corner-menu-close-btn" style="width: 32px; height: 32px; padding: 0;" title="Close Menu">✕</button>
+    </div>
+
+    <div class="corner-menu-body">
+      <!-- Quick Launch CTA -->
+      <a href="dashboard.html" class="btn btn-primary" style="justify-content: center; width: 100%; padding: 0.75rem;">
+        <span>Launch Operations Deck</span>
+        <span>→</span>
+      </a>
+
+      <!-- Category 1: Core Rig Operations -->
+      <div>
+        <div class="corner-menu-section-title">Core Rig Operations</div>
+        <div class="corner-menu-list">
+          <a href="dashboard.html" class="corner-menu-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <span>Operations Deck</span>
+            <span class="tag badge-cyan">Live</span>
+          </a>
+          <a href="wells.html" class="corner-menu-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+            <span>100 Offset Wells</span>
+            <span class="tag badge-blue">Database</span>
+          </a>
+          <a href="map.html" class="corner-menu-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+            <span>GIS Subsurface Map</span>
+            <span class="tag badge-emerald">Spatial</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Category 2: AI Mining & Risk Engine -->
+      <div>
+        <div class="corner-menu-section-title">AI Mining & Risk Engine</div>
+        <div class="corner-menu-list">
+          <a href="ai-analysis.html" class="corner-menu-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            <span>AI Subsurface NLP</span>
+            <span class="tag badge-purple">NLP Model</span>
+          </a>
+          <a href="risk.html" class="corner-menu-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span>Geomechanical Risk</span>
+            <span class="tag badge-rose">300m Ahead</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Category 3: Decision Support & Logs -->
+      <div>
+        <div class="corner-menu-section-title">Decision Support & Logs</div>
+        <div class="corner-menu-list">
+          <a href="reports.html" class="corner-menu-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span>Historical DDR Reports</span>
+            <span class="tag badge-amber">30 Records</span>
+          </a>
+          <a href="alerts.html" class="corner-menu-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span>Hazard Alerts Feed</span>
+            <span class="tag badge-rose">50 Active</span>
+          </a>
+          <a href="recommendations.html" class="corner-menu-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+            <span>Drilling Directives</span>
+            <span class="tag badge-emerald">100 Advice</span>
+          </a>
+          <a href="analytics.html" class="corner-menu-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <span>Fleet ROI Analytics</span>
+            <span class="tag badge-blue">Executive</span>
+          </a>
+          <a href="benchmark.html" class="corner-menu-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span>Comparative Benchmark</span>
+            <span class="tag badge-cyan">Validation</span>
+          </a>
+          <a href="settings.html" class="corner-menu-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>System Settings</span>
+            <span class="tag badge-blue">WITSML</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Executive Overview & Problem Statement Gateway -->
+  <main style="max-width: 1400px; margin: 0 auto; padding: 105px 2rem 50px 2rem;">
+    
+    <!-- Hero & Problem Statement Section -->
+    <div style="display: grid; grid-template-columns: 1.12fr 0.88fr; gap: 2.5rem; align-items: center; margin-bottom: 3rem;">
+      
+      <!-- Left Column: Problem Statement & Solution -->
+      <div class="animate-fade-in">
+        <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-bottom: 1.25rem;">
+          <span class="badge badge-cyan">Smart India Hackathon 2026</span>
+          <span class="badge badge-blue">Problem ID: SIH26121</span>
+          <span class="badge badge-purple">Oil India Limited & ONGC</span>
+        </div>
+
+        <h1 style="font-size: clamp(1.85rem, 3.2vw, 2.65rem); font-weight: 800; line-height: 1.25; margin-bottom: 1.1rem; letter-spacing: -0.02em; word-break: normal; overflow-wrap: break-word;">
+          eRTMAC-NWIS: <span class="shimmer-text">Nearby Wells Intelligence System</span>
+        </h1>
+
+        <!-- High-Contrast Problem Statement Card -->
+        <div class="glass-panel" style="padding: 1.25rem 1.5rem; border-left: 4px solid #ef4444; margin-bottom: 1.25rem; background: rgba(239, 68, 68, 0.05);">
+          <div style="font-size: 0.75rem; color: #ef4444; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem;">
+            ⚠️ The Subsurface Problem Statement (SIH26121)
+          </div>
+          <p style="font-size: 0.95rem; line-height: 1.6; margin: 0; font-weight: 600; word-break: normal; overflow-wrap: break-word;">
+            During drilling operations, superintendents spend over <strong>72 to 100 hours per well</strong> manually reviewing unstructured Daily Drilling Reports (DDRs), mud logs, and paper folders. Critical geological hazards—such as differential stuck pipe and abnormal pressure kicks—are frequently discovered only after striking the drill bit, generating catastrophic <strong>Non-Productive Time (NPT) costing $45,000–$120,000/day</strong>.
+          </p>
+        </div>
+
+        <!-- High-Contrast Solution Card -->
+        <div class="glass-panel" style="padding: 1.25rem 1.5rem; border-left: 4px solid #0284c7; margin-bottom: 1.75rem; background: rgba(2, 132, 199, 0.05);">
+          <div style="font-size: 0.75rem; color: #0284c7; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem;">
+            💡 The Route Nexus eRTMAC Solution
+          </div>
+          <p style="font-size: 0.95rem; line-height: 1.6; margin: 0; font-weight: 600; word-break: normal; overflow-wrap: break-word;">
+            An autonomous multi-page intelligence platform that integrates <strong>100+ offset wells</strong>, applies NLP extraction on legacy DDRs, models geomechanical hazard curves 300m in advance, and streams real-time drilling parameter recommendations directly to rig consoles.
+          </p>
+        </div>
+
+        <!-- Streamlined Action Buttons (Less buttons in starting tab) -->
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+          <a href="dashboard.html" class="btn btn-primary" style="padding: 0.85rem 1.65rem; font-size: 0.95rem;" id="hero-cta-dashboard">
+            <span>Enter Operations Deck</span>
+            <span>→</span>
+          </a>
+          <a href="wells.html" class="btn btn-secondary" style="padding: 0.85rem 1.45rem; font-size: 0.95rem;" id="hero-cta-wells">
+            <span>Explore 100 Offset Wells</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Rig Telemetry Snapshot & Basin Selector -->
+      <div class="glass-panel" style="padding: 1.65rem; border-radius: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 0.85rem; margin-bottom: 1rem;">
+          <div style="display: flex; align-items: center; gap: 0.6rem;">
+            <span class="pulse-dot emerald"></span>
+            <span style="font-size: 0.88rem; font-weight: 800; letter-spacing: 0.02em;">LIVE RIG MONITOR • SIH26121</span>
+          </div>
+          <span class="badge badge-emerald">Real-Time Sync</span>
+        </div>
+
+        <!-- Quick Basin & Well Switcher (Anti-Word-Cutting Pill Buttons) -->
+        <div style="margin-bottom: 1.25rem;">
+          <label style="font-size: 0.78rem; font-weight: 700; display: block; margin-bottom: 0.45rem;">Select Active Hydrocarbon Basin:</label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;" id="basin-selector-grid">
+            <button class="basin-pill-btn active" onclick="switchLandingBasin('Assam', this)">
+              <span class="basin-pill-name">Assam Shelf</span>
+              <span class="basin-pill-count">42 Wells</span>
+            </button>
+            <button class="basin-pill-btn" onclick="switchLandingBasin('Cambay', this)">
+              <span class="basin-pill-name">Cambay Basin</span>
+              <span class="basin-pill-count">28 Wells</span>
+            </button>
+            <button class="basin-pill-btn" onclick="switchLandingBasin('KG', this)">
+              <span class="basin-pill-name">KG Offshore</span>
+              <span class="basin-pill-count">18 Wells</span>
+            </button>
+            <button class="basin-pill-btn" onclick="switchLandingBasin('Rajasthan', this)">
+              <span class="basin-pill-name">Rajasthan Basin</span>
+              <span class="basin-pill-count">12 Wells</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Well Card Snapshot -->
+        <div style="background: rgba(2, 6, 23, 0.04); border: 1px solid var(--border-color); border-radius: 10px; padding: 1rem; margin-bottom: 1.25rem;" id="landing-well-card">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; gap: 0.5rem;">
+            <div style="min-width: 0;">
+              <div style="font-size: 1.05rem; font-weight: 800; line-height: 1.3;" id="landing-well-name">OIL Naharkatiya-601</div>
+              <div style="font-size: 0.8rem; font-weight: 600; line-height: 1.35; margin-top: 0.15rem;" id="landing-well-formation">Formation: Barail Sandstone (Overpressured)</div>
+            </div>
+            <span class="badge badge-cyan" id="landing-well-depth" style="white-space: nowrap; flex-shrink: 0;">Depth: 3,485 m</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; text-align: center;">
+            <div style="background: var(--bg-card); padding: 0.55rem 0.4rem; border-radius: 6px; border: 1px solid var(--border-subtle); min-width: 0;">
+              <div style="font-size: 0.68rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Offsets</div>
+              <div style="font-size: 1.15rem; font-weight: 900; color: #0284c7;" id="landing-well-offsets">4 Wells</div>
+            </div>
+            <div style="background: var(--bg-card); padding: 0.55rem 0.4rem; border-radius: 6px; border: 1px solid var(--border-subtle); min-width: 0;">
+              <div style="font-size: 0.68rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Target ROP</div>
+              <div style="font-size: 1.15rem; font-weight: 900; color: #10b981;" id="landing-well-rop">24.2 m/h</div>
+            </div>
+            <div style="background: var(--bg-card); padding: 0.55rem 0.4rem; border-radius: 6px; border: 1px solid var(--border-subtle); min-width: 0;">
+              <div style="font-size: 0.68rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Hazard Risk</div>
+              <div style="font-size: 1.15rem; font-weight: 900; color: #f59e0b;" id="landing-well-hazard">Low (14%)</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem;">
+          <a href="dashboard.html" class="btn btn-primary btn-sm" style="flex: 1; justify-content: center;">Open Operations Deck →</a>
+          <a href="map.html" class="btn btn-secondary btn-sm" style="flex: 1; justify-content: center;">View On GIS Map →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Executive Key Performance Indicators -->
+    <div class="metric-grid" style="margin-bottom: 3.5rem;">
+      <div class="glass-panel metric-card">
+        <div class="metric-title">Cataloged Offset Wells</div>
+        <div class="metric-value" style="color: #0284c7;">100 Wells</div>
+        <div class="metric-unit">Assam, Cambay, KG & Rajasthan Basins</div>
+      </div>
+      <div class="glass-panel metric-card">
+        <div class="metric-title">Non-Productive Time (NPT)</div>
+        <div class="metric-value" style="color: #10b981;">-68%</div>
+        <div class="metric-unit">Prevented Sticking & Circulation Loss</div>
+      </div>
+      <div class="glass-panel metric-card">
+        <div class="metric-title">Search Latency</div>
+        <div class="metric-value" style="color: #0284c7;">15 Seconds</div>
+        <div class="metric-unit">Accelerated from 72 Hours Manual Effort</div>
+      </div>
+      <div class="glass-panel metric-card">
+        <div class="metric-title">Hazard Prediction Accuracy</div>
+        <div class="metric-value" style="color: #10b981;">98.4%</div>
+        <div class="metric-unit">Ensemble Geomechanics ML Classifiers</div>
+      </div>
+    </div>
+
+    <!-- Dedicated Multi-Page Feature Launchpad -->
+    <div style="margin-bottom: 3.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.75rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <span class="badge badge-purple" style="margin-bottom: 0.5rem;">Modular Architecture</span>
+          <h2 style="font-size: 1.85rem; font-weight: 800; margin: 0;">Dedicated Application Feature Pages</h2>
+          <p style="font-size: 0.95rem; margin-top: 0.35rem;">Click any module below to launch directly into its dedicated full-screen interactive workspace.</p>
+        </div>
+
+        <!-- Filter tabs for modules -->
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button class="btn btn-primary btn-sm" onclick="filterModules('all', this)">All Features (10)</button>
+          <button class="btn btn-secondary btn-sm" onclick="filterModules('operations', this)">Operations & GIS</button>
+          <button class="btn btn-secondary btn-sm" onclick="filterModules('ai', this)">AI & Risk</button>
+          <button class="btn btn-secondary btn-sm" onclick="filterModules('reports', this)">Reports & Decision</button>
+        </div>
+      </div>
+
+      <!-- Feature Grid -->
+      <div class="grid-3col" id="modules-grid">
+        
+        <!-- Module 1 -->
+        <div class="glass-panel glass-panel-interactive" data-category="operations" style="padding: 1.5rem; display: flex; flex-direction: column;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div class="brand-icon-box" style="background: linear-gradient(135deg, #0284c7, #0369a1); font-size: 1.25rem;">📊</div>
+            <span class="badge badge-cyan">Live Stream</span>
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">1. Real-Time Operations Deck</h3>
+          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
+            Live rig surface telemetry (ROP, WOB, RPM, Torque, SPP), multi-well dynamic log track visualizer, 3D offset correlation radar, and instantaneous hazard alarms.
+          </p>
+          <a href="dashboard.html" class="btn btn-primary btn-sm" style="justify-content: center;">Open Operations Deck →</a>
+        </div>
+
+        <!-- Module 2 -->
+        <div class="glass-panel glass-panel-interactive" data-category="operations" style="padding: 1.5rem; display: flex; flex-direction: column;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div class="brand-icon-box" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); font-size: 1.25rem;">🗂️</div>
+            <span class="badge badge-blue">100 Records</span>
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">2. Nearby Wells Directory</h3>
+          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
+            Interactive database of 100 Oil India & ONGC offset wells with basin, operator, and formation filters, multi-parameter sorting, side-by-side comparison, and WITSML log inspection drawer.
+          </p>
+          <a href="wells.html" class="btn btn-secondary btn-sm" style="justify-content: center;">Explore 100 Wells →</a>
+        </div>
+
+        <!-- Module 3 -->
+        <div class="glass-panel glass-panel-interactive" data-category="operations" style="padding: 1.5rem; display: flex; flex-direction: column;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div class="brand-icon-box" style="background: linear-gradient(135deg, #10b981, #047857); font-size: 1.25rem;">🗺️</div>
+            <span class="badge badge-emerald">Spatial GIS</span>
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">3. GIS Subsurface Spatial Map</h3>
+          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
+            Spatial map interface with geological fault lines, formation contours, offset buffer radius control, coordinate measuring, and interactive wellhead pins.
+          </p>
+          <a href="map.html" class="btn btn-secondary btn-sm" style="justify-content: center;">Launch GIS Map →</a>
+        </div>
+
+        <!-- Module 4 -->
+        <div class="glass-panel glass-panel-interactive" data-category="ai" style="padding: 1.5rem; display: flex; flex-direction: column;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div class="brand-icon-box" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9); font-size: 1.25rem;">🧠</div>
+            <span class="badge badge-purple">NLP & Embeddings</span>
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">4. AI Subsurface Analysis</h3>
+          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
+            Semantic text extraction from unstructured drilling reports, multi-parameter cosine similarity weights, Eaton pore pressure projection, and lithology correlation.
+          </p>
+          <a href="ai-analysis.html" class="btn btn-secondary btn-sm" style="justify-content: center;">Run AI Analysis →</a>
+        </div>
+
+        <!-- Module 5 -->
+        <div class="glass-panel glass-panel-interactive" data-category="ai" style="padding: 1.5rem; display: flex; flex-direction: column;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div class="brand-icon-box" style="background: linear-gradient(135deg, #ef4444, #b91c1c); font-size: 1.25rem;">⚡</div>
+            <span class="badge badge-rose">Pre-emptive Alerting</span>
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">5. Predictive Geomechanical Risk</h3>
+          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
+            Pre-bit hazard curves forecasting stuck pipe probability, loss of circulation zones, kick risk, and formation breakdown pressure 300m in advance of the drill bit.
+          </p>
+          <a href="risk.html" class="btn btn-secondary btn-sm" style="justify-content: center;">View Risk Engine →</a>
+        </div>
+
+        <!-- Module 6 -->
+        <div class="glass-panel glass-panel-interactive" data-category="reports" style="padding: 1.5rem; display: flex; flex-direction: column;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div class="brand-icon-box" style="background: linear-gradient(135deg, #f59e0b, #d97706); font-size: 1.25rem;">📑</div>
+            <span class="badge badge-amber">30 Records</span>
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">6. Historical Drilling Reports Hub</h3>
+          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
+            30 digitized Daily Drilling Reports (DDRs), End of Well Reports (EOWRs), Mud Logs, and BHA failure logs with full-text search, problem type filters, and document preview modal.
+          </p>
+          <a href="reports.html" class="btn btn-secondary btn-sm" style="justify-content: center;">Browse Reports Hub →</a>
+        </div>
+
+        <!-- Module 7 -->
+        <div class="glass-panel glass-panel-interactive" data-category="reports" style="padding: 1.5rem; display: flex; flex-direction: column;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div class="brand-icon-box" style="background: linear-gradient(135deg, #ef4444, #dc2626); font-size: 1.25rem;">🚨</div>
+            <span class="badge badge-rose">Automated Dispatch</span>
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">7. Subsurface Alerts & Mitigations</h3>
+          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
+            50 automated operational alerts triggered by telemetry anomalies with severity filters, one-click mitigation dispatch, and audio alarm integration.
+          </p>
+          <a href="alerts.html" class="btn btn-secondary btn-sm" style="justify-content: center;">Open Alerts Feed →</a>
+        </div>
+
+        <!-- Module 8 -->
+        <div class="glass-panel glass-panel-interactive" data-category="reports" style="padding: 1.5rem; display: flex; flex-direction: column;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div class="brand-icon-box" style="background: linear-gradient(135deg, #10b981, #059669); font-size: 1.25rem;">🎯</div>
+            <span class="badge badge-emerald">100 Directives</span>
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">8. Autonomous Recommendations</h3>
+          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
+            100 offset-derived parameter optimization directives for Weight on Bit, Rotary RPM, Mud Weight, Bit Type, and Hydraulics based on historical well performance.
+          </p>
+          <a href="recommendations.html" class="btn btn-secondary btn-sm" style="justify-content: center;">View Recommendations →</a>
+        </div>
+
+        <!-- Module 9 -->
+        <div class="glass-panel glass-panel-interactive" data-category="reports" style="padding: 1.5rem; display: flex; flex-direction: column;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div class="brand-icon-box" style="background: linear-gradient(135deg, #0284c7, #2563eb); font-size: 1.25rem;">📈</div>
+            <span class="badge badge-blue">ROI Modeling</span>
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">9. Fleet Analytics & Benchmarks</h3>
+          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
+            Executive performance analytics, NPT reduction trendlines, drilling penetration benchmarks, and an interactive multi-rig ROI savings calculator.
+          </p>
+          <a href="analytics.html" class="btn btn-secondary btn-sm" style="justify-content: center;">Open Analytics →</a>
+        </div>
+
+        <!-- Module 10 -->
+        <div class="glass-panel glass-panel-interactive" data-category="ai" style="padding: 1.5rem; display: flex; flex-direction: column;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div class="brand-icon-box" style="background: linear-gradient(135deg, #0d9488, #0f766e); font-size: 1.25rem;">⚡</div>
+            <span class="badge badge-cyan">Field Validated</span>
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;">10. Comparative Benchmark</h3>
+          <p style="font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 1.25rem;">
+            Empirical benchmark comparing traditional offset analysis against eRTMAC-NWIS across 7 criteria, plus the 5-Stage operational feasibility pipeline.
+          </p>
+          <a href="benchmark.html" class="btn btn-secondary btn-sm" style="justify-content: center;">Inspect Benchmark →</a>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Clean Corporate Footer -->
+  <footer style="padding: 40px 2rem 25px 2rem; background: var(--bg-card); border-top: 1px solid var(--border-color);">
+    <div style="max-width: 1400px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div class="brand-icon-box">Ω</div>
+          <div>
+            <div style="font-size: 1.05rem; font-weight: 800;">Route Nexus • eRTMAC-NWIS</div>
+            <div style="font-size: 0.78rem; font-weight: 600;">Smart India Hackathon 2026 • Problem Statement ID: SIH26121 • Oil India & ONGC</div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 1.25rem; font-size: 0.85rem; font-weight: 600; flex-wrap: wrap;">
+          <a href="dashboard.html">Operations Deck</a>
+          <a href="wells.html">Nearby Wells</a>
+          <a href="map.html">GIS Map</a>
+          <a href="ai-analysis.html">AI Mining</a>
+          <a href="risk.html">Risk Engine</a>
+          <a href="reports.html">Reports Hub</a>
+          <a href="alerts.html">Alerts</a>
+          <a href="recommendations.html">Recommendations</a>
+          <a href="analytics.html">Analytics</a>
+          <a href="benchmark.html">Benchmark</a>
+          <a href="settings.html">Settings</a>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; font-size: 0.78rem; font-weight: 600;">
+        <div>High-Fidelity Multi-Page System Prototype • Built for SIH 2026 Evaluation</div>
+        <div>Offline Enterprise Architecture • Pure HTML5/CSS3/Vanilla TypeScript</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="./js/mockdata.js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/chatbot.js"></script>
+
+  <script>
+    // Basin switcher on landing page
+    const basinData = {
+      'Assam': {
+        name: 'OIL Naharkatiya-601',
+        formation: 'Formation: Barail Sandstone (Overpressured)',
+        depth: 'Depth: 3,485 m',
+        offsets: '4 Wells',
+        rop: '24.2 m/h',
+        hazard: 'Low (14%)'
+      },
+      'Cambay': {
+        name: 'ONGC Cambay-Deep-09',
+        formation: 'Formation: Olpad Formation (Basal Clastics)',
+        depth: 'Depth: 2,890 m',
+        offsets: '6 Wells',
+        rop: '18.6 m/h',
+        hazard: 'Medium (38%)'
+      },
+      'KG': {
+        name: 'ONGC KG-DWN-98/2-A1',
+        formation: 'Formation: Godavari Claystone (Deepwater)',
+        depth: 'Depth: 4,120 m',
+        offsets: '3 Wells',
+        rop: '15.4 m/h',
+        hazard: 'High (64%)'
+      },
+      'Rajasthan': {
+        name: 'OIL Baghewala-14',
+        formation: 'Formation: Jodhpur Sandstone (Heavy Oil)',
+        depth: 'Depth: 1,940 m',
+        offsets: '5 Wells',
+        rop: '29.1 m/h',
+        hazard: 'Low (9%)'
+      }
+    };
+
+    function switchLandingBasin(basin, btn) {
+      const data = basinData[basin];
+      if (!data) return;
+
+      document.getElementById('landing-well-name').textContent = data.name;
+      document.getElementById('landing-well-formation').textContent = data.formation;
+      document.getElementById('landing-well-depth').textContent = data.depth;
+      document.getElementById('landing-well-offsets').textContent = data.offsets;
+      document.getElementById('landing-well-rop').textContent = data.rop;
+      document.getElementById('landing-well-hazard').textContent = data.hazard;
+
+      document.querySelectorAll('#basin-selector-grid .basin-pill-btn').forEach(b => {
+        b.classList.remove('active');
+      });
+      btn.classList.add('active');
+    }
+
+    // Filter modules on landing page
+    function filterModules(category, btn) {
+      const cards = document.querySelectorAll('#modules-grid > div');
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      document.querySelectorAll('button[onclick^="filterModules"]').forEach(b => {
+        b.classList.remove('btn-primary');
+        b.classList.add('btn-secondary');
+      });
+      btn.classList.remove('btn-secondary');
+      btn.classList.add('btn-primary');
+    }
+  </script>
+</body>
+</html>

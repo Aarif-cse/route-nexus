@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparative Benchmark & Technical Architecture | eRTMAC-NWIS</title>
+  <meta name="description" content="Empirical comparison between traditional offset well analysis and eRTMAC-NWIS AI decision support.">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/animations.css">
+  <link rel="stylesheet" href="./css/dashboard.css">
+  <script>(function(){const t=localStorage.getItem('nexus_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Professional Sidebar -->
+    <aside class="sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-brand">
+          <div class="brand-icon-box" style="width: 32px; height: 32px; font-size: 0.95rem;">Ω</div>
+          <div class="brand-name" style="font-size: 1.05rem;">
+            <span>Route Nexus</span>
+            <span class="sub">eRTMAC-NWIS</span>
+          </div>
+        </a>
+        <button class="sidebar-close-btn" id="sidebar-close-btn" title="Close Sidebar" aria-label="Close sidebar">&times;</button>
+      </div>
+
+      <div class="sidebar-menu">
+        <div class="menu-category">Operations Control</div>
+        <a href="dashboard.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+          <span>Main Dashboard</span>
+        </a>
+        <a href="wells.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>Nearby Wells</span>
+          <span class="menu-badge badge-blue">100</span>
+        </a>
+        <a href="map.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
+          <span>GIS Spatial Map</span>
+        </a>
+
+        <div class="menu-category">Intelligence & Risk</div>
+        <a href="ai-analysis.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M12 12 2.1 7.1"/><path d="m12 12 5-9"/></svg>
+          <span>AI Analysis</span>
+        </a>
+        <a href="risk.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Risk Prediction</span>
+          <span class="menu-badge badge-rose">Live</span>
+        </a>
+        <a href="reports.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span>Historical Reports</span>
+          <span class="menu-badge badge-cyan">30</span>
+        </a>
+
+        <div class="menu-category">Decision Support</div>
+        <a href="alerts.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span>Alerts & Mitigations</span>
+          <span class="menu-badge badge-amber">3</span>
+        </a>
+        <a href="recommendations.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+          <span>AI Recommendations</span>
+        </a>
+        <a href="analytics.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+          <span>Analytics & Benchmarks</span>
+        </a>
+        <a href="benchmark.html" class="menu-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          <span>Comparative Tech Specs</span>
+        </a>
+        <a href="settings.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span>System Settings</span>
+        </a>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="sih-badge">
+          <div style="font-size: 1.1rem;">🇮🇳</div>
+          <div>
+            <div style="font-size: 0.72rem; font-weight: 700; color: #f8fafc;">SIH 2026 • PS SIH26121</div>
+            <div style="font-size: 0.65rem; color: #38bdf8;">eRTMAC Drilling Intel</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+
+      <!-- Topbar Header -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="sidebar-menu-btn" id="sidebar-toggle" title="Open / Close Navigation Menu" aria-label="Toggle Navigation Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+            <span>Menu</span>
+          </button>
+          <div class="page-title-box">
+            <h1>Comparative Analysis & Technical Architecture</h1>
+            <p>Traditional Offset Well Review vs eRTMAC-NWIS • 5-Stage Operational Pipeline • SIH26121</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Theme Switcher -->
+          <div class="theme-switch-group" role="group" aria-label="Theme mode selection">
+            <button class="theme-switch-btn" id="btn-theme-light" onclick="NexusApp.setTheme('light')" title="Switch to Light Mode" aria-label="Light Mode">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-switch-btn active" id="btn-theme-dark" onclick="NexusApp.setTheme('dark')" title="Switch to Dark Mode" aria-label="Dark Mode">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+              <span>Dark</span>
+            </button>
+          </div>
+
+          <div class="rig-clock-box">
+            <span class="pulse-dot emerald"></span>
+            <span class="time" id="ist-clock">17:42:00 IST</span>
+          </div>
+
+          <a href="dashboard.html" class="btn btn-primary btn-sm">Launch Operations Deck →</a>
+        </div>
+      </header>
+
+      <!-- Dashboard Content -->
+      <main class="dashboard-content">
+
+        <!-- Stat Row -->
+        <div class="metric-grid">
+          <div class="glass-panel metric-card">
+            <div class="metric-title">Search Time Acceleration</div>
+            <div class="metric-value" style="color: #10b981;">72 hrs ➔ 15 sec</div>
+            <div class="metric-unit">99.9% Latency Reduction</div>
+          </div>
+          <div class="glass-panel metric-card">
+            <div class="metric-title">Non-Productive Time (NPT)</div>
+            <div class="metric-value" style="color: #06b6d4;">-68%</div>
+            <div class="metric-unit">Oilfield Industry Benchmark</div>
+          </div>
+          <div class="glass-panel metric-card">
+            <div class="metric-title">Hazard Prediction Accuracy</div>
+            <div class="metric-value" style="color: #38bdf8;">98.4%</div>
+            <div class="metric-unit">Ensemble Geomechanics ML</div>
+          </div>
+          <div class="glass-panel metric-card">
+            <div class="metric-title">Capital Cost Avoidance</div>
+            <div class="metric-value" style="color: #10b981;">$8.42M</div>
+            <div class="metric-unit">Per 8-Rig Drilling Campaign</div>
+          </div>
+        </div>
+
+        <!-- Comparative Benchmark Table Section -->
+        <div class="glass-panel" style="margin-bottom: 1.5rem; padding: 1.5rem;">
+          <div class="panel-header" style="margin-bottom: 1.25rem;">
+            <div>
+              <h2 class="panel-title" style="font-size: 1.2rem;">Traditional Offset-Well Analysis vs. eRTMAC-NWIS</h2>
+              <p style="font-size: 0.82rem; margin-top: 0.2rem;">Direct empirical benchmark derived from Oil India Limited eRTMAC operational problem statement (SIH26121).</p>
+            </div>
+            <div style="display: flex; gap: 0.5rem;">
+              <button class="btn btn-secondary btn-sm" onclick="filterBenchmark('all')" id="btn-bench-all">All Criteria (7)</button>
+              <button class="btn btn-secondary btn-sm" onclick="filterBenchmark('operational')" id="btn-bench-op">Operational Speed</button>
+              <button class="btn btn-secondary btn-sm" onclick="filterBenchmark('risk')" id="btn-bench-risk">Risk & Safety</button>
+            </div>
+          </div>
+
+          <div class="data-table-container">
+            <table class="data-table" id="benchmark-table">
+              <thead>
+                <tr>
+                  <th>Evaluation Parameter</th>
+                  <th>Traditional Offset-Well Analysis</th>
+                  <th>eRTMAC-NWIS (Route Nexus Platform)</th>
+                  <th>Measurable Impact</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-category="operational">
+                  <td><strong>📍 Well Discovery</strong></td>
+                  <td>Manual paper/folder search across archives (takes 2-5 days)</td>
+                  <td><span style="color: #0284c7; font-weight: 700;">AI-assisted nearby well identification & radius clustering</span></td>
+                  <td><span class="badge badge-emerald">Instant (&lt; 2 seconds)</span></td>
+                </tr>
+                <tr data-category="operational">
+                  <td><strong>🗄️ Data Access</strong></td>
+                  <td>Scattered historical records across siloed hard drives and physical drawers</td>
+                  <td><span style="color: #0284c7; font-weight: 700;">Integrated well & drilling knowledge graph with vector search</span></td>
+                  <td><span class="badge badge-emerald">Unified Subsurface Hub</span></td>
+                </tr>
+                <tr data-category="operational">
+                  <td><strong>⚖️ Well Comparison</strong></td>
+                  <td>Manual, subjective side-by-side comparison on paper sheets</td>
+                  <td><span style="color: #0284c7; font-weight: 700;">Multi-parameter similarity ranking (Lithology, BHA, ROP, Mud Weight)</span></td>
+                  <td><span class="badge badge-cyan">94% Correlation Match</span></td>
+                </tr>
+                <tr data-category="risk">
+                  <td><strong>⚠️ Risk Identification</strong></td>
+                  <td>Manual review after unexpected event strikes the drill bit</td>
+                  <td><span style="color: #e11d48; font-weight: 700;">Depth & formation-aware predictive hazard warnings 300m in advance</span></td>
+                  <td><span class="badge badge-rose">Pre-emptive Alerting</span></td>
+                </tr>
+                <tr data-category="risk">
+                  <td><strong>📚 Historical Knowledge</strong></td>
+                  <td>Lost with personnel retirement; difficult to systematically reuse</td>
+                  <td><span style="color: #0284c7; font-weight: 700;">Structured & reusable digital operational memory across basins</span></td>
+                  <td><span class="badge badge-blue">Persistent Knowledge Base</span></td>
+                </tr>
+                <tr data-category="operational">
+                  <td><strong>🌐 Spatial Analysis</strong></td>
+                  <td>Separate standalone GIS tools requiring dedicated GIS specialists</td>
+                  <td><span style="color: #0284c7; font-weight: 700;">Integrated spatial intelligence with fault & contour layers right in the rig deck</span></td>
+                  <td><span class="badge badge-purple">Real-Time In-Rig GIS</span></td>
+                </tr>
+                <tr data-category="risk">
+                  <td><strong>🎯 Decision Support</strong></td>
+                  <td>Primarily individual expert intuition and trial-and-error</td>
+                  <td><span style="color: #059669; font-weight: 700;">AI-assisted drilling parameter recommendations (WOB/RPM/Mud Weight)</span></td>
+                  <td><span class="badge badge-emerald">+35% Drilling Speed</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 5-Stage Feasibility & Viability Pipeline -->
+        <div class="glass-panel" style="margin-bottom: 1.5rem; padding: 1.5rem;">
+          <div class="panel-header" style="margin-bottom: 1.25rem;">
+            <div>
+              <h2 class="panel-title" style="font-size: 1.2rem;">5-Stage Operational Pipeline & Feasibility Roadmap</h2>
+              <p style="font-size: 0.82rem; margin-top: 0.2rem;">Click each phase below to inspect data inputs, algorithmic models, and operational outputs.</p>
+            </div>
+            <span class="badge badge-emerald">Field-Validated Architecture</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+            <div class="glass-panel glass-panel-interactive" onclick="selectStage(1)" id="stage-card-1" style="padding: 1.25rem; text-align: center; border-top: 3px solid #ef4444; cursor: pointer;">
+              <div style="font-size: 1.4rem; margin-bottom: 0.35rem;">⚠️</div>
+              <div style="font-size: 0.72rem; color: #ef4444; font-weight: 800; text-transform: uppercase;">Current Reality</div>
+              <h4 style="font-size: 0.92rem; margin: 0.35rem 0;">Manual Dilemma</h4>
+              <p style="font-size: 0.76rem;">Fragmented files, slow reaction, high NPT.</p>
+            </div>
+
+            <div class="glass-panel glass-panel-interactive" onclick="selectStage(2)" id="stage-card-2" style="padding: 1.25rem; text-align: center; border-top: 3px solid #f59e0b; cursor: pointer;">
+              <div style="font-size: 1.4rem; margin-bottom: 0.35rem;">🔗</div>
+              <div style="font-size: 0.72rem; color: #f59e0b; font-weight: 800; text-transform: uppercase;">Stage 1</div>
+              <h4 style="font-size: 0.92rem; margin: 0.35rem 0;">Data Integration</h4>
+              <p style="font-size: 0.76rem;">WITSML, LAS logs, DDR ingestion.</p>
+            </div>
+
+            <div class="glass-panel glass-panel-interactive" onclick="selectStage(3)" id="stage-card-3" style="padding: 1.25rem; text-align: center; border-top: 3px solid #06b6d4; cursor: pointer; border-color: #06b6d4; background: rgba(6, 182, 212, 0.08);">
+              <div style="font-size: 1.4rem; margin-bottom: 0.35rem;">🧠</div>
+              <div style="font-size: 0.72rem; color: #06b6d4; font-weight: 800; text-transform: uppercase;">Stage 2</div>
+              <h4 style="font-size: 0.92rem; margin: 0.35rem 0;">AI/ML Engine</h4>
+              <p style="font-size: 0.76rem;">Cosine ranking, stuck pipe prediction.</p>
+            </div>
+
+            <div class="glass-panel glass-panel-interactive" onclick="selectStage(4)" id="stage-card-4" style="padding: 1.25rem; text-align: center; border-top: 3px solid #3b82f6; cursor: pointer;">
+              <div style="font-size: 1.4rem; margin-bottom: 0.35rem;">🎯</div>
+              <div style="font-size: 0.72rem; color: #3b82f6; font-weight: 800; text-transform: uppercase;">Stage 3</div>
+              <h4 style="font-size: 0.92rem; margin: 0.35rem 0;">Decision Support</h4>
+              <p style="font-size: 0.76rem;">Parameter recommendations & alarms.</p>
+            </div>
+
+            <div class="glass-panel glass-panel-interactive" onclick="selectStage(5)" id="stage-card-5" style="padding: 1.25rem; text-align: center; border-top: 3px solid #10b981; cursor: pointer;">
+              <div style="font-size: 1.4rem; margin-bottom: 0.35rem;">🚀</div>
+              <div style="font-size: 0.72rem; color: #10b981; font-weight: 800; text-transform: uppercase;">Stage 4</div>
+              <h4 style="font-size: 0.92rem; margin: 0.35rem 0;">Future Standard</h4>
+              <p style="font-size: 0.76rem;">Autonomous continuous learning loop.</p>
+            </div>
+          </div>
+
+          <!-- Dynamic Stage Detail Box -->
+          <div id="stage-detail-box" style="background: rgba(2, 6, 23, 0.5); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <h3 id="stage-title" style="font-size: 1.1rem; color: #38bdf8;">Stage 2: AI/ML Subsurface Intelligence</h3>
+              <span class="badge badge-cyan" id="stage-tag">Production Model Active</span>
+            </div>
+            <p id="stage-desc" style="font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">
+              Uses multi-factor cosine vector similarity over lithology, pore-pressure profiles, and structural geology. Simultaneously runs XGBoost and Random Forest classifiers on historical DDR incident logs to forecast stuck-pipe and loss-circulation probabilities in real-time.
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+              <div style="background: rgba(255, 255, 255, 0.05); padding: 0.75rem; border-radius: 8px;">
+                <div style="font-size: 0.72rem; color: #0284c7; font-weight: 700;">DATA INPUTS</div>
+                <div id="stage-inputs" style="font-size: 0.85rem; font-weight: 600; margin-top: 0.2rem;">WITSML telemetry, gamma ray logs, offset DDR text embeddings</div>
+              </div>
+              <div style="background: rgba(255, 255, 255, 0.05); padding: 0.75rem; border-radius: 8px;">
+                <div style="font-size: 0.72rem; color: #0284c7; font-weight: 700;">MODEL SPEC</div>
+                <div id="stage-model" style="font-size: 0.85rem; font-weight: 600; margin-top: 0.2rem;">MiniLM-L6 embeddings + XGBoost risk classifier + Pore pressure Eaton model</div>
+              </div>
+              <div style="background: rgba(255, 255, 255, 0.05); padding: 0.75rem; border-radius: 8px;">
+                <div style="font-size: 0.72rem; color: #0284c7; font-weight: 700;">OPERATIONAL OUTPUT</div>
+                <div id="stage-output" style="font-size: 0.85rem; font-weight: 600; margin-top: 0.2rem;">Offset similarity rankings, 300m pre-bit hazard curve, automated mitigation prompt</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Stack Grid -->
+        <div class="glass-panel" style="padding: 1.5rem;">
+          <div class="panel-header" style="margin-bottom: 1.25rem;">
+            <div>
+              <h2 class="panel-title" style="font-size: 1.2rem;">Enterprise Technical Foundation & System Modules</h2>
+              <p style="font-size: 0.82rem; margin-top: 0.2rem;">Modular software stack built for harsh oilfield environments: fast, secure, and client-side verifiable.</p>
+            </div>
+            <span class="badge badge-purple">4 Core Layers</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem;">
+            <div class="glass-panel" style="padding: 1.25rem;">
+              <div style="font-size: 1.6rem; margin-bottom: 0.5rem;">💻</div>
+              <h4 style="font-size: 1rem; color: #0284c7; margin-bottom: 0.4rem;">Frontend Layer</h4>
+              <p style="font-size: 0.82rem; line-height: 1.5; margin-bottom: 0.75rem;">Interactive Canvas GIS Engine, Dynamic Subsurface Well-Log Track Visualizer, High-Contrast Light & Dark themes, responsive layout.</p>
+              <span class="badge badge-cyan">HTML5 • CSS3 • Pure JS</span>
+            </div>
+
+            <div class="glass-panel" style="padding: 1.25rem;">
+              <div style="font-size: 1.6rem; margin-bottom: 0.5rem;">🧠</div>
+              <h4 style="font-size: 1rem; color: #0284c7; margin-bottom: 0.4rem;">AI & Machine Learning</h4>
+              <p style="font-size: 0.82rem; line-height: 1.5; margin-bottom: 0.75rem;">Semantic vector embedding for unstructured DDR text, cosine similarity matching, Eaton pore pressure projection, and ensemble risk models.</p>
+              <span class="badge badge-blue">NLP • XGBoost • Embeddings</span>
+            </div>
+
+            <div class="glass-panel" style="padding: 1.25rem;">
+              <div style="font-size: 1.6rem; margin-bottom: 0.5rem;">🌍</div>
+              <h4 style="font-size: 1rem; color: #059669; margin-bottom: 0.4rem;">GIS & Spatial Subsurface</h4>
+              <p style="font-size: 0.82rem; line-height: 1.5; margin-bottom: 0.75rem;">Spatial coordinate indexing, distance-decay radius filters, subterranean fault boundaries, and geological horizon contours.</p>
+              <span class="badge badge-emerald">Spatial Index • Horizons</span>
+            </div>
+
+            <div class="glass-panel" style="padding: 1.25rem;">
+              <div style="font-size: 1.6rem; margin-bottom: 0.5rem;">🔐</div>
+              <h4 style="font-size: 1rem; color: #d97706; margin-bottom: 0.4rem;">Data & Governance</h4>
+              <p style="font-size: 0.82rem; line-height: 1.5; margin-bottom: 0.75rem;">WITSML & LAS industry protocol compatibility, Role-Based Access Control (RBAC), end-to-end auditability, and offline capability.</p>
+              <span class="badge badge-amber">WITSML • LAS • RBAC</span>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./js/mockdata.js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/chatbot.js"></script>
+
+  <script>
+    // Filter benchmark table rows
+    function filterBenchmark(category) {
+      const rows = document.querySelectorAll('#benchmark-table tbody tr');
+      rows.forEach(row => {
+        if (category === 'all' || row.dataset.category === category) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      document.querySelectorAll('.panel-header .btn').forEach(btn => btn.classList.remove('btn-primary'));
+      document.querySelectorAll('.panel-header .btn').forEach(btn => btn.classList.add('btn-secondary'));
+      if (category === 'all') document.getElementById('btn-bench-all').classList.replace('btn-secondary', 'btn-primary');
+      if (category === 'operational') document.getElementById('btn-bench-op').classList.replace('btn-secondary', 'btn-primary');
+      if (category === 'risk') document.getElementById('btn-bench-risk').classList.replace('btn-secondary', 'btn-primary');
+    }
+
+    // Stage Selection
+    const stages = {
+      1: {
+        title: "Stage 0: Current Operational Reality & Challenges",
+        tag: "Baseline Dilemma",
+        desc: "Currently, drilling teams manually review historical reports across disparate paper folders and siloed servers. For each new casing section, engineers spend up to 72 hours compiling data. Information regarding offset stuck pipes or gas kicks is frequently discovered only after the drill bit encounters the trouble zone.",
+        inputs: "Physical paper DDRs, scanned PDF logs, personal notes",
+        model: "Manual human searching and subjective operator memory",
+        output: "Fragmented spreadsheets, high NPT (avg 18 days/year/rig), increased sticking risk"
+      },
+      2: {
+        title: "Stage 1: Multi-Format Data Integration & Normalization",
+        tag: "Data Ingestion Pipeline",
+        desc: "Ingests structured and unstructured data formats including WITSML telemetry streams, LAS wireline logs, Daily Drilling Reports (DDRs), End of Well Reports (EOWRs), and seismic fault boundaries into a standardized subsurface repository.",
+        inputs: "WITSML 1.4/2.0 streams, LAS 2.0/3.0 logs, scanned EOWRs",
+        model: "OCR text extraction, regex entity parsing, coordinate transformation",
+        output: "Unified well metadata directory, indexed lithology curves, spatial collars"
+      },
+      3: {
+        title: "Stage 2: AI/ML Subsurface Intelligence & Risk Engine",
+        tag: "Production Model Active",
+        desc: "Uses multi-factor cosine vector similarity over lithology, pore-pressure profiles, and structural geology. Simultaneously runs XGBoost and Random Forest classifiers on historical DDR incident logs to forecast stuck-pipe and loss-circulation probabilities in real-time.",
+        inputs: "WITSML telemetry, gamma ray logs, offset DDR text embeddings",
+        model: "MiniLM-L6 embeddings + XGBoost risk classifier + Pore pressure Eaton model",
+        output: "Offset similarity rankings, 300m pre-bit hazard curve, automated mitigation prompt"
+      },
+      4: {
+        title: "Stage 3: Autonomous Rig Decision Support & Parameter Dispatch",
+        tag: "Rig Floor Advisory",
+        desc: "Translates AI hazard predictions and offset best practices into concrete drilling directives. Recommends Weight on Bit (WOB), Rotary RPM, Flow Rate, and Mud Density to maximize Rate of Penetration (ROP) while keeping geomechanical stress within safe limits.",
+        inputs: "Real-time surface telemetry, BHA vibration sensors, bit depth",
+        model: "Hydraulic optimization algorithm + Mud window constraint solver",
+        output: "Live WOB/RPM parameter bounds, automated dispatch alert, drill team notification"
+      },
+      5: {
+        title: "Stage 4: Future Standard & Continuous Learning Platform",
+        tag: "Autonomous Optimization",
+        desc: "As the well is drilled, real-time measurements are fed back into the central model weights. The system becomes progressively smarter with every foot drilled, building a permanent, self-enriching corporate memory across entire hydrocarbon basins.",
+        inputs: "As-drilled DDRs, post-well bit wear inspection, final casing logs",
+        model: "Active learning loop, model re-training pipeline, cross-basin transfer learning",
+        output: "Updated basin risk maps, optimized casing seat library, permanent knowledge graph"
+      }
+    };
+
+    function selectStage(num) {
+      const data = stages[num];
+      if (!data) return;
+
+      document.getElementById('stage-title').textContent = data.title;
+      document.getElementById('stage-tag').textContent = data.tag;
+      document.getElementById('stage-desc').textContent = data.desc;
+      document.getElementById('stage-inputs').textContent = data.inputs;
+      document.getElementById('stage-model').textContent = data.model;
+      document.getElementById('stage-output').textContent = data.output;
+
+      for (let i = 1; i <= 5; i++) {
+        const card = document.getElementById(`stage-card-${i}`);
+        if (card) {
+          if (i === num) {
+            card.style.borderColor = '#0284c7';
+            card.style.background = 'rgba(2, 132, 199, 0.1)';
+          } else {
+            card.style.borderColor = 'var(--border-color)';
+            card.style.background = '';
+          }
+        }
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Drilling Recommendations (100 Directives) | eRTMAC-NWIS</title>
+  <meta name="description" content="Subsurface Offset-Guided Parameter Optimizations: WOB, RPM, Mud Weight & Hydraulics.">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/animations.css">
+  <link rel="stylesheet" href="./css/dashboard.css">
+  <script>(function(){const t=localStorage.getItem('nexus_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-brand">
+          <div class="brand-icon-box" style="width: 32px; height: 32px; font-size: 0.95rem;">Ω</div>
+          <div class="brand-name" style="font-size: 1.05rem;">
+            <span>Route Nexus</span>
+            <span class="sub">eRTMAC-NWIS</span>
+          </div>
+        </a>
+        <button class="sidebar-close-btn" id="sidebar-close-btn" title="Close Sidebar" aria-label="Close sidebar">&times;</button>
+      </div>
+
+      <div class="sidebar-menu">
+        <div class="menu-category">Operations Control</div>
+        <a href="dashboard.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+          <span>Main Dashboard</span>
+        </a>
+        <a href="wells.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>Nearby Wells</span>
+        </a>
+        <a href="map.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
+          <span>GIS Spatial Map</span>
+        </a>
+
+        <div class="menu-category">Intelligence & Risk</div>
+        <a href="ai-analysis.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M12 12 2.1 7.1"/><path d="m12 12 5-9"/></svg>
+          <span>AI Analysis</span>
+        </a>
+        <a href="risk.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Risk Prediction</span>
+        </a>
+        <a href="reports.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span>Historical Reports</span>
+        </a>
+
+        <div class="menu-category">Decision Support</div>
+        <a href="alerts.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span>Alerts & Mitigations</span>
+        </a>
+        <a href="recommendations.html" class="menu-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+          <span>AI Recommendations</span>
+          <span class="menu-badge badge-emerald">100</span>
+        </a>
+        <a href="analytics.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+          <span>Analytics & Benchmarks</span>
+        </a>
+        <a href="benchmark.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"/><path d="M18 8h4a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-4"/><circle cx="8" cy="12" r="2"/></svg>
+          <span>Comparative Benchmark</span>
+        </a>
+        <a href="settings.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span>System Settings</span>
+        </a>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="sih-badge">
+          <div style="font-size: 1.1rem;">🇮🇳</div>
+          <div>
+            <div style="font-size: 0.72rem; font-weight: 700; color: #f8fafc;">SIH 2026 • PS SIH26121</div>
+            <div style="font-size: 0.65rem; color: #38bdf8;">eRTMAC Drilling Intel</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="sidebar-menu-btn" id="sidebar-toggle" title="Open / Close Navigation Menu" aria-label="Toggle Navigation Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+            <span>Menu</span>
+          </button>
+          <div class="page-title-box">
+            <h1>Autonomous Parameter Recommendations</h1>
+            <p>100 Offset-Derived Directives • WOB, RPM, Hydraulics, Mud Weight & Bit Selection</p>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <!-- Theme Switcher: Light & Dark Mode Buttons -->
+          <div class="theme-switch-group" role="group" aria-label="Theme mode selection">
+            <button class="theme-switch-btn" id="btn-theme-light" onclick="NexusApp.setTheme('light')" title="Switch to Light Mode" aria-label="Light Mode">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-switch-btn active" id="btn-theme-dark" onclick="NexusApp.setTheme('dark')" title="Switch to Dark Mode" aria-label="Dark Mode">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+              <span>Dark</span>
+            </button>
+          </div>
+
+          <div class="rig-clock-box">
+            <span class="pulse-dot emerald"></span>
+            <span class="time" id="ist-clock">17:42:00 IST</span>
+          </div>
+          <button class="btn btn-outline-cyan btn-sm" onclick="NexusApp.exportReportMock('csv')">Export Directives CSV</button>
+        </div>
+      </header>
+
+      <main class="content-area">
+
+        <!-- Top Directives Highlights -->
+        <div class="metrics-grid">
+          <div class="glass-panel metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Active AI Directives</span>
+              <div class="metric-icon-box" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">⚡</div>
+            </div>
+            <div class="metric-value" style="color: #10b981;">100</div>
+            <div class="metric-trend positive">Synthesized from 100 offset wells</div>
+          </div>
+
+          <div class="glass-panel metric-card">
+            <div class="metric-header">
+              <span class="metric-title">High Priority Directives</span>
+              <div class="metric-icon-box" style="background: rgba(244, 63, 94, 0.15); color: #f43f5e;">🔥</div>
+            </div>
+            <div class="metric-value" style="color: #f43f5e;" id="rec-high-count">33</div>
+            <div class="metric-trend negative">Risk mitigation & prevent stuck pipe</div>
+          </div>
+
+          <div class="glass-panel metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Fleet ROP Gain Expected</span>
+              <div class="metric-icon-box" style="background: rgba(6, 182, 212, 0.15); color: #06b6d4;">📈</div>
+            </div>
+            <div class="metric-value" style="color: #38bdf8;">+34.8%</div>
+            <div class="metric-trend positive">Optimized mechanical specific energy</div>
+          </div>
+
+          <div class="glass-panel metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Driller Acceptance Rate</span>
+              <div class="metric-icon-box" style="background: rgba(168, 85, 247, 0.15); color: #a855f7;">🤝</div>
+            </div>
+            <div class="metric-value" style="color: #c084fc;">94.2%</div>
+            <div class="metric-trend positive">Applied without manual override</div>
+          </div>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="filter-bar">
+          <div class="filter-group" style="flex: 1; min-width: 200px;">
+            <input type="text" id="rec-search" class="input-control" placeholder="Search parameters, well ID, rationale, formation...">
+          </div>
+
+          <div class="filter-group">
+            <label>Parameter Category:</label>
+            <select id="rec-param-filter" class="input-control" style="width: auto;">
+              <option value="ALL">All Parameters</option>
+              <option value="Weight on Bit (WOB)">Weight on Bit (WOB)</option>
+              <option value="Rotary Speed (RPM)">Rotary Speed (RPM)</option>
+              <option value="Mud Weight & Rheology">Mud Weight & Rheology</option>
+              <option value="Flow Rate & Hydraulics">Flow Rate & Hydraulics</option>
+              <option value="Bit Selection & Hydraulics">Bit Selection</option>
+              <option value="Torque & Drag Mitigation">Torque & Drag</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Priority:</label>
+            <select id="rec-prio-filter" class="input-control" style="width: auto;">
+              <option value="ALL">All Priorities</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Status:</label>
+            <select id="rec-status-filter" class="input-control" style="width: auto;">
+              <option value="ALL">All Statuses</option>
+              <option value="Applied">Applied</option>
+              <option value="Pending">Pending</option>
+              <option value="In Review">In Review</option>
+            </select>
+          </div>
+
+          <button class="btn btn-secondary btn-sm" id="rec-reset-btn">Reset</button>
+        </div>
+
+        <!-- Recommendations Table -->
+        <div class="data-table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Target Well</th>
+                <th>Parameter Controlled</th>
+                <th>Baseline Value</th>
+                <th>AI Recommended Setting</th>
+                <th>Expected Advantage</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="recommendations-tbody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./js/mockdata.js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/chatbot.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const recs = window.NexusData.recommendations;
+      const tbody = document.getElementById('recommendations-tbody');
+      const searchInput = document.getElementById('rec-search');
+      const paramFilter = document.getElementById('rec-param-filter');
+      const prioFilter = document.getElementById('rec-prio-filter');
+      const statusFilter = document.getElementById('rec-status-filter');
+      const resetBtn = document.getElementById('rec-reset-btn');
+
+      function renderRecs(data) {
+        if (data.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="9" style="text-align: center; padding: 3rem; color: #64748b;">
+                No recommendations found for this parameter combination.
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = data.map(r => `
+          <tr id="rec-row-${r.id}">
+            <td style="font-family: var(--font-mono); color: #94a3b8; font-size: 0.75rem;">${r.id}</td>
+            <td>
+              <strong style="color: #38bdf8;">${r.wellId}</strong>
+            </td>
+            <td>
+              <div style="font-weight: 700; color: #f8fafc;">${r.parameter}</div>
+              <div style="font-size: 0.7rem; color: #64748b;">${r.rationale}</div>
+            </td>
+            <td style="font-family: var(--font-mono); color: #94a3b8;">${r.currentValue}</td>
+            <td style="font-family: var(--font-mono); font-weight: 700; color: #10b981; font-size: 0.88rem;">
+              ${r.recommendedValue}
+            </td>
+            <td>
+              <span style="font-size: 0.78rem; color: #cbd5e1;">${r.expectedGain}</span>
+            </td>
+            <td>
+              <span class="badge ${r.priority === 'High' ? 'badge-rose' : (r.priority === 'Medium' ? 'badge-amber' : 'badge-emerald')}">
+                ${r.priority}
+              </span>
+            </td>
+            <td>
+              <span class="badge ${r.status === 'Applied' ? 'badge-emerald' : (r.status === 'Pending' ? 'badge-amber' : 'badge-cyan')}" id="status-badge-${r.id}">
+                ${r.status}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-primary btn-sm" onclick="applyRec('${r.id}', '${r.parameter}', '${r.recommendedValue}')" id="btn-apply-${r.id}">
+                Apply Setting
+              </button>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      function filterRecs() {
+        const query = searchInput.value.toLowerCase().trim();
+        const selectedParam = paramFilter.value;
+        const selectedPrio = prioFilter.value;
+        const selectedStatus = statusFilter.value;
+
+        const filtered = recs.filter(r => {
+          const matchesQuery = !query ||
+            r.id.toLowerCase().includes(query) ||
+            r.wellId.toLowerCase().includes(query) ||
+            r.parameter.toLowerCase().includes(query) ||
+            r.rationale.toLowerCase().includes(query);
+
+          const matchesParam = selectedParam === 'ALL' || r.parameter === selectedParam;
+          const matchesPrio = selectedPrio === 'ALL' || r.priority === selectedPrio;
+          const matchesStatus = selectedStatus === 'ALL' || r.status === selectedStatus;
+
+          return matchesQuery && matchesParam && matchesPrio && matchesStatus;
+        });
+
+        renderRecs(filtered);
+      }
+
+      window.applyRec = function(id, param, val) {
+        NexusApp.playSound('success');
+        const badge = document.getElementById(`status-badge-${id}`);
+        const btn = document.getElementById(`btn-apply-${id}`);
+        if (badge) {
+          badge.className = 'badge badge-emerald';
+          badge.textContent = 'Applied';
+        }
+        if (btn) {
+          btn.textContent = 'Applied ✓';
+          btn.disabled = true;
+          btn.className = 'btn btn-secondary btn-sm';
+        }
+        NexusApp.showToast(`Applied ${param} → ${val} to rig auto-driller system.`, 'success');
+      };
+
+      searchInput.addEventListener('input', filterRecs);
+      paramFilter.addEventListener('change', filterRecs);
+      prioFilter.addEventListener('change', filterRecs);
+      statusFilter.addEventListener('change', filterRecs);
+      resetBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        paramFilter.value = 'ALL';
+        prioFilter.value = 'ALL';
+        statusFilter.value = 'ALL';
+        renderRecs(recs);
+      });
+
+      renderRecs(recs);
+    });
+  </script>
+</body>
+</html>

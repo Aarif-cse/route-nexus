@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Offset Well Analysis & Similarity Engine | eRTMAC-NWIS</title>
+  <meta name="description" content="AI Subsurface Machine Learning Analysis, Lithology NLP, and Offset Similarity Matching.">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/animations.css">
+  <link rel="stylesheet" href="./css/dashboard.css">
+  <script>(function(){const t=localStorage.getItem('nexus_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-brand">
+          <div class="brand-icon-box" style="width: 32px; height: 32px; font-size: 0.95rem;">Ω</div>
+          <div class="brand-name" style="font-size: 1.05rem;">
+            <span>Route Nexus</span>
+            <span class="sub">eRTMAC-NWIS</span>
+          </div>
+        </a>
+        <button class="sidebar-close-btn" id="sidebar-close-btn" title="Close Sidebar" aria-label="Close sidebar">&times;</button>
+      </div>
+
+      <div class="sidebar-menu">
+        <div class="menu-category">Operations Control</div>
+        <a href="dashboard.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+          <span>Main Dashboard</span>
+        </a>
+        <a href="wells.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>Nearby Wells</span>
+        </a>
+        <a href="map.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
+          <span>GIS Spatial Map</span>
+        </a>
+
+        <div class="menu-category">Intelligence & Risk</div>
+        <a href="ai-analysis.html" class="menu-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M12 12 2.1 7.1"/><path d="m12 12 5-9"/></svg>
+          <span>AI Analysis</span>
+          <span class="menu-badge badge-cyan">v4.2</span>
+        </a>
+        <a href="risk.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Risk Prediction</span>
+        </a>
+        <a href="reports.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span>Historical Reports</span>
+        </a>
+
+        <div class="menu-category">Decision Support</div>
+        <a href="alerts.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span>Alerts & Mitigations</span>
+        </a>
+        <a href="recommendations.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+          <span>AI Recommendations</span>
+        </a>
+        <a href="analytics.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+          <span>Analytics & Benchmarks</span>
+        </a>
+        <a href="benchmark.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"/><path d="M18 8h4a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-4"/><circle cx="8" cy="12" r="2"/></svg>
+          <span>Comparative Benchmark</span>
+        </a>
+        <a href="settings.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span>System Settings</span>
+        </a>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="sih-badge">
+          <div style="font-size: 1.1rem;">🇮🇳</div>
+          <div>
+            <div style="font-size: 0.72rem; font-weight: 700; color: #f8fafc;">SIH 2026 • PS SIH26121</div>
+            <div style="font-size: 0.65rem; color: #38bdf8;">eRTMAC Drilling Intel</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="sidebar-menu-btn" id="sidebar-toggle" title="Open / Close Navigation Menu" aria-label="Toggle Navigation Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+            <span>Menu</span>
+          </button>
+          <div class="page-title-box">
+            <h1>AI Subsurface Analysis & Knowledge Mining</h1>
+            <p>NLP Report Extraction • Offset Well Similarity Multi-Factor Ranking • Pore Pressure Projection</p>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <!-- Theme Switcher: Light & Dark Mode Buttons -->
+          <div class="theme-switch-group" role="group" aria-label="Theme mode selection">
+            <button class="theme-switch-btn" id="btn-theme-light" onclick="NexusApp.setTheme('light')" title="Switch to Light Mode" aria-label="Light Mode">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-switch-btn active" id="btn-theme-dark" onclick="NexusApp.setTheme('dark')" title="Switch to Dark Mode" aria-label="Dark Mode">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+              <span>Dark</span>
+            </button>
+          </div>
+
+          <div class="rig-clock-box">
+            <span class="pulse-dot emerald"></span>
+            <span class="time" id="ist-clock">17:42:00 IST</span>
+          </div>
+          <button class="btn btn-primary btn-sm" id="run-nlp-batch-btn">Run Subsurface NLP Pipeline</button>
+        </div>
+      </header>
+
+      <main class="content-area">
+
+        <!-- Well Selection & AI Model Header -->
+        <div class="glass-panel" style="padding: 1.25rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <div style="width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg, #0284c7, #06b6d4); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: white; font-weight: 800;">
+              AI
+            </div>
+            <div>
+              <div style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase;">Active Evaluation Subject</div>
+              <div style="font-size: 1.15rem; font-weight: 800; color: #f8fafc;" id="active-eval-well-title">NST-6001 (Naharkatiya-601)</div>
+              <div style="font-size: 0.75rem; color: #38bdf8;">Upper Assam Shelf • Barail Sandstone Horizon (3,485m)</div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem;">
+            <select class="input-control" id="ai-well-dropdown" style="width: 240px;">
+              <!-- Dynamically populated -->
+            </select>
+            <button class="btn btn-primary" id="recompute-similarity-btn">⚡ Re-Score Offsets</button>
+          </div>
+        </div>
+
+        <!-- Top Analysis Grid: Similarity Ranking & Radar Comparison -->
+        <div class="grid-2col">
+          <!-- Left: Offset Well Similarity Ranking Matrix -->
+          <div class="glass-panel" style="display: flex; flex-direction: column;">
+            <div class="panel-header">
+              <div class="panel-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                <span>Ranked Offset Well Matches (Cosine Similarity & Geomechanics)</span>
+              </div>
+              <span class="badge badge-emerald">Top 4 Analogues</span>
+            </div>
+
+            <div class="panel-body" style="padding: 0;">
+              <div class="data-table-container" style="border: none; border-radius: 0;">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Offset Well</th>
+                      <th>Lateral Distance</th>
+                      <th>Geological Match</th>
+                      <th>Key Risk Learned</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="similarity-matches-tbody">
+                    <!-- Dynamic -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Lithology Radar Chart -->
+          <div class="glass-panel" style="display: flex; flex-direction: column;">
+            <div class="panel-header">
+              <div class="panel-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>Geomechanical Cross-Correlation</span>
+              </div>
+              <span class="badge badge-purple">Target vs Offset NST-6001</span>
+            </div>
+            <div class="panel-body" style="height: 320px; position: relative;">
+              <canvas id="lithology-radar-chart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- NLP Unstructured Text Extraction Pipeline (PPT Slide 3 & 6) -->
+        <div class="glass-panel" style="margin-top: 1.5rem;">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span class="pulse-dot cyan"></span>
+              <span>Subsurface NLP & Entity Extraction Pipeline (Drilling Reports → Reusable Knowledge)</span>
+            </div>
+            <div style="font-size: 0.75rem; color: #94a3b8;">Models: BERT-Spacy Domain Fine-Tuned (NER & Hazard Categorization)</div>
+          </div>
+
+          <div class="panel-body">
+            <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem;">
+              <!-- Raw Text with Highlighting -->
+              <div>
+                <div style="font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 0.5rem;">
+                  Daily Drilling Report Excerpt (OCR Ingested from OIL Historical Archives)
+                </div>
+                <div style="background: rgba(2, 6, 23, 0.8); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.7; color: #cbd5e1;">
+                  "At depth <span style="background: rgba(6, 182, 212, 0.25); color: #38bdf8; padding: 2px 4px; border-radius: 4px;">3,485m MD</span>, bit penetrated <span style="background: rgba(168, 85, 247, 0.25); color: #c084fc; padding: 2px 4px; border-radius: 4px;">Barail Sandstone</span>. Mud weight recorded at <span style="background: rgba(16, 185, 129, 0.25); color: #34d399; padding: 2px 4px; border-radius: 4px;">11.4 PPG</span>. Rotary torque peaked at 14.8 kft-lbs with severe stick-slip. Experienced <span style="background: rgba(244, 63, 94, 0.3); color: #fb7185; padding: 2px 4px; border-radius: 4px;">differential sticking</span> during 12-min survey stop. Spotted 35 bbls Pipe-Free lubricant pill; string freed after 2.4 hours jarring."
+                </div>
+              </div>
+
+              <!-- Extracted Entities -->
+              <div>
+                <div style="font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 0.5rem;">
+                  Structured Subsurface Knowledge Extracted
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                  <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.6rem 0.85rem; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 0.8rem; color: #94a3b8;">Hazard Classification:</span>
+                    <span class="badge badge-rose">Differential Sticking (Severe)</span>
+                  </div>
+                  <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.6rem 0.85rem; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 0.8rem; color: #94a3b8;">Formation Transition:</span>
+                    <span style="font-weight: 700; color: #c084fc; font-size: 0.82rem;">Barail Sandstone (3,485m)</span>
+                  </div>
+                  <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.6rem 0.85rem; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 0.8rem; color: #94a3b8;">Successful Mitigation Action:</span>
+                    <span style="font-weight: 600; color: #34d399; font-size: 0.82rem;">35 bbls Pipe-Free Lubricant Pill</span>
+                  </div>
+                  <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.6rem 0.85rem; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 0.8rem; color: #94a3b8;">Automated Rule Added to Knowledge Graph:</span>
+                    <span style="font-size: 0.75rem; color: #38bdf8;">Limit survey static pause to &lt; 3 mins in Barail</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./js/chart.min.js"></script>
+  <script src="./js/mockdata.js"></script>
+  <script src="./js/charts.js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/chatbot.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const wells = window.NexusData.wells;
+      const wellDropdown = document.getElementById('ai-well-dropdown');
+      const tableBody = document.getElementById('similarity-matches-tbody');
+
+      wellDropdown.innerHTML = wells.map(w => `
+        <option value="${w.id}">${w.id} - ${w.name} (${w.field})</option>
+      `).join('');
+
+      // Initialize Radar Chart
+      NexusCharts.initLithologyRadarChart('lithology-radar-chart');
+
+      function updateMatches(wellId) {
+        const well = window.NexusData.getWellById(wellId);
+        document.getElementById('active-eval-well-title').textContent = `${well.id} (${well.name})`;
+
+        const candidates = well.offsetWells.map((owId, idx) => {
+          const cand = window.NexusData.getWellById(owId);
+          return {
+            id: cand.id,
+            name: cand.name,
+            field: cand.field,
+            dist: (1.2 + idx * 1.5).toFixed(1),
+            matchScore: 96 - (idx * 3),
+            risk: cand.primaryRisk,
+            riskColor: cand.riskColor
+          };
+        });
+
+        tableBody.innerHTML = candidates.map(c => `
+          <tr>
+            <td>
+              <div style="font-weight: 700; color: #38bdf8; font-family: var(--font-mono);">${c.id}</div>
+              <div style="font-size: 0.72rem; color: #94a3b8;">${c.name} (${c.field})</div>
+            </td>
+            <td style="font-family: var(--font-mono); font-weight: 600;">${c.dist} km</td>
+            <td>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-weight: 700; color: #10b981;">${c.matchScore}%</span>
+                <div style="width: 60px; height: 6px; background: rgba(148, 163, 184, 0.2); border-radius: 3px; overflow: hidden;">
+                  <div style="width: ${c.matchScore}%; height: 100%; background: #10b981;"></div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span style="font-size: 0.78rem; font-weight: 600; color: ${c.riskColor};">${c.risk}</span>
+            </td>
+            <td>
+              <button class="btn btn-outline-cyan btn-sm" onclick="NexusApp.openWellDetail('${c.id}')">Inspect Logs</button>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      wellDropdown.addEventListener('change', (e) => {
+        updateMatches(e.target.value);
+      });
+
+      document.getElementById('recompute-similarity-btn').addEventListener('click', () => {
+        NexusApp.playSound('click');
+        NexusApp.showToast('Re-evaluated multi-variable offset similarity index across 100 wells.', 'success');
+      });
+
+      document.getElementById('run-nlp-batch-btn').addEventListener('click', () => {
+        NexusApp.playSound('success');
+        NexusApp.showToast('NLP ingestion completed: 30 drilling reports scanned, 142 geomechanical entities extracted.', 'success');
+      });
+
+      updateMatches(wells[0].id);
+    });
+  </script>
+</body>
+</html>

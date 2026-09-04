@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historical Drilling Reports (30 Digitized Reports) | eRTMAC-NWIS</title>
+  <meta name="description" content="Subsurface Digital Memory: DDRs, EOWRs, Mud Logs & BHA Audits.">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/animations.css">
+  <link rel="stylesheet" href="./css/dashboard.css">
+  <script>(function(){const t=localStorage.getItem('nexus_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-brand">
+          <div class="brand-icon-box" style="width: 32px; height: 32px; font-size: 0.95rem;">Ω</div>
+          <div class="brand-name" style="font-size: 1.05rem;">
+            <span>Route Nexus</span>
+            <span class="sub">eRTMAC-NWIS</span>
+          </div>
+        </a>
+        <button class="sidebar-close-btn" id="sidebar-close-btn" title="Close Sidebar" aria-label="Close sidebar">&times;</button>
+      </div>
+
+      <div class="sidebar-menu">
+        <div class="menu-category">Operations Control</div>
+        <a href="dashboard.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+          <span>Main Dashboard</span>
+        </a>
+        <a href="wells.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>Nearby Wells</span>
+        </a>
+        <a href="map.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
+          <span>GIS Spatial Map</span>
+        </a>
+
+        <div class="menu-category">Intelligence & Risk</div>
+        <a href="ai-analysis.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M12 12 2.1 7.1"/><path d="m12 12 5-9"/></svg>
+          <span>AI Analysis</span>
+        </a>
+        <a href="risk.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Risk Prediction</span>
+        </a>
+        <a href="reports.html" class="menu-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span>Historical Reports</span>
+          <span class="menu-badge badge-cyan">30</span>
+        </a>
+
+        <div class="menu-category">Decision Support</div>
+        <a href="alerts.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span>Alerts & Mitigations</span>
+        </a>
+        <a href="recommendations.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+          <span>AI Recommendations</span>
+        </a>
+        <a href="analytics.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+          <span>Analytics & Benchmarks</span>
+        </a>
+        <a href="benchmark.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"/><path d="M18 8h4a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-4"/><circle cx="8" cy="12" r="2"/></svg>
+          <span>Comparative Benchmark</span>
+        </a>
+        <a href="settings.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span>System Settings</span>
+        </a>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="sih-badge">
+          <div style="font-size: 1.1rem;">🇮🇳</div>
+          <div>
+            <div style="font-size: 0.72rem; font-weight: 700; color: #f8fafc;">SIH 2026 • PS SIH26121</div>
+            <div style="font-size: 0.65rem; color: #38bdf8;">eRTMAC Drilling Intel</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="sidebar-menu-btn" id="sidebar-toggle" title="Open / Close Navigation Menu" aria-label="Toggle Navigation Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+            <span>Menu</span>
+          </button>
+          <div class="page-title-box">
+            <h1>Historical Drilling Reports Repository</h1>
+            <p>30 Digitized Reports • DDRs, EOWRs, Mud Logs & BHA Failure Summaries</p>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <!-- Theme Switcher: Light & Dark Mode Buttons -->
+          <div class="theme-switch-group" role="group" aria-label="Theme mode selection">
+            <button class="theme-switch-btn" id="btn-theme-light" onclick="NexusApp.setTheme('light')" title="Switch to Light Mode" aria-label="Light Mode">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-switch-btn active" id="btn-theme-dark" onclick="NexusApp.setTheme('dark')" title="Switch to Dark Mode" aria-label="Dark Mode">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+              <span>Dark</span>
+            </button>
+          </div>
+
+          <div class="rig-clock-box">
+            <span class="pulse-dot emerald"></span>
+            <span class="time" id="ist-clock">17:42:00 IST</span>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="NexusApp.playSound('click'); NexusApp.showToast('Batch OCR Pipeline active: 100% vector index synchronized.', 'info')">Upload New Well Report (OCR)</button>
+        </div>
+      </header>
+
+      <main class="content-area">
+
+        <!-- Search & Filter Controls -->
+        <div class="filter-bar">
+          <div class="filter-group" style="flex: 1; min-width: 200px;">
+            <input type="text" id="report-search" class="input-control" placeholder="Search by Document ID, Well, Field, Hazard (e.g., sticking, kick)...">
+          </div>
+
+          <div class="filter-group">
+            <label>Document Type:</label>
+            <select id="report-type-filter" class="input-control" style="width: auto;">
+              <option value="ALL">All Report Formats</option>
+              <option value="DDR (Daily Drilling Report)">Daily Drilling Report (DDR)</option>
+              <option value="EOWR (End of Well Report)">End of Well Report (EOWR)</option>
+              <option value="Mud Logging Geochemical Summary">Mud Logging Summary</option>
+              <option value="BHA Vibration & Bit Wear Audit">BHA & Bit Wear Audit</option>
+              <option value="Pore Pressure & Fracture Gradient (PPFG) Study">PPFG Study</option>
+            </select>
+          </div>
+
+          <button class="btn btn-secondary btn-sm" id="report-reset-btn">Reset</button>
+        </div>
+
+        <!-- Reports Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.25rem;" id="reports-cards-container">
+          <!-- Populated dynamically -->
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Document Inspection Modal -->
+  <div class="modal-overlay" id="report-modal">
+    <div class="modal-content" style="max-width: 750px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1.25rem;">
+        <div>
+          <span class="badge badge-cyan" id="modal-report-id" style="margin-bottom: 0.35rem;"></span>
+          <h2 style="font-size: 1.25rem; color: #f8fafc;" id="modal-report-title"></h2>
+          <div style="font-size: 0.75rem; color: #94a3b8;" id="modal-report-meta"></div>
+        </div>
+        <button id="close-modal-btn" class="btn btn-secondary btn-sm" style="padding: 0.4rem 0.6rem;">&times;</button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+        <!-- Extracted Key Insights -->
+        <div>
+          <div style="font-size: 0.75rem; font-weight: 700; color: #38bdf8; text-transform: uppercase; margin-bottom: 0.5rem;">
+            AI Extracted Key Subsurface Insights
+          </div>
+          <ul id="modal-report-insights" style="list-style-type: none; display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.82rem; color: #cbd5e1;">
+          </ul>
+        </div>
+
+        <!-- Hazards Encountered -->
+        <div style="background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.25); border-radius: 8px; padding: 0.85rem;">
+          <div style="font-size: 0.72rem; color: #f43f5e; font-weight: 700; text-transform: uppercase; margin-bottom: 0.25rem;">
+            Reported Operational Hazards & Remediation
+          </div>
+          <div id="modal-report-hazard" style="font-size: 0.85rem; color: #f8fafc; font-weight: 600;"></div>
+        </div>
+
+        <!-- Metadata Grid -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; background: rgba(15, 23, 42, 0.7); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 0.85rem;">
+          <div>
+            <div style="font-size: 0.68rem; color: #94a3b8;">AUTHOR / ENGINEER</div>
+            <div id="modal-report-author" style="font-weight: 600; font-size: 0.8rem; color: #f8fafc;"></div>
+          </div>
+          <div>
+            <div style="font-size: 0.68rem; color: #94a3b8;">OCR QUALITY CONFIDENCE</div>
+            <div id="modal-report-ocr" style="font-weight: 700; font-size: 0.8rem; color: #10b981;"></div>
+          </div>
+          <div>
+            <div style="font-size: 0.68rem; color: #94a3b8;">TOTAL DRILLED DEPTH</div>
+            <div id="modal-report-depth" style="font-weight: 700; font-size: 0.8rem; color: #38bdf8; font-family: var(--font-mono);"></div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; margin-top: 0.5rem;">
+          <button class="btn btn-primary" style="flex: 1;" onclick="NexusApp.exportReportMock('pdf')">Download Full OCR Document</button>
+          <button class="btn btn-secondary" onclick="document.getElementById('report-modal').classList.remove('active')">Close Viewer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./js/mockdata.js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/chatbot.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const reports = window.NexusData.reports;
+      const container = document.getElementById('reports-cards-container');
+      const searchInput = document.getElementById('report-search');
+      const typeFilter = document.getElementById('report-type-filter');
+      const resetBtn = document.getElementById('report-reset-btn');
+
+      const modal = document.getElementById('report-modal');
+      const closeModalBtn = document.getElementById('close-modal-btn');
+
+      function renderReports(data) {
+        if (data.length === 0) {
+          container.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #64748b;">
+              No historical drilling reports matched the query.
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = data.map(r => `
+          <div class="glass-panel glass-panel-interactive" style="padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <span class="badge badge-cyan" style="font-family: var(--font-mono);">${r.id}</span>
+                <span style="font-size: 0.72rem; color: #94a3b8;">${r.spudYear} • ${r.pageCount} pgs</span>
+              </div>
+
+              <h3 style="font-size: 0.98rem; font-weight: 700; color: #f8fafc; margin-bottom: 0.4rem; line-height: 1.35;">
+                ${r.title}
+              </h3>
+
+              <div style="font-size: 0.75rem; color: #38bdf8; margin-bottom: 0.75rem;">
+                ${r.field} Field • ${r.basin}
+              </div>
+
+              <div style="background: rgba(2, 6, 23, 0.5); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.65rem; margin-bottom: 0.85rem;">
+                <div style="font-size: 0.68rem; color: #94a3b8; text-transform: uppercase; margin-bottom: 0.2rem;">Key Finding</div>
+                <div style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.4;">
+                  ${r.extractedKeyInsights[0]}
+                </div>
+              </div>
+            </div>
+
+            <div style="border-top: 1px solid var(--border-color); padding-top: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 0.7rem; color: #10b981;">OCR: ${r.ocrConfidence}</span>
+              <button class="btn btn-outline-cyan btn-sm" onclick="openReportModal('${r.id}')">Inspect Document</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      function filterReports() {
+        const query = searchInput.value.toLowerCase().trim();
+        const selectedType = typeFilter.value;
+
+        const filtered = reports.filter(r => {
+          const matchesQuery = !query ||
+            r.id.toLowerCase().includes(query) ||
+            r.title.toLowerCase().includes(query) ||
+            r.field.toLowerCase().includes(query) ||
+            r.hazardsEncountered.toLowerCase().includes(query) ||
+            r.author.toLowerCase().includes(query);
+
+          const matchesType = selectedType === 'ALL' || r.type === selectedType;
+          return matchesQuery && matchesType;
+        });
+
+        renderReports(filtered);
+      }
+
+      searchInput.addEventListener('input', filterReports);
+      typeFilter.addEventListener('change', filterReports);
+      resetBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        typeFilter.value = 'ALL';
+        renderReports(reports);
+      });
+
+      window.openReportModal = function(id) {
+        const r = reports.find(item => item.id === id);
+        if (!r) return;
+
+        NexusApp.playSound('click');
+        document.getElementById('modal-report-id').textContent = r.id;
+        document.getElementById('modal-report-title').textContent = r.title;
+        document.getElementById('modal-report-meta').textContent = `${r.field} Field • ${r.basin} • Spud: ${r.spudYear}`;
+        document.getElementById('modal-report-hazard').textContent = r.hazardsEncountered;
+        document.getElementById('modal-report-author').textContent = r.author;
+        document.getElementById('modal-report-ocr').textContent = r.ocrConfidence;
+        document.getElementById('modal-report-depth').textContent = `${r.totalDepth} m`;
+
+        const list = document.getElementById('modal-report-insights');
+        list.innerHTML = r.extractedKeyInsights.map(ins => `
+          <li style="display: flex; gap: 0.4rem; align-items: flex-start;">
+            <span style="color: #06b6d4;">▸</span>
+            <span>${ins}</span>
+          </li>
+        `).join('');
+
+        modal.classList.add('active');
+      };
+
+      closeModalBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+      });
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('active');
+      });
+
+      renderReports(reports);
+    });
+  </script>
+</body>
+</html>

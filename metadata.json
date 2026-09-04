@@ -1,0 +1,6 @@
+{
+  "name": "eRTMAC-NWIS | Route Nexus",
+  "description": "AI-Powered Offset Well Knowledge and Decision Support Platform for Drilling Operations - Smart India Hackathon SIH26121",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

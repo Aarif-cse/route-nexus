@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Offset Alerts & Mitigations (50 Alerts) | eRTMAC-NWIS</title>
+  <meta name="description" content="Subsurface Offset Early Warning & Incident Response Deck (SIH26121).">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/animations.css">
+  <link rel="stylesheet" href="./css/dashboard.css">
+  <script>(function(){const t=localStorage.getItem('nexus_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-brand">
+          <div class="brand-icon-box" style="width: 32px; height: 32px; font-size: 0.95rem;">Ω</div>
+          <div class="brand-name" style="font-size: 1.05rem;">
+            <span>Route Nexus</span>
+            <span class="sub">eRTMAC-NWIS</span>
+          </div>
+        </a>
+        <button class="sidebar-close-btn" id="sidebar-close-btn" title="Close Sidebar" aria-label="Close sidebar">&times;</button>
+      </div>
+
+      <div class="sidebar-menu">
+        <div class="menu-category">Operations Control</div>
+        <a href="dashboard.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+          <span>Main Dashboard</span>
+        </a>
+        <a href="wells.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>Nearby Wells</span>
+        </a>
+        <a href="map.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
+          <span>GIS Spatial Map</span>
+        </a>
+
+        <div class="menu-category">Intelligence & Risk</div>
+        <a href="ai-analysis.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M12 12 2.1 7.1"/><path d="m12 12 5-9"/></svg>
+          <span>AI Analysis</span>
+        </a>
+        <a href="risk.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Risk Prediction</span>
+        </a>
+        <a href="reports.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span>Historical Reports</span>
+        </a>
+
+        <div class="menu-category">Decision Support</div>
+        <a href="alerts.html" class="menu-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span>Alerts & Mitigations</span>
+          <span class="menu-badge badge-rose">50 Active</span>
+        </a>
+        <a href="recommendations.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+          <span>AI Recommendations</span>
+        </a>
+        <a href="analytics.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+          <span>Analytics & Benchmarks</span>
+        </a>
+        <a href="benchmark.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"/><path d="M18 8h4a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-4"/><circle cx="8" cy="12" r="2"/></svg>
+          <span>Comparative Benchmark</span>
+        </a>
+        <a href="settings.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span>System Settings</span>
+        </a>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="sih-badge">
+          <div style="font-size: 1.1rem;">🇮🇳</div>
+          <div>
+            <div style="font-size: 0.72rem; font-weight: 700; color: #f8fafc;">SIH 2026 • PS SIH26121</div>
+            <div style="font-size: 0.65rem; color: #38bdf8;">eRTMAC Drilling Intel</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="sidebar-menu-btn" id="sidebar-toggle" title="Open / Close Navigation Menu" aria-label="Toggle Navigation Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+            <span>Menu</span>
+          </button>
+          <div class="page-title-box">
+            <h1>Subsurface Alerts & Mitigations Feed</h1>
+            <p>50 Active Hazard Signals • Offset Correlated Trigger Rules • Automated Rig Mitigation Dispatch</p>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <!-- Theme Switcher: Light & Dark Mode Buttons -->
+          <div class="theme-switch-group" role="group" aria-label="Theme mode selection">
+            <button class="theme-switch-btn" id="btn-theme-light" onclick="NexusApp.setTheme('light')" title="Switch to Light Mode" aria-label="Light Mode">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-switch-btn active" id="btn-theme-dark" onclick="NexusApp.setTheme('dark')" title="Switch to Dark Mode" aria-label="Dark Mode">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+              <span>Dark</span>
+            </button>
+          </div>
+
+          <div class="rig-clock-box">
+            <span class="pulse-dot emerald"></span>
+            <span class="time" id="ist-clock">17:42:00 IST</span>
+          </div>
+          <button class="btn btn-secondary btn-sm" id="toggle-sound-btn" onclick="NexusApp.toggleSound()">🔊 Audio Alerts</button>
+          <button class="btn btn-outline-cyan btn-sm" onclick="NexusApp.exportReportMock('pdf')">Export Incident Log</button>
+        </div>
+      </header>
+
+      <main class="content-area">
+
+        <!-- Severity Summary Cards -->
+        <div class="metrics-grid">
+          <div class="glass-panel metric-card" style="border-left: 4px solid #f43f5e; cursor: pointer;" onclick="filterBySeverity('Critical')">
+            <div class="metric-header">
+              <span class="metric-title" style="color: #f43f5e;">CRITICAL HAZARDS</span>
+              <span class="pulse-dot rose"></span>
+            </div>
+            <div class="metric-value" style="color: #f43f5e;" id="crit-count">6</div>
+            <div class="metric-trend negative">Immediate rig action required</div>
+          </div>
+
+          <div class="glass-panel metric-card" style="border-left: 4px solid #f59e0b; cursor: pointer;" onclick="filterBySeverity('High')">
+            <div class="metric-header">
+              <span class="metric-title" style="color: #f59e0b;">HIGH WARNINGS</span>
+              <span class="pulse-dot amber"></span>
+            </div>
+            <div class="metric-value" style="color: #f59e0b;" id="high-count">14</div>
+            <div class="metric-trend negative">Approaching formation boundary</div>
+          </div>
+
+          <div class="glass-panel metric-card" style="border-left: 4px solid #38bdf8; cursor: pointer;" onclick="filterBySeverity('Medium')">
+            <div class="metric-header">
+              <span class="metric-title" style="color: #38bdf8;">MEDIUM ADVISORIES</span>
+              <span class="pulse-dot cyan"></span>
+            </div>
+            <div class="metric-value" style="color: #38bdf8;" id="med-count">18</div>
+            <div class="metric-trend positive">Mud parameter optimization</div>
+          </div>
+
+          <div class="glass-panel metric-card" style="border-left: 4px solid #10b981; cursor: pointer;" onclick="filterBySeverity('Low')">
+            <div class="metric-header">
+              <span class="metric-title" style="color: #10b981;">LOW TELEMETRY NOTICES</span>
+              <span class="pulse-dot emerald"></span>
+            </div>
+            <div class="metric-value" style="color: #10b981;" id="low-count">12</div>
+            <div class="metric-trend positive">Routine sensor calibrations</div>
+          </div>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="filter-bar">
+          <div class="filter-group" style="flex: 1; min-width: 200px;">
+            <input type="text" id="alert-search" class="input-control" placeholder="Search alert title, offset well, formation, recommended action...">
+          </div>
+
+          <div class="filter-group">
+            <label>Severity:</label>
+            <select id="severity-filter" class="input-control" style="width: auto;">
+              <option value="ALL">All Severities</option>
+              <option value="Critical">Critical</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Category:</label>
+            <select id="category-filter" class="input-control" style="width: auto;">
+              <option value="ALL">All Hazard Categories</option>
+              <option value="Stuck Pipe">Stuck Pipe</option>
+              <option value="Loss of Circulation">Loss of Circulation</option>
+              <option value="Gas Kick Warning">Gas Kick Warning</option>
+              <option value="Tight Hole / Swelling Shale">Tight Hole / Swelling Shale</option>
+              <option value="Bit Balling & Vibration">Bit Balling & Vibration</option>
+              <option value="Abnormal Pore Pressure Ramp">Abnormal Pore Pressure Ramp</option>
+            </select>
+          </div>
+
+          <button class="btn btn-secondary btn-sm" id="alert-reset-btn">Reset</button>
+        </div>
+
+        <!-- Alerts Stream -->
+        <div style="display: flex; flex-direction: column; gap: 1rem;" id="alerts-stream-container">
+          <!-- Dynamically populated -->
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./js/mockdata.js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/chatbot.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const alerts = window.NexusData.alerts;
+      const container = document.getElementById('alerts-stream-container');
+      const searchInput = document.getElementById('alert-search');
+      const sevFilter = document.getElementById('severity-filter');
+      const catFilter = document.getElementById('category-filter');
+      const resetBtn = document.getElementById('alert-reset-btn');
+
+      // Update counters
+      document.getElementById('crit-count').textContent = alerts.filter(a => a.severity === 'Critical').length;
+      document.getElementById('high-count').textContent = alerts.filter(a => a.severity === 'High').length;
+      document.getElementById('med-count').textContent = alerts.filter(a => a.severity === 'Medium').length;
+      document.getElementById('low-count').textContent = alerts.filter(a => a.severity === 'Low').length;
+
+      function renderAlerts(data) {
+        if (data.length === 0) {
+          container.innerHTML = `
+            <div class="glass-panel" style="padding: 3rem; text-align: center; color: #64748b;">
+              No alerts match the selected criteria.
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = data.map(a => `
+          <div class="glass-panel" style="padding: 1.25rem; border-left: 4px solid ${a.color};">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <span class="badge ${a.severity === 'Critical' ? 'badge-rose' : (a.severity === 'High' ? 'badge-amber' : 'badge-cyan')}">
+                  ${a.severity.toUpperCase()}
+                </span>
+                <span style="font-size: 0.78rem; font-family: var(--font-mono); color: #94a3b8;">${a.id}</span>
+                <span style="font-weight: 700; color: #f8fafc; font-size: 0.95rem;">${a.title}</span>
+              </div>
+              <div style="font-size: 0.72rem; color: #94a3b8;">
+                Triggered: <strong>${a.timestamp}</strong>
+              </div>
+            </div>
+
+            <!-- Parameters Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; background: rgba(2, 6, 23, 0.5); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.75rem; margin-bottom: 0.85rem; font-size: 0.78rem;">
+              <div>
+                <span style="color: #64748b;">Target / Offset Well:</span>
+                <div style="font-weight: 700; color: #38bdf8;">${a.wellId} (${a.wellName})</div>
+              </div>
+              <div>
+                <span style="color: #64748b;">Incident Depth Window:</span>
+                <div style="font-weight: 700; color: #f8fafc; font-family: var(--font-mono);">${a.depth}</div>
+              </div>
+              <div>
+                <span style="color: #64748b;">Formation Stratum:</span>
+                <div style="font-weight: 700; color: #c084fc;">${a.formation}</div>
+              </div>
+              <div>
+                <span style="color: #64748b;">Historical Severity Match:</span>
+                <div style="font-weight: 700; color: ${a.color};">${a.category}</div>
+              </div>
+            </div>
+
+            <!-- Mitigation Recommendation -->
+            <div style="background: rgba(6, 182, 212, 0.08); border: 1px solid rgba(6, 182, 212, 0.2); border-radius: 6px; padding: 0.75rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+              <div style="font-size: 0.82rem; color: #cbd5e1; max-width: 75%;">
+                <strong style="color: #38bdf8;">AI Recommended Mitigation:</strong> ${a.recommendedAction}
+              </div>
+              <div style="display: flex; gap: 0.5rem;">
+                <button class="btn btn-primary btn-sm" onclick="dispatchMitigation('${a.id}')">Execute Protocol</button>
+                <button class="btn btn-secondary btn-sm" onclick="acknowledgeAlert('${a.id}')">Acknowledge</button>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      function filterAlerts() {
+        const query = searchInput.value.toLowerCase().trim();
+        const selectedSev = sevFilter.value;
+        const selectedCat = catFilter.value;
+
+        const filtered = alerts.filter(a => {
+          const matchesQuery = !query ||
+            a.id.toLowerCase().includes(query) ||
+            a.title.toLowerCase().includes(query) ||
+            a.wellId.toLowerCase().includes(query) ||
+            a.formation.toLowerCase().includes(query) ||
+            a.recommendedAction.toLowerCase().includes(query);
+
+          const matchesSev = selectedSev === 'ALL' || a.severity === selectedSev;
+          const matchesCat = selectedCat === 'ALL' || a.category === selectedCat;
+
+          return matchesQuery && matchesSev && matchesCat;
+        });
+
+        renderAlerts(filtered);
+      }
+
+      window.filterBySeverity = function(sev) {
+        sevFilter.value = sev;
+        filterAlerts();
+      };
+
+      window.dispatchMitigation = function(id) {
+        NexusApp.playSound('success');
+        NexusApp.showToast(`Automated Rig Protocol dispatched for Alert ${id} to Driller Console.`, 'success');
+      };
+
+      window.acknowledgeAlert = function(id) {
+        NexusApp.playSound('click');
+        NexusApp.showToast(`Alert ${id} acknowledged by Dr. V. Barua. Logged to SIH26121 audit trail.`, 'info');
+      };
+
+      searchInput.addEventListener('input', filterAlerts);
+      sevFilter.addEventListener('change', filterAlerts);
+      catFilter.addEventListener('change', filterAlerts);
+      resetBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        sevFilter.value = 'ALL';
+        catFilter.value = 'ALL';
+        renderAlerts(alerts);
+      });
+
+      renderAlerts(alerts);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spatial GIS Subsurface Map | eRTMAC-NWIS</title>
+  <meta name="description" content="Subsurface GIS mapping and offset well correlation suite.">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/animations.css">
+  <link rel="stylesheet" href="./css/dashboard.css">
+  <script>(function(){const t=localStorage.getItem('nexus_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-brand">
+          <div class="brand-icon-box" style="width: 32px; height: 32px; font-size: 0.95rem;">Ω</div>
+          <div class="brand-name" style="font-size: 1.05rem;">
+            <span>eRTMAC</span>
+            <span class="sub">NWIS Rig Ops</span>
+          </div>
+        </a>
+        <button class="sidebar-close-btn" id="sidebar-close-btn" title="Close Sidebar" aria-label="Close sidebar">&times;</button>
+      </div>
+
+      <div class="sidebar-menu">
+        <div class="menu-category">Operations Control</div>
+        <a href="dashboard.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+          <span>Main Dashboard</span>
+        </a>
+        <a href="wells.html" class="menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>Nearby Wells</span>
+        </a>
+        <a href="map.html" class="menu-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
+          <span>GIS Spatial Map</span>
+        </a>
+
+        <!-- Other Sections Toggle Button -->
+        <button type="button" class="other-sections-toggle-btn" id="btn-toggle-other-sections" onclick="NexusApp.toggleOtherSections()" aria-expanded="false" title="Click to view Intelligence, Risk, and Decision Support modules">
+          <div style="display: flex; align-items: center; gap: 0.55rem;">
+            <svg class="icon-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            <span class="other-btn-text">Other Sections</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.35rem;">
+            <span class="other-count-badge">8 Modules</span>
+            <svg class="icon-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </button>
+
+        <!-- Hidden by default, expands when clicked -->
+        <div class="other-sections-collapse" id="sidebar-other-sections">
+          <div class="menu-category">Intelligence & Risk</div>
+          <a href="ai-analysis.html" class="menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M12 12 2.1 7.1"/><path d="m12 12 5-9"/></svg>
+            <span>AI Analysis</span>
+          </a>
+          <a href="risk.html" class="menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span>Risk Prediction</span>
+          </a>
+          <a href="reports.html" class="menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span>Historical Reports</span>
+          </a>
+
+          <div class="menu-category">Decision Support</div>
+          <a href="alerts.html" class="menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span>Alerts & Mitigations</span>
+          </a>
+          <a href="recommendations.html" class="menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            <span>AI Recommendations</span>
+          </a>
+          <a href="analytics.html" class="menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+            <span>Analytics & Benchmarks</span>
+          </a>
+          <a href="benchmark.html" class="menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"/><path d="M18 8h4a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-4"/><circle cx="8" cy="12" r="2"/></svg>
+            <span>Comparative Benchmark</span>
+          </a>
+          <a href="settings.html" class="menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+            <span>System Settings</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="sih-badge">
+          <div style="font-size: 1.1rem;">🇮🇳</div>
+          <div>
+            <div style="font-size: 0.72rem; font-weight: 700; color: #f8fafc;">SIH 2026 • PS SIH26121</div>
+            <div style="font-size: 0.65rem; color: #38bdf8;">eRTMAC Drilling Intel</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="sidebar-menu-btn" id="sidebar-toggle" title="Open / Close Navigation Menu" aria-label="Toggle Navigation Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+            <span>Menu</span>
+          </button>
+          <div class="page-title-box">
+            <h1>GIS Spatial Map</h1>
+            <p>Subsurface Structural Contours &amp; Faults</p>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <!-- Theme Switcher: Light & Dark Mode Buttons -->
+          <div class="theme-switch-group" role="group" aria-label="Theme mode selection">
+            <button class="theme-switch-btn" id="btn-theme-light" onclick="NexusApp.setTheme('light')" title="Switch to Light Mode" aria-label="Light Mode">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-switch-btn active" id="btn-theme-dark" onclick="NexusApp.setTheme('dark')" title="Switch to Dark Mode" aria-label="Dark Mode">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+              <span>Dark</span>
+            </button>
+          </div>
+
+          <div class="rig-clock-box">
+            <span class="pulse-dot emerald"></span>
+            <span class="time" id="ist-clock">17:42:00 IST</span>
+          </div>
+          <button class="btn btn-secondary btn-sm" id="cross-section-toggle-btn">Subsurface Cross-Section</button>
+        </div>
+      </header>
+
+      <main class="content-area" style="display: flex; flex-direction: column; gap: 1rem; height: calc(100vh - 88px);">
+
+        <!-- GIS Layer Controls Header -->
+        <div class="filter-bar" style="margin-bottom: 0; padding: 0.75rem 1.25rem;">
+          <div class="filter-group">
+            <label>Basin Focus:</label>
+            <select id="map-basin-select" class="input-control" style="width: auto;">
+              <option value="assam">Assam-Arakan Basin (Upper Assam Shelf - Oil India)</option>
+              <option value="cambay">Cambay Basin (Gujarat - ONGC)</option>
+              <option value="kg">Krishna-Godavari Deepwater (ONGC Joint)</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Target Active Well:</label>
+            <select id="map-target-well-select" class="input-control" style="width: auto;">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 1rem; margin-left: auto; font-size: 0.75rem;">
+            <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+              <input type="checkbox" id="layer-faults" checked style="accent-color: #06b6d4;"> Fault Horizons
+            </label>
+            <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+              <input type="checkbox" id="layer-buffers" checked style="accent-color: #06b6d4;"> 1.5/3.5/6km Buffers
+            </label>
+            <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+              <input type="checkbox" id="layer-rays" checked style="accent-color: #06b6d4;"> Offset Rays
+            </label>
+          </div>
+        </div>
+
+        <!-- Full Height GIS Map Container -->
+        <div style="flex: 1; min-height: 480px; position: relative; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color);">
+          <div id="full-gis-map" style="width: 100%; height: 100%;"></div>
+
+          <!-- Geological Cross-Section Floating Card Modal (Collapsible) -->
+          <div id="cross-section-panel" style="display: none; position: absolute; bottom: 1.5rem; right: 1.5rem; width: 440px; background: rgba(11, 17, 32, 0.95); backdrop-filter: blur(16px); border: 1px solid var(--border-highlight); border-radius: 12px; padding: 1.25rem; box-shadow: 0 20px 40px rgba(0,0,0,0.9); z-index: 40;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <div style="font-weight: 700; color: #38bdf8; font-size: 0.9rem;">Subsurface Stratigraphic Slice</div>
+              <button id="close-cross-btn" style="background: transparent; border: none; color: #94a3b8; font-size: 1.1rem; cursor: pointer;">&times;</button>
+            </div>
+            <div style="font-size: 0.75rem; color: #94a3b8; margin-bottom: 0.75rem;">
+              Correlating target well NST-6001 with offset well OIL-MOR-04 across 3.4 km lateral span:
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.75rem;">
+              <div style="background: #1e293b; padding: 0.4rem 0.6rem; border-radius: 4px; display: flex; justify-content: space-between;">
+                <span>0 – 950m: Alluvium / Dhekiajuli</span>
+                <span style="color: #10b981;">Low Hazard</span>
+              </div>
+              <div style="background: #1e293b; padding: 0.4rem 0.6rem; border-radius: 4px; display: flex; justify-content: space-between;">
+                <span>950 – 1850m: Girujan Clay</span>
+                <span style="color: #38bdf8;">Washout Risk</span>
+              </div>
+              <div style="background: #1e293b; padding: 0.4rem 0.6rem; border-radius: 4px; display: flex; justify-content: space-between;">
+                <span>1850 – 2750m: Tipam Sandstone</span>
+                <span style="color: #f59e0b;">Lost Circulation 220bbl</span>
+              </div>
+              <div style="background: #1e293b; padding: 0.4rem 0.6rem; border-radius: 4px; display: flex; justify-content: space-between;">
+                <span>2750 – 3400m: Surma Series</span>
+                <span style="color: #f43f5e;">Swelling Shale 12.4 PPG</span>
+              </div>
+              <div style="background: #1e293b; padding: 0.4rem 0.6rem; border-radius: 4px; display: flex; justify-content: space-between; border-left: 3px solid #06b6d4;">
+                <span style="font-weight: 700; color: #f8fafc;">3400m+: Barail Pay Sand</span>
+                <span style="color: #06b6d4; font-weight: 700;">Target Reservoir</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./js/mockdata.js"></script>
+  <script src="./js/map.js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/chatbot.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const targetSelect = document.getElementById('map-target-well-select');
+      const wells = window.NexusData.wells;
+
+      // Populate target well selector
+      targetSelect.innerHTML = wells.map(w => `
+        <option value="${w.id}">${w.id} (${w.name} - ${w.field})</option>
+      `).join('');
+
+      let map = new NexusGISMap('full-gis-map', {
+        scale: 2200,
+        onWellSelect: (well) => {
+          targetSelect.value = well.id;
+          NexusApp.openWellDetail(well.id);
+        }
+      });
+
+      targetSelect.addEventListener('change', (e) => {
+        map.selectWell(e.target.value);
+      });
+
+      // Layer checkboxes
+      document.getElementById('layer-faults').addEventListener('change', (e) => {
+        map.options.showContours = e.target.checked;
+        map.render();
+      });
+      document.getElementById('layer-buffers').addEventListener('change', (e) => {
+        map.options.showBufferRings = e.target.checked;
+        map.render();
+      });
+      document.getElementById('layer-rays').addEventListener('change', (e) => {
+        map.options.showOffsetLines = e.target.checked;
+        map.render();
+      });
+
+      // Basin Switcher
+      document.getElementById('map-basin-select').addEventListener('change', (e) => {
+        const val = e.target.value;
+        if (val === 'assam') {
+          map.options.centerLat = 27.28;
+          map.options.centerLng = 95.32;
+        } else if (val === 'cambay') {
+          map.options.centerLat = 21.65;
+          map.options.centerLng = 72.98;
+        } else {
+          map.options.centerLat = 16.48;
+          map.options.centerLng = 82.15;
+        }
+        map.zoom = 1;
+        map.panX = 0;
+        map.panY = 0;
+        map.render();
+        NexusApp.playSound('click');
+        NexusApp.showToast(`Switched map projection to ${e.target.options[e.target.selectedIndex].text}.`, 'info');
+      });
+
+      // Cross-section modal
+      const crossPanel = document.getElementById('cross-section-panel');
+      const toggleCrossBtn = document.getElementById('cross-section-toggle-btn');
+      const closeCrossBtn = document.getElementById('close-cross-btn');
+
+      toggleCrossBtn.addEventListener('click', () => {
+        crossPanel.style.display = crossPanel.style.display === 'none' ? 'block' : 'none';
+        NexusApp.playSound('click');
+      });
+      closeCrossBtn.addEventListener('click', () => {
+        crossPanel.style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>
